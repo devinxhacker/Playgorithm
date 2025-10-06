@@ -1,0 +1,19 @@
+# Root .gitignore - make the repository show only Frontend/ and Backend/
+# Ignore everything by default
+/*
+
+# But don't ignore this gitignore file
+!.gitignore
+
+# Keep only the main project folders visible to git
+!/Frontend/
+!/Frontend/**
+!/Backend/
+!/Backend/**
+
+# Ignore editor and reference artifacts
+.vscode/
+/References/
+/Reference_UI_Components_Library.txt
+
+# Note: each sub-project (Frontend/ Backend/) can manage their own ignores.
