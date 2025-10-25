@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
+import PropTypes from 'prop-types'
 import { FaPlay, FaCode, FaTrophy, FaRocket, FaBolt } from 'react-icons/fa'
 import { GiArtificialIntelligence, GiBrain } from 'react-icons/gi'
 import Button from '../ui/Button'
 import './HeroSection.css'
 
-const HeroSection = () => {
+const HeroSection = ({ onGetStarted }) => {
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -95,6 +96,7 @@ const HeroSection = () => {
                 size="lg"
                 icon={<FaPlay />}
                 className="hero-cta-primary"
+                onClick={onGetStarted}
               >
                 Start Your Quest
               </Button>
@@ -208,6 +210,10 @@ const HeroSection = () => {
       </div>
     </section>
   )
+}
+
+HeroSection.propTypes = {
+  onGetStarted: PropTypes.func
 }
 
 export default HeroSection

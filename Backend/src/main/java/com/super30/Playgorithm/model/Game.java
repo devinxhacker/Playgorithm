@@ -1,0 +1,55 @@
+package com.super30.Playgorithm.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+import java.util.Map;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "games")
+public class Game {
+    @Id
+    private String id;
+
+    private String name;
+
+    private String description;
+
+    private String category; // SORTING, SEARCHING, GRAPH, DYNAMIC_PROGRAMMING, CODE_GOLF, SPEED_TYPING
+
+    private String difficulty; // EASY, MEDIUM, HARD
+
+    private Integer xpReward;
+
+    private Integer timeLimit; // in seconds
+
+    private String problemStatement;
+
+    private List<TestCase> testCases;
+
+    private String starterCode;
+
+    private String solutionTemplate;
+
+    private List<String> supportedLanguages;
+
+    private Map<String, Object> metadata;
+
+    private Boolean isActive = true;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TestCase {
+        private String input;
+        private String expectedOutput;
+        private Boolean isHidden = false;
+        private Integer points = 10;
+    }
+}
