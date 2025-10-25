@@ -896,3 +896,59 @@ Mobile Navigation Improvements */
     background: rgba(5, 5, 5, 0.95);
   }
 }
+/* Landing Page Navigation */
+.landing-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 14, 39, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(123, 97, 255, 0.2);
+  padding: 15px 0;
+}
+
+.landing-nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.brand-icon {
+  font-size: 2rem;
+  color: #7b61ff;
+}
+
+.nav-login-btn {
+  background: linear-gradient(135deg, #7b61ff 0%, #ff6b9d 100%);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.4);
+}
+
+/* Hero Section Padding for Fixed Nav */
+.hero-section {
+  padding-top: 80px !important;
+}
