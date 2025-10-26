@@ -1,19 +1,26 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import LoadingScreen from "./components/ui/LoadingScreen";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import GameArena from "./pages/GameArena";
 import Leaderboard from "./pages/Leaderboard";
 import LandingPage from "./pages/LandingPage";
 import SortingGame from "./pages/SortingGame";
+import CodingChallenge from "./components/CodingChallenge";
+import ChallengesList from "./pages/ChallengesList";
+import FlexboxArena from "./pages/FlexboxArena";
+import TargetCursor from "./components/ui/TargetCursor";
 import "./App.css";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <TargetCursor 
+          spinDuration={2}
+          hideDefaultCursor={true}
+        />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
@@ -34,6 +41,22 @@ function App() {
             }
           />
           <Route
+            path="/game/flexbox-arena"
+            element={
+              <ProtectedRoute>
+                <FlexboxArena />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/challenges"
+            element={
+              <ProtectedRoute>
+                <ChallengesList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/game/:gameId"
             element={
               <ProtectedRoute>
@@ -46,6 +69,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Leaderboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coding-challenge/:challengeId"
+            element={
+              <ProtectedRoute>
+                <CodingChallenge />
               </ProtectedRoute>
             }
           />

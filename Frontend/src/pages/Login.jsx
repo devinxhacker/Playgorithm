@@ -103,6 +103,7 @@ const Login = () => {
                 onChange={handleChange}
                 required
                 placeholder="Enter your username"
+                className="cursor-target"
               />
             </div>
 
@@ -117,6 +118,7 @@ const Login = () => {
                     onChange={handleChange}
                     required
                     placeholder="Enter your email"
+                    className="cursor-target"
                   />
                 </div>
                 <div className="form-group">
@@ -127,6 +129,7 @@ const Login = () => {
                     value={formData.fullName}
                     onChange={handleChange}
                     placeholder="Enter your full name (optional)"
+                    className="cursor-target"
                   />
                 </div>
               </>
@@ -142,10 +145,11 @@ const Login = () => {
                 required
                 placeholder="Enter your password"
                 minLength={6}
+                className="cursor-target"
               />
             </div>
 
-            <button type="submit" className="login-button" disabled={loading}>
+            <button type="submit" className="login-button cursor-target" disabled={loading}>
               {loading ? "Please wait..." : isLogin ? "Login" : "Sign Up"}
             </button>
           </form>
@@ -159,7 +163,7 @@ const Login = () => {
                   setIsLogin(!isLogin);
                   setError("");
                 }}
-                className="toggle-button"
+                className="toggle-button cursor-target"
               >
                 {isLogin ? "Sign Up" : "Login"}
               </button>

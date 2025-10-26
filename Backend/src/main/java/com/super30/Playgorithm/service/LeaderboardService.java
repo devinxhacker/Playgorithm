@@ -2,17 +2,19 @@ package com.super30.Playgorithm.service;
 
 import com.super30.Playgorithm.model.LeaderboardEntry;
 import com.super30.Playgorithm.repository.LeaderboardRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class LeaderboardService {
 
     private final LeaderboardRepository leaderboardRepository;
+
+    public LeaderboardService(LeaderboardRepository leaderboardRepository) {
+        this.leaderboardRepository = leaderboardRepository;
+    }
 
     public List<LeaderboardEntry> getGlobalLeaderboard(int limit) {
         return leaderboardRepository.findByGameIdIsNullOrderByTotalXPDesc(PageRequest.of(0, limit));

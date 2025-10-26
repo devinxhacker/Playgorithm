@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PlaygorithmApplication {
 
 	public static void main(String[] args) {
+		System.out.println("Show begins here !!!");
 		SpringApplication.run(PlaygorithmApplication.class, args);
 	}
-
 }

@@ -2,14 +2,16 @@ package com.super30.Playgorithm.service;
 
 import com.super30.Playgorithm.model.User;
 import com.super30.Playgorithm.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username)

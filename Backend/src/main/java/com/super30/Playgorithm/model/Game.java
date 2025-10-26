@@ -33,9 +33,11 @@ public class Game {
 
     private List<TestCase> testCases;
 
-    private String starterCode;
+    // Language-specific starter code templates
+    private Map<String, String> starterCodeTemplates;
 
-    private String solutionTemplate;
+    // Language-specific solution templates
+    private Map<String, String> solutionTemplates;
 
     private List<String> supportedLanguages;
 
@@ -51,5 +53,18 @@ public class Game {
         private String expectedOutput;
         private Boolean isHidden = false;
         private Integer points = 10;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class LanguageConfig {
+        private String language;
+        private String version;
+        private String fileExtension;
+        private String compileCommand;
+        private String runCommand;
+        private Integer timeoutSeconds;
+        private Integer memoryLimitMB;
     }
 }

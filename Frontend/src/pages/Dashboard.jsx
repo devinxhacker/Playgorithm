@@ -30,6 +30,21 @@ const Dashboard = () => {
       const gamesResponse = await gameAPI.getAllGames();
       let filteredGames = gamesResponse.data;
 
+      // Add Flexbox Arena as a static game
+      const flexboxArena = {
+        id: 'flexbox-arena',
+        name: 'Flexbox Arena',
+        description: 'Master CSS Flexbox through interactive challenges and warrior battles!',
+        difficulty: 'MEDIUM',
+        category: 'CSS_FLEXBOX',
+        xpReward: 750,
+        timeLimit: 1800, // 30 minutes
+        isActive: true,
+        testCases: new Array(8).fill(null) // 8 levels
+      };
+
+      filteredGames = [...filteredGames, flexboxArena];
+
       if (selectedCategory !== "ALL") {
         filteredGames = filteredGames.filter(
           (game) => game.category === selectedCategory
@@ -55,12 +70,15 @@ const Dashboard = () => {
     "DYNAMIC_PROGRAMMING",
     "CODE_GOLF",
     "SPEED_TYPING",
+    "CSS_FLEXBOX",
   ];
 
   const handlePlayGame = (gameId, gameName) => {
-    // Check if it's the Sorting Showdown game
+    // Check for special games with custom routes
     if (gameName === "Sorting Showdown") {
       navigate("/game/sorting-showdown");
+    } else if (gameName === "Flexbox Arena") {
+      navigate("/game/flexbox-arena");
     } else {
       navigate(`/game/${gameId}`);
     }
@@ -119,7 +137,7 @@ const Dashboard = () => {
               <div className="stat-label">Win Rate</div>
             </div>
           </div>
-          <button onClick={logout} className="logout-button">
+          <button onClick={logout} className="logout-button cursor-target">
             Logout
           </button>
         </div>
@@ -130,7 +148,7 @@ const Dashboard = () => {
           {categories.map((category) => (
             <button
               key={category}
-              className={`category-btn ${
+              className={`category-btn cursor-target ${
                 selectedCategory === category ? "active" : ""
               }`}
               onClick={() => setSelectedCategory(category)}
@@ -144,7 +162,7 @@ const Dashboard = () => {
           {games.map((game) => (
             <motion.div
               key={game.id}
-              className="game-card"
+              className="game-card cursor-target"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               whileHover={{ y: -5 }}
@@ -172,11 +190,11 @@ const Dashboard = () => {
                 </div>
                 <div className="meta-item">
                   <FaCode />
-                  <span>{game.testCases.length} tests</span>
+                  <span>{game.testCases.length} levels</span>
                 </div>
               </div>
               <button
-                className="play-button"
+                className="play-button cursor-target"
                 onClick={() => handlePlayGame(game.id, game.name)}
               >
                 <FaPlay /> Play Now

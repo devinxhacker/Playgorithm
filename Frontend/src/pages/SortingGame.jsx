@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowLeft, FaCode, FaPlay, FaPause, FaRedo, FaForward } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
+import LanguageSelector from "../components/LanguageSelector";
 import "./SortingGame.css";
 
 // Algorithm metadata and code snippets
@@ -16,49 +17,238 @@ const ALGORITHMS = {
 };
 
 const CODE_SNIPPETS = {
-  bubble: [
-    "for i in range(0, n-1):",
-    "  for j in range(0, n-i-1):",
-    "    if a[j] > a[j+1]:",
-    "      swap(a[j], a[j+1])",
-  ],
-  selection: [
-    "for i in range(0, n-1):",
-    "  minIdx = i",
-    "  for j in range(i+1, n):",
-    "    if a[j] < a[minIdx]:",
-    "      minIdx = j",
-    "  swap(a[i], a[minIdx])",
-  ],
-  insertion: [
-    "for i in range(1, n):",
-    "  key = a[i]",
-    "  j = i-1",
-    "  while j >= 0 and a[j] > key:",
-    "    a[j+1] = a[j]; j -= 1",
-    "  a[j+1] = key",
-  ],
-  merge: [
-    "def mergeSort(a):",
-    "  if n <= 1: return",
-    "  mid = n//2",
-    "  left = mergeSort(a[:mid])",
-    "  right = mergeSort(a[mid:])",
-    "  merge(left, right)",
-  ],
-  quick: [
-    "def quickSort(a, l, r):",
-    "  if l >= r: return",
-    "  p = partition(a, l, r)",
-    "  quickSort(a, l, p-1)",
-    "  quickSort(a, p+1, r)",
-  ],
-  heap: [
-    "buildMaxHeap(a)",
-    "for end in range(n-1, 0, -1):",
-    "  swap(a[0], a[end])",
-    "  siftDown(a, 0, end-1)",
-  ],
+  bubble: {
+    python3: [
+      "for i in range(0, n-1):",
+      "  for j in range(0, n-i-1):",
+      "    if a[j] > a[j+1]:",
+      "      a[j], a[j+1] = a[j+1], a[j]",
+    ],
+    cpp: [
+      "for (int i = 0; i < n-1; i++) {",
+      "  for (int j = 0; j < n-i-1; j++) {",
+      "    if (a[j] > a[j+1]) {",
+      "      swap(a[j], a[j+1]);",
+      "    }",
+      "  }",
+      "}",
+    ],
+    java: [
+      "for (int i = 0; i < n-1; i++) {",
+      "  for (int j = 0; j < n-i-1; j++) {",
+      "    if (a[j] > a[j+1]) {",
+      "      int temp = a[j];",
+      "      a[j] = a[j+1];",
+      "      a[j+1] = temp;",
+      "    }",
+      "  }",
+      "}",
+    ],
+    javascript: [
+      "for (let i = 0; i < n-1; i++) {",
+      "  for (let j = 0; j < n-i-1; j++) {",
+      "    if (a[j] > a[j+1]) {",
+      "      [a[j], a[j+1]] = [a[j+1], a[j]];",
+      "    }",
+      "  }",
+      "}",
+    ],
+  },
+  selection: {
+    python3: [
+      "for i in range(0, n-1):",
+      "  minIdx = i",
+      "  for j in range(i+1, n):",
+      "    if a[j] < a[minIdx]:",
+      "      minIdx = j",
+      "  a[i], a[minIdx] = a[minIdx], a[i]",
+    ],
+    cpp: [
+      "for (int i = 0; i < n-1; i++) {",
+      "  int minIdx = i;",
+      "  for (int j = i+1; j < n; j++) {",
+      "    if (a[j] < a[minIdx]) {",
+      "      minIdx = j;",
+      "    }",
+      "  }",
+      "  swap(a[i], a[minIdx]);",
+      "}",
+    ],
+    java: [
+      "for (int i = 0; i < n-1; i++) {",
+      "  int minIdx = i;",
+      "  for (int j = i+1; j < n; j++) {",
+      "    if (a[j] < a[minIdx]) {",
+      "      minIdx = j;",
+      "    }",
+      "  }",
+      "  int temp = a[i];",
+      "  a[i] = a[minIdx];",
+      "  a[minIdx] = temp;",
+      "}",
+    ],
+    javascript: [
+      "for (let i = 0; i < n-1; i++) {",
+      "  let minIdx = i;",
+      "  for (let j = i+1; j < n; j++) {",
+      "    if (a[j] < a[minIdx]) {",
+      "      minIdx = j;",
+      "    }",
+      "  }",
+      "  [a[i], a[minIdx]] = [a[minIdx], a[i]];",
+      "}",
+    ],
+  },
+  insertion: {
+    python3: [
+      "for i in range(1, n):",
+      "  key = a[i]",
+      "  j = i-1",
+      "  while j >= 0 and a[j] > key:",
+      "    a[j+1] = a[j]",
+      "    j -= 1",
+      "  a[j+1] = key",
+    ],
+    cpp: [
+      "for (int i = 1; i < n; i++) {",
+      "  int key = a[i];",
+      "  int j = i-1;",
+      "  while (j >= 0 && a[j] > key) {",
+      "    a[j+1] = a[j];",
+      "    j--;",
+      "  }",
+      "  a[j+1] = key;",
+      "}",
+    ],
+    java: [
+      "for (int i = 1; i < n; i++) {",
+      "  int key = a[i];",
+      "  int j = i-1;",
+      "  while (j >= 0 && a[j] > key) {",
+      "    a[j+1] = a[j];",
+      "    j--;",
+      "  }",
+      "  a[j+1] = key;",
+      "}",
+    ],
+    javascript: [
+      "for (let i = 1; i < n; i++) {",
+      "  let key = a[i];",
+      "  let j = i-1;",
+      "  while (j >= 0 && a[j] > key) {",
+      "    a[j+1] = a[j];",
+      "    j--;",
+      "  }",
+      "  a[j+1] = key;",
+      "}",
+    ],
+  },
+  merge: {
+    python3: [
+      "def mergeSort(a):",
+      "  if len(a) <= 1: return a",
+      "  mid = len(a)//2",
+      "  left = mergeSort(a[:mid])",
+      "  right = mergeSort(a[mid:])",
+      "  return merge(left, right)",
+    ],
+    cpp: [
+      "void mergeSort(vector<int>& a, int l, int r) {",
+      "  if (l >= r) return;",
+      "  int mid = l + (r-l)/2;",
+      "  mergeSort(a, l, mid);",
+      "  mergeSort(a, mid+1, r);",
+      "  merge(a, l, mid, r);",
+      "}",
+    ],
+    java: [
+      "void mergeSort(int[] a, int l, int r) {",
+      "  if (l >= r) return;",
+      "  int mid = l + (r-l)/2;",
+      "  mergeSort(a, l, mid);",
+      "  mergeSort(a, mid+1, r);",
+      "  merge(a, l, mid, r);",
+      "}",
+    ],
+    javascript: [
+      "function mergeSort(a) {",
+      "  if (a.length <= 1) return a;",
+      "  const mid = Math.floor(a.length/2);",
+      "  const left = mergeSort(a.slice(0, mid));",
+      "  const right = mergeSort(a.slice(mid));",
+      "  return merge(left, right);",
+      "}",
+    ],
+  },
+  quick: {
+    python3: [
+      "def quickSort(a, l, r):",
+      "  if l >= r: return",
+      "  p = partition(a, l, r)",
+      "  quickSort(a, l, p-1)",
+      "  quickSort(a, p+1, r)",
+    ],
+    cpp: [
+      "void quickSort(vector<int>& a, int l, int r) {",
+      "  if (l >= r) return;",
+      "  int p = partition(a, l, r);",
+      "  quickSort(a, l, p-1);",
+      "  quickSort(a, p+1, r);",
+      "}",
+    ],
+    java: [
+      "void quickSort(int[] a, int l, int r) {",
+      "  if (l >= r) return;",
+      "  int p = partition(a, l, r);",
+      "  quickSort(a, l, p-1);",
+      "  quickSort(a, p+1, r);",
+      "}",
+    ],
+    javascript: [
+      "function quickSort(a, l, r) {",
+      "  if (l >= r) return;",
+      "  const p = partition(a, l, r);",
+      "  quickSort(a, l, p-1);",
+      "  quickSort(a, p+1, r);",
+      "}",
+    ],
+  },
+  heap: {
+    python3: [
+      "def heapSort(a):",
+      "  buildMaxHeap(a)",
+      "  for end in range(len(a)-1, 0, -1):",
+      "    a[0], a[end] = a[end], a[0]",
+      "    siftDown(a, 0, end-1)",
+    ],
+    cpp: [
+      "void heapSort(vector<int>& a) {",
+      "  buildMaxHeap(a);",
+      "  for (int end = a.size()-1; end > 0; end--) {",
+      "    swap(a[0], a[end]);",
+      "    siftDown(a, 0, end-1);",
+      "  }",
+      "}",
+    ],
+    java: [
+      "void heapSort(int[] a) {",
+      "  buildMaxHeap(a);",
+      "  for (int end = a.length-1; end > 0; end--) {",
+      "    int temp = a[0]; a[0] = a[end]; a[end] = temp;",
+      "    siftDown(a, 0, end-1);",
+      "  }",
+      "}",
+    ],
+    javascript: [
+      "function heapSort(a) {",
+      "  buildMaxHeap(a);",
+      "  for (let end = a.length-1; end > 0; end--) {",
+      "    [a[0], a[end]] = [a[end], a[0]];",
+      "    siftDown(a, 0, end-1);",
+      "  }",
+      "}",
+    ],
+  },
 };
 
 // Instrumented step generators for demo + learning
@@ -238,6 +428,7 @@ const SortingGame = () => {
   const [quiz, setQuiz] = useState(null);
   const [quizAnswer, setQuizAnswer] = useState(null);
   const [quizResult, setQuizResult] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState("python3");
 
   const STORIES = {
     bubble: {
@@ -554,7 +745,7 @@ const SortingGame = () => {
   return (
     <div className="sorting-game">
       <div className="game-header">
-        <button className="back-button" onClick={() => navigate("/dashboard")}>
+        <button className="back-button cursor-target" onClick={() => navigate("/dashboard")}>
           <FaArrowLeft /> Back to Dashboard
         </button>
         <div className="game-title">
@@ -576,14 +767,14 @@ const SortingGame = () => {
                 {Object.keys(ALGORITHMS).map((key) => {
                   const meta = ALGORITHMS[key];
                   return (
-                    <motion.div key={key} className={`algorithm-card difficulty-${meta.difficulty}`} whileHover={{ y: -5, scale: 1.02 }}>
+                    <motion.div key={key} className={`algorithm-card difficulty-${meta.difficulty} cursor-target`} whileHover={{ y: -5, scale: 1.02 }}>
                       <div className="algorithm-icon">🧠</div>
                       <h3 style={{ margin: 6 }}>{meta.name}</h3>
                       <div className="algorithm-description">{meta.difficulty === 'easy' ? 'Great for getting started' : meta.difficulty === 'medium' ? 'Balanced challenge' : 'Advanced technique'}</div>
                       <div className="algorithm-complexity">Complexity: varies by algorithm</div>
                       <div className="algorithm-actions">
-                        <button className="action-btn demo-btn" onClick={() => start(key, "demo")}><FaForward /> Demo</button>
-                        <button className="action-btn play-btn" onClick={() => start(key, key === 'merge' || key === 'quick' || key === 'heap' ? 'demo' : 'learning')}>
+                        <button className="action-btn demo-btn cursor-target" onClick={() => start(key, "demo")}><FaForward /> Demo</button>
+                        <button className="action-btn play-btn cursor-target" onClick={() => start(key, key === 'merge' || key === 'quick' || key === 'heap' ? 'demo' : 'learning')}>
                           <FaPlay /> {key === 'merge' || key === 'quick' || key === 'heap' ? 'Demo Only' : 'Learn'}
                         </button>
                       </div>
@@ -606,9 +797,19 @@ const SortingGame = () => {
           <motion.div className="learning-layout" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             {/* Code / Stats */}
             <div className="code-panel">
-              <div className="panel-header"><FaCode /> Pseudocode</div>
+              <div className="panel-header">
+                <div className="header-content">
+                  <FaCode /> Code Implementation
+                </div>
+                <div className="language-selector-small">
+                  <LanguageSelector
+                    selectedLanguage={selectedLanguage}
+                    onLanguageChange={setSelectedLanguage}
+                  />
+                </div>
+              </div>
               <div className="code-content">
-                {(CODE_SNIPPETS[algorithm] || []).map((line, idx) => (
+                {(CODE_SNIPPETS[algorithm]?.[selectedLanguage] || CODE_SNIPPETS[algorithm]?.python3 || []).map((line, idx) => (
                   <div key={idx} className={`code-line ${highlightLine === idx ? 'active-line' : ''}`}>
                     <span className="line-number">{idx + 1}</span>
                     <span>{line}</span>
@@ -659,7 +860,7 @@ const SortingGame = () => {
                     skin === 'bars' ? (
                       <motion.div
                         key={`bar-${idx}-${val}`}
-                        className={`bar ${comparing.includes(idx) ? 'comparing' : ''} ${swapping.includes(idx) ? 'swapping' : ''} ${sorted.includes(idx) ? 'sorted' : ''} ${minIndex === idx ? 'minimum' : ''} ${dragOverIndex === idx ? 'drag-over' : ''} ${selectedBar === idx ? 'selected' : ''}`}
+                        className={`bar cursor-target ${comparing.includes(idx) ? 'comparing' : ''} ${swapping.includes(idx) ? 'swapping' : ''} ${sorted.includes(idx) ? 'sorted' : ''} ${minIndex === idx ? 'minimum' : ''} ${dragOverIndex === idx ? 'drag-over' : ''} ${selectedBar === idx ? 'selected' : ''}`}
                         style={{ height: `${(val / array.length) * 100}%`, backgroundColor: getBarColor(idx), transformPerspective: 600 }}
                         onClick={() => onBarClick(idx)}
                         draggable={mode === 'learning'}
@@ -677,7 +878,7 @@ const SortingGame = () => {
                     ) : skin === 'potions' ? (
                       <motion.div
                         key={`potion-${idx}-${val}`}
-                        className={`item potion ${comparing.includes(idx) ? 'comparing' : ''} ${swapping.includes(idx) ? 'swapping' : ''} ${sorted.includes(idx) ? 'sorted' : ''} ${dragOverIndex === idx ? 'drag-over' : ''} ${selectedBar === idx ? 'selected' : ''}`}
+                        className={`item potion cursor-target ${comparing.includes(idx) ? 'comparing' : ''} ${swapping.includes(idx) ? 'swapping' : ''} ${sorted.includes(idx) ? 'sorted' : ''} ${dragOverIndex === idx ? 'drag-over' : ''} ${selectedBar === idx ? 'selected' : ''}`}
                         onClick={() => onBarClick(idx)}
                         draggable={mode === 'learning'}
                         onDragStart={(e) => onDragStart(e, idx)}
@@ -699,7 +900,7 @@ const SortingGame = () => {
                     ) : (
                       <motion.div
                         key={`crate-${idx}-${val}`}
-                        className={`item crate ${comparing.includes(idx) ? 'comparing' : ''} ${swapping.includes(idx) ? 'swapping' : ''} ${sorted.includes(idx) ? 'sorted' : ''} ${dragOverIndex === idx ? 'drag-over' : ''} ${selectedBar === idx ? 'selected' : ''}`}
+                        className={`item crate cursor-target ${comparing.includes(idx) ? 'comparing' : ''} ${swapping.includes(idx) ? 'swapping' : ''} ${sorted.includes(idx) ? 'sorted' : ''} ${dragOverIndex === idx ? 'drag-over' : ''} ${selectedBar === idx ? 'selected' : ''}`}
                         style={{ height: `${(val / array.length) * 100}%` }}
                         onClick={() => onBarClick(idx)}
                         draggable={mode === 'learning'}
@@ -723,20 +924,20 @@ const SortingGame = () => {
               <div className="controls-section">
                 {mode === 'demo' && (
                   <>
-                    <button className="control-btn primary" onClick={() => setAutoPlay((p) => !p)}>{autoPlay ? <FaPause /> : <FaPlay />} {autoPlay ? 'Pause' : 'Auto Play'}</button>
-                    <button className="control-btn secondary" onClick={executeNextStep}><FaForward /> Next Step</button>
-                    <button className="control-btn" onClick={() => start(algorithm, 'demo')}><FaRedo /> Reset</button>
+                    <button className="control-btn primary cursor-target" onClick={() => setAutoPlay((p) => !p)}>{autoPlay ? <FaPause /> : <FaPlay />} {autoPlay ? 'Pause' : 'Auto Play'}</button>
+                    <button className="control-btn secondary cursor-target" onClick={executeNextStep}><FaForward /> Next Step</button>
+                    <button className="control-btn cursor-target" onClick={() => start(algorithm, 'demo')}><FaRedo /> Reset</button>
                   </>
                 )}
                 {mode === 'learning' && (
                   <>
-                    <button className="control-btn secondary" onClick={() => setShowHint((s) => !s)}>{showHint ? 'Hide Hint' : 'Show Hint'}</button>
-                    <button className="control-btn" onClick={() => start(algorithm, 'learning')}><FaRedo /> Restart</button>
+                    <button className="control-btn secondary cursor-target" onClick={() => setShowHint((s) => !s)}>{showHint ? 'Hide Hint' : 'Show Hint'}</button>
+                    <button className="control-btn cursor-target" onClick={() => start(algorithm, 'learning')}><FaRedo /> Restart</button>
                   </>
                 )}
                 <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
                   <label htmlFor="skin" style={{ opacity: 0.8 }}>Skin</label>
-                  <select id="skin" className="skin-select" value={skin} onChange={(e) => setSkin(e.target.value)}>
+                  <select id="skin" className="skin-select cursor-target" value={skin} onChange={(e) => setSkin(e.target.value)}>
                     <option value="potions">Potions</option>
                     <option value="crates">Crates</option>
                     <option value="bars">Bars</option>
@@ -778,7 +979,7 @@ const SortingGame = () => {
                     {quiz.options.map((opt, idx) => (
                       <button
                         key={idx}
-                        className={`quiz-option ${quizAnswer === idx ? 'selected' : ''} ${quizResult && idx === quiz.correct ? 'correct' : ''} ${quizResult && quizAnswer === idx && idx !== quiz.correct ? 'wrong' : ''}`}
+                        className={`quiz-option cursor-target ${quizAnswer === idx ? 'selected' : ''} ${quizResult && idx === quiz.correct ? 'correct' : ''} ${quizResult && quizAnswer === idx && idx !== quiz.correct ? 'wrong' : ''}`}
                         disabled={!!quizResult}
                         onClick={() => handleQuizAnswer(idx)}
                       >{opt}</button>
@@ -788,10 +989,10 @@ const SortingGame = () => {
                 </div>
               )}
               <div className="result-buttons">
-                <button className="primary" onClick={() => start(algorithm, 'demo')}><FaForward /> Watch Again</button>
-                <button className="secondary" onClick={() => start(algorithm, 'learning')}><FaPlay /> Practice Again</button>
-                <button className="secondary" onClick={() => setMode('menu')}><FaArrowLeft /> Menu</button>
-                <button className="secondary" onClick={shareSummary}>Share</button>
+                <button className="primary cursor-target" onClick={() => start(algorithm, 'demo')}><FaForward /> Watch Again</button>
+                <button className="secondary cursor-target" onClick={() => start(algorithm, 'learning')}><FaPlay /> Practice Again</button>
+                <button className="secondary cursor-target" onClick={() => setMode('menu')}><FaArrowLeft /> Menu</button>
+                <button className="secondary cursor-target" onClick={shareSummary}>Share</button>
               </div>
             </div>
           </motion.div>
@@ -814,8 +1015,8 @@ const SortingGame = () => {
                 </ul>
               </div>
               <div style={{ display:'flex', gap:12, justifyContent:'center', marginTop:12 }}>
-                <button className="action-btn play-btn" onClick={() => { setShowTutorial(false); localStorage.setItem('sortingGameTutorialSeen', '1'); }}><FaPlay /> Let me try</button>
-                <button className="action-btn demo-btn" onClick={() => { setShowTutorial(false); setMode('menu'); }}><FaForward /> Back to menu</button>
+                <button className="action-btn play-btn cursor-target" onClick={() => { setShowTutorial(false); localStorage.setItem('sortingGameTutorialSeen', '1'); }}><FaPlay /> Let me try</button>
+                <button className="action-btn demo-btn cursor-target" onClick={() => { setShowTutorial(false); setMode('menu'); }}><FaForward /> Back to menu</button>
               </div>
             </motion.div>
           </motion.div>

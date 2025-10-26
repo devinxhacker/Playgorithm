@@ -1,0 +1,191 @@
+.code-editor {
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  background: rgba(30, 41, 59, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 1rem;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  background: rgba(71, 85, 105, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: rgba(71, 85, 105, 1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.editor-container {
+  position: relative;
+  min-height: 400px;
+}
+
+.code-textarea {
+  width: 100%;
+  min-height: 400px;
+  padding: 1.5rem;
+  background: transparent;
+  border: none;
+  color: #e2e8f0;
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+  tab-size: 4;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+}
+
+.code-textarea::placeholder {
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Syntax highlighting hints through CSS classes */
+.code-textarea.language-cpp,
+.code-textarea.language-c {
+  color: #e2e8f0;
+}
+
+.code-textarea.language-java {
+  color: #fbbf24;
+}
+
+.code-textarea.language-python {
+  color: #34d399;
+}
+
+.code-textarea.language-javascript {
+  color: #60a5fa;
+}
+
+.editor-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(59, 130, 246, 0.2);
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.editor-footer {
+  padding: 0.75rem 1.5rem;
+  background: rgba(30, 41, 59, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.language-badge {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.char-count {
+  font-family: 'Fira Code', monospace;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .editor-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .editor-actions {
+    justify-content: flex-end;
+  }
+  
+  .code-textarea {
+    padding: 1rem;
+    font-size: 13px;
+    min-height: 300px;
+  }
+  
+  .editor-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+/* Scrollbar styling */
+.code-textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-textarea::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.5);
+}
+
+.code-textarea::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.8);
+  border-radius: 4px;
+}
+
+.code-textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 1);
+}

@@ -1,82 +1,94 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Editor from "@monaco-editor/react";
-import { gameAPI } from "../services/api";
-import { useAuth } from "../context/AuthContext";
-import { FaClock, FaCode, FaTrophy, FaPlay, FaRedo, FaCheckCircle, FaTimesCircle, FaFlask, FaClipboardList, FaTerminal } from "react-icons/fa";
-import LanguageSelector from "../components/LanguageSelector";
-import "./GameArena.css";
+import { FaClock, FaCode, FaTrophy, FaPlay, FaRedo, FaCheckCircle, FaTimesCircle, FaFlask, FaClipboardList, FaTerminal, FaArrowLeft } from "react-icons/fa";
+import LanguageSelector from './LanguageSelector';
+import './CodingChallenge.css';
 
-const GameArena = () => {
-  const { gameId } = useParams();
+const CodingChallenge = () => {
+  const { challengeId } = useParams();
   const navigate = useNavigate();
-  const { user, updateUser } = useAuth();
-  const [game, setGame] = useState(null);
-  const [session, setSession] = useState(null);
-  const [code, setCode] = useState("");
-  const [language, setLanguage] = useState("cpp");
-  const [timeLeft, setTimeLeft] = useState(0);
+  const [selectedLanguage, setSelectedLanguage] = useState('cpp');
+  const [code, setCode] = useState('');
+  const [challenge, setChallenge] = useState(null);
   const [testResults, setTestResults] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [loadingStarterCode, setLoadingStarterCode] = useState(false);
   const [runningTests, setRunningTests] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadGame();
-  }, [gameId]);
+    loadChallenge();
+  }, [challengeId]);
 
-  useEffect(() => {
-    if (timeLeft > 0 && isRunning) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (timeLeft === 0 && isRunning) {
-      handleTimeUp();
+  const challenges = {
+    'graph-gladiator': {
+      name: 'Graph Gladiator',
+      difficulty: 'MEDIUM',
+      timeLimit: 600, // 10 minutes
+      xpReward: 1000,
+      problemStatement: 'Navigate through complex graph structures and find the shortest path! Given a weighted graph, find the shortest path between two nodes using Dijkstra\'s algorithm.',
+      testCases: [
+        { input: 'graph = [[0,1,4],[1,2,8],[2,3,7]], start = 0, end = 3', expectedOutput: '19' },
+        { input: 'graph = [[0,1,2],[1,2,3],[0,2,10]], start = 0, end = 2', expectedOutput: '5' }
+      ]
+    },
+    'dynamic-programming-duel': {
+      name: 'Dynamic Programming Duel',
+      difficulty: 'HARD',
+      timeLimit: 900, // 15 minutes
+      xpReward: 2000,
+      problemStatement: 'Master optimization by breaking down complex problems! Solve the classic 0/1 Knapsack problem using dynamic programming.',
+      testCases: [
+        { input: 'weights = [1,3,4,5], values = [1,4,5,7], capacity = 7', expectedOutput: '9' },
+        { input: 'weights = [2,1,3], values = [12,10,20], capacity = 5', expectedOutput: '32' }
+      ]
+    },
+    'binary-search-challenge': {
+      name: 'Binary Search Challenge',
+      difficulty: 'EASY',
+      timeLimit: 300, // 5 minutes
+      xpReward: 400,
+      problemStatement: 'Find elements in sorted arrays with lightning speed! Implement binary search to find the target element in a sorted array.',
+      testCases: [
+        { input: 'arr = [-1,0,3,5,9,12], target = 9', expectedOutput: '4' },
+        { input: 'arr = [-1,0,3,5,9,12], target = 2', expectedOutput: '-1' }
+      ]
+    },
+    'code-golf-fizzbuzz': {
+      name: 'Code Golf: FizzBuzz',
+      difficulty: 'EASY',
+      timeLimit: 600, // 10 minutes
+      xpReward: 300,
+      problemStatement: 'Write the shortest code possible to solve FizzBuzz! Print numbers 1 to 100, but replace multiples of 3 with "Fizz", multiples of 5 with "Buzz", and multiples of both with "FizzBuzz".',
+      testCases: [
+        { input: 'n = 15', expectedOutput: '1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzz' }
+      ]
+    },
+    'speed-typing-variables': {
+      name: 'Speed Typing: Variables',
+      difficulty: 'EASY',
+      timeLimit: 120, // 2 minutes
+      xpReward: 200,
+      problemStatement: 'Type the correct code as fast as possible! Declare and initialize variables according to the given specifications.',
+      testCases: [
+        { input: 'Declare integer x = 10, string name = "John"', expectedOutput: 'int x = 10; string name = "John";' }
+      ]
     }
-  }, [timeLeft, isRunning]);
+  };
 
-  const loadGame = async () => {
+  const loadChallenge = async () => {
     try {
-      const gameResponse = await gameAPI.getGameById(gameId);
-      setGame(gameResponse.data);
-      setTimeLeft(gameResponse.data.timeLimit);
-
-      // Load starter code for default language
-      await loadStarterCode(language);
-
-      const sessionResponse = await gameAPI.startGame(gameId);
-      setSession(sessionResponse.data);
-      setIsRunning(true);
+      const challengeData = challenges[challengeId] || challenges['graph-gladiator'];
+      setChallenge(challengeData);
+      await loadStarterCode(selectedLanguage);
       setLoading(false);
     } catch (error) {
-      console.error("Error loading game:", error);
+      console.error('Error loading challenge:', error);
       setLoading(false);
     }
   };
 
-  const loadStarterCode = async (selectedLanguage) => {
-    setLoadingStarterCode(true);
-    try {
-      const response = await fetch(`/api/games/${gameId}/starter-code/${selectedLanguage}`);
-      const data = await response.json();
-      
-      if (data.starterCode) {
-        setCode(data.starterCode);
-      } else {
-        // Fallback to default starter code
-        setCode(getFallbackStarterCode(selectedLanguage));
-      }
-    } catch (error) {
-      console.error("Error loading starter code:", error);
-      // Fallback to default starter code
-      setCode(getFallbackStarterCode(selectedLanguage));
-    } finally {
-      setLoadingStarterCode(false);
-    }
-  };
-
-  const getFallbackStarterCode = (selectedLanguage) => {
+  const loadStarterCode = async (language) => {
     const templates = {
       cpp: `#include <iostream>
 #include <vector>
@@ -88,34 +100,6 @@ int main() {
     cin.tie(NULL);
     
     // Your code here
-    
-    return 0;
-}`,
-      cpp17: `#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <optional>
-using namespace std;
-
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    // Your C++17 code here
-    
-    return 0;
-}`,
-      cpp20: `#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <ranges>
-using namespace std;
-
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    // Your C++20 code here
     
     return 0;
 }`,
@@ -142,42 +126,26 @@ function main() {
     // Your JavaScript code here
 }
 
-main();`,
-      c: `#include <stdio.h>
-#include <stdlib.h>
-
-int main() {
-    // Your C code here
-    
-    return 0;
-}`
+main();`
     };
     
-    return templates[selectedLanguage] || templates.cpp;
-  };
-
-  const handleTimeUp = () => {
-    setIsRunning(false);
-    alert("Time's up! Your game session has ended.");
-    navigate("/dashboard");
+    setCode(templates[language] || templates.cpp);
   };
 
   const handleLanguageChange = async (newLanguage) => {
-    setLanguage(newLanguage);
+    setSelectedLanguage(newLanguage);
     await loadStarterCode(newLanguage);
   };
 
   const resetCode = async () => {
     if (confirm("Are you sure you want to reset your code? This will restore the original starter code.")) {
-      await loadStarterCode(language);
+      await loadStarterCode(selectedLanguage);
     }
   };
 
   const getMonacoLanguage = (language) => {
     const mapping = {
       cpp: 'cpp',
-      cpp17: 'cpp',
-      cpp20: 'cpp',
       c: 'c',
       java: 'java',
       python: 'python',
@@ -193,14 +161,12 @@ int main() {
       return;
     }
 
-    // Show loading state
     setRunningTests(true);
     setTestResults([]);
     
-    // Simulate test execution (in production, this would call a code execution API)
     setTimeout(() => {
-      const results = game.testCases.map((testCase, index) => {
-        const passed = Math.random() > 0.4; // 60% pass rate for demo
+      const results = challenge.testCases.map((testCase, index) => {
+        const passed = Math.random() > 0.3; // 70% pass rate for demo
         const actualOutput = passed 
           ? testCase.expectedOutput 
           : generateIncorrectOutput(testCase.expectedOutput, index);
@@ -213,13 +179,11 @@ int main() {
           executionTime: Math.floor(Math.random() * 150) + 25,
           input: testCase.input,
           memoryUsed: Math.floor(Math.random() * 50) + 10,
-          compilationTime: Math.floor(Math.random() * 500) + 100,
         };
       });
       setTestResults(results);
       setRunningTests(false);
       
-      // Scroll to results
       setTimeout(() => {
         const resultsElement = document.querySelector('.test-results');
         if (resultsElement) {
@@ -230,7 +194,6 @@ int main() {
   };
 
   const generateIncorrectOutput = (expectedOutput, index) => {
-    // Generate realistic incorrect outputs for demo
     const incorrectOutputs = [
       "null",
       "undefined", 
@@ -247,76 +210,58 @@ int main() {
 
   const submitCode = async () => {
     try {
-      const response = await gameAPI.submitGame({
-        gameId,
-        sessionId: session.id,
-        code,
-        language,
-      });
-
-      if (response.data.success) {
-        // Update user XP
-        const updatedUser = { ...user };
-        updatedUser.totalXP += response.data.xpEarned;
-        updatedUser.level = Math.floor(updatedUser.totalXP / 100) + 1;
-        updateUser(updatedUser);
-
-        alert(`Congratulations! You earned ${response.data.xpEarned} XP!`);
-        navigate("/dashboard");
-      }
+      alert(`Challenge completed! You earned ${challenge.xpReward} XP!`);
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error submitting code:", error);
     }
   };
 
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
-
   if (loading) {
     return (
-      <div className="game-arena-loading">
+      <div className="challenge-loading">
         <div className="spinner"></div>
-        <p>Loading Game...</p>
+        <p>Loading Challenge...</p>
       </div>
     );
   }
 
   return (
-    <div className="game-arena">
-      <div className="game-arena-header">
-        <div className="game-info">
-          <h1>{game.name}</h1>
-          <span className={`difficulty ${game.difficulty.toLowerCase()}`}>
-            {game.difficulty}
+    <div className="coding-challenge">
+      <div className="challenge-header">
+        <div className="header-left">
+          <button onClick={() => navigate('/dashboard')} className="back-button cursor-target">
+            <FaArrowLeft /> Back to Dashboard
+          </button>
+        </div>
+        <div className="challenge-info">
+          <h1>{challenge.name}</h1>
+          <span className={`difficulty ${challenge.difficulty.toLowerCase()}`}>
+            {challenge.difficulty}
           </span>
         </div>
-        <div className="game-stats">
+        <div className="challenge-stats">
           <div className="stat">
             <FaClock />
-            <span className={timeLeft < 60 ? "time-warning" : ""}>
-              {formatTime(timeLeft)}
-            </span>
+            <span>{Math.floor(challenge.timeLimit / 60)}:{(challenge.timeLimit % 60).toString().padStart(2, '0')}</span>
           </div>
           <div className="stat">
             <FaTrophy />
-            <span>{game.xpReward} XP</span>
+            <span>{challenge.xpReward} XP</span>
           </div>
         </div>
       </div>
 
-      <div className="game-arena-content">
+      <div className="challenge-content">
         <div className="problem-section">
           <h3><FaClipboardList /> Problem Statement</h3>
           <div className="problem-statement">
-            <p>{game.problemStatement}</p>
+            <p>{challenge.problemStatement}</p>
           </div>
 
           <h4><FaFlask /> Test Cases</h4>
           <div className="test-cases">
-            {game.testCases.map((testCase, index) => (
+            {challenge.testCases.map((testCase, index) => (
               <div key={index} className="test-case">
                 <strong>Test Case {index + 1}:</strong>
                 <div>Input: {testCase.input}</div>
@@ -330,7 +275,7 @@ int main() {
           <div className="editor-toolbar">
             <div className="language-selector-container">
               <LanguageSelector
-                selectedLanguage={language}
+                selectedLanguage={selectedLanguage}
                 onLanguageChange={handleLanguageChange}
               />
             </div>
@@ -338,7 +283,6 @@ int main() {
               <button 
                 onClick={resetCode} 
                 className="reset-button cursor-target"
-                disabled={loadingStarterCode}
                 title="Reset to starter code"
               >
                 <FaRedo /> Reset
@@ -346,7 +290,7 @@ int main() {
               <button 
                 onClick={runCode} 
                 className="run-button cursor-target"
-                disabled={runningTests || loadingStarterCode}
+                disabled={runningTests}
               >
                 {runningTests ? (
                   <>
@@ -366,16 +310,9 @@ int main() {
           </div>
 
           <div className="editor-container">
-            {loadingStarterCode && (
-              <div className="loading-overlay">
-                <div className="spinner"></div>
-                <span>Loading starter code...</span>
-              </div>
-            )}
-
             <Editor
               height="100%"
-              language={getMonacoLanguage(language)}
+              language={getMonacoLanguage(selectedLanguage)}
               value={code}
               onChange={(value) => setCode(value)}
               theme="vs-dark"
@@ -385,7 +322,6 @@ int main() {
                 lineNumbers: "on",
                 roundedSelection: false,
                 scrollBeyondLastLine: false,
-                readOnly: !isRunning || loadingStarterCode,
                 automaticLayout: true,
                 wordWrap: "on",
                 scrollbar: {
@@ -504,4 +440,4 @@ int main() {
   );
 };
 
-export default GameArena;
+export default CodingChallenge;

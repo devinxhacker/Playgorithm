@@ -1,0 +1,337 @@
+.challenges-list {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+  color: white;
+  padding: 20px;
+}
+
+.challenges-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  background: rgba(26, 31, 58, 0.8);
+  border-radius: 15px;
+  border: 1px solid rgba(123, 97, 255, 0.3);
+}
+
+.header-left {
+  flex: 1;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(123, 97, 255, 0.2);
+  color: #7b61ff;
+  border: 1px solid #7b61ff;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.back-button:hover {
+  background: rgba(123, 97, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.header-center {
+  flex: 2;
+  text-align: center;
+}
+
+.header-center h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #7b61ff 0%, #ff6b9d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-center p {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 25px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.challenge-card {
+  background: rgba(26, 31, 58, 0.8);
+  border-radius: 15px;
+  border: 1px solid rgba(123, 97, 255, 0.3);
+  padding: 25px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #7b61ff 0%, #ff6b9d 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.challenge-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.2);
+  border-color: rgba(123, 97, 255, 0.5);
+}
+
+.challenge-card:hover::before {
+  opacity: 1;
+}
+
+.challenge-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.challenge-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.challenge-title h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #e2e8f0;
+}
+
+.interactive-badge {
+  background: linear-gradient(135deg, #ff6b9d 0%, #7b61ff 100%);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 107, 157, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 107, 157, 0.8);
+  }
+}
+
+.difficulty {
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.difficulty.easy {
+  background: rgba(46, 213, 115, 0.2);
+  color: #2ed573;
+  border: 1px solid #2ed573;
+}
+
+.difficulty.medium {
+  background: rgba(255, 168, 1, 0.2);
+  color: #ffa801;
+  border: 1px solid #ffa801;
+}
+
+.difficulty.hard {
+  background: rgba(255, 71, 87, 0.2);
+  color: #ff4757;
+  border: 1px solid #ff4757;
+}
+
+.challenge-description {
+  margin-bottom: 20px;
+}
+
+.challenge-description p {
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.challenge-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 10px;
+  border: 1px solid rgba(123, 97, 255, 0.2);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.stat svg {
+  color: #7b61ff;
+  font-size: 1rem;
+}
+
+.test-count {
+  background: rgba(123, 97, 255, 0.2);
+  color: #7b61ff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(123, 97, 255, 0.3);
+}
+
+.play-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 25px;
+  background: linear-gradient(135deg, #7b61ff 0%, #ff6b9d 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.play-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.play-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(123, 97, 255, 0.4);
+}
+
+.play-button:hover::before {
+  left: 100%;
+}
+
+.play-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .challenges-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+  }
+
+  .challenges-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .header-left {
+    order: 1;
+  }
+
+  .header-center {
+    order: 2;
+  }
+
+  .header-center h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .challenges-list {
+    padding: 15px;
+  }
+
+  .challenges-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .challenge-card {
+    padding: 20px;
+  }
+
+  .challenge-stats {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .stat {
+    justify-content: center;
+  }
+
+  .header-center h1 {
+    font-size: 1.8rem;
+  }
+
+  .header-center p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .challenge-card-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .challenge-title h3 {
+    font-size: 1.2rem;
+  }
+
+  .challenge-stats {
+    padding: 12px;
+  }
+
+  .play-button {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+}

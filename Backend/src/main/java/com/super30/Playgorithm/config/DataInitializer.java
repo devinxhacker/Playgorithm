@@ -2,18 +2,22 @@ package com.super30.Playgorithm.config;
 
 import com.super30.Playgorithm.model.Game;
 import com.super30.Playgorithm.repository.GameRepository;
+import com.super30.Playgorithm.service.LanguageTemplateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
     private final GameRepository gameRepository;
+    private final LanguageTemplateService languageTemplateService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -124,9 +128,25 @@ public class DataInitializer implements CommandLineRunner {
         game.setXpReward(xpReward);
         game.setTimeLimit(timeLimit);
         game.setProblemStatement(problemStatement);
-        game.setStarterCode(starterCode);
         game.setTestCases(testCases);
-        game.setSupportedLanguages(Arrays.asList("javascript", "python", "java"));
+        
+        // Set up multi-language starter code templates
+        Map<String, String> starterCodeTemplates = new HashMap<>();
+        
+        // Add language-specific templates
+        starterCodeTemplates.put("cpp", languageTemplateService.getStarterCodeForLanguage("cpp", category));
+        starterCodeTemplates.put("cpp17", languageTemplateService.getStarterCodeForLanguage("cpp17", category));
+        starterCodeTemplates.put("cpp20", languageTemplateService.getStarterCodeForLanguage("cpp20", category));
+        starterCodeTemplates.put("java", languageTemplateService.getStarterCodeForLanguage("java", category));
+        starterCodeTemplates.put("python", languageTemplateService.getStarterCodeForLanguage("python", category));
+        starterCodeTemplates.put("python3", languageTemplateService.getStarterCodeForLanguage("python3", category));
+        starterCodeTemplates.put("javascript", starterCode); // Use the provided JavaScript code
+        starterCodeTemplates.put("c", languageTemplateService.getStarterCodeForLanguage("c", category));
+        
+        game.setStarterCodeTemplates(starterCodeTemplates);
+        
+        // Set supported languages
+        game.setSupportedLanguages(Arrays.asList("cpp", "cpp17", "cpp20", "java", "python", "python3", "javascript", "c"));
         game.setIsActive(true);
         return game;
     }

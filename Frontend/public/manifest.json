@@ -14,12 +14,12 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/playgorithm-192.png",
+      "src": "/favicon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/playgorithm-512.png",
+      "src": "/favicon.png",
       "sizes": "512x512",
       "type": "image/png"
     }

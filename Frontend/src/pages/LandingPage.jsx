@@ -87,7 +87,7 @@ function LandingPage() {
                 <GiSwordman className="brand-icon" />
                 <span>Playgorithm</span>
               </div>
-              <button className="nav-login-btn" onClick={handleGetStarted}>
+              <button className="nav-login-btn cursor-target" onClick={handleGetStarted}>
                 Login / Sign Up
               </button>
             </div>
@@ -218,22 +218,22 @@ function LandingPage() {
             <div className="col-lg-4">
               <motion.div className="battle-card cursor-target" variants={fadeInUp}>
                 <div className="battle-header">
-                  <h4>Dynamic Programming Duel</h4>
-                  <span className="difficulty hard">Hard</span>
+                  <h4>Flexbox Arena</h4>
+                  <span className="difficulty medium">Medium</span>
                 </div>
                 <div className="battle-content">
                   <p>
-                    Master the art of optimization. Break down complex problems
-                    into manageable subproblems.
+                    Master CSS Flexbox through interactive warrior battles.
+                    Position your heroes and conquer the battlefield!
                   </p>
                   <div className="battle-stats">
                     <span>
                       <FaUsers className="me-1" />
-                      342 players
+                      567 players
                     </span>
                     <span>
                       <FaTrophy className="me-1" />
-                      2,000 XP
+                      750 XP
                     </span>
                   </div>
                 </div>
