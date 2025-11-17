@@ -850,14 +850,24 @@ const FlexboxArena = () => {
                 >
                   <GiSwordman />
                   {isCorrect && (
-                    <motion.div 
-                      className="success-indicator-small"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <FaCheckCircle />
-                    </motion.div>
+                    <>
+                      <motion.div 
+                        className="success-indicator-small"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <FaCheckCircle />
+                      </motion.div>
+                      <motion.div 
+                        className="hit-effect"
+                        initial={{ scale: 0, opacity: 1 }}
+                        animate={{ scale: 3, opacity: 0 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                      >
+                        HIT!
+                      </motion.div>
+                    </>
                   )}
                   {item.needsOrder && (
                     <div className="property-indicator">order</div>

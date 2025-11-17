@@ -10,6 +10,10 @@ import SortingGame from "./pages/SortingGame";
 import CodingChallenge from "./components/CodingChallenge";
 import ChallengesList from "./pages/ChallengesList";
 import FlexboxArena from "./pages/FlexboxArena";
+import TicTacToeArena from "./pages/TicTacToeArena";
+import QueensArena from "./pages/QueensArena";
+import ZipGame from "./pages/ZipGame";
+import GridArena from "./pages/GridArena";
 import TargetCursor from "./components/ui/TargetCursor";
 import "./App.css";
 
@@ -45,6 +49,38 @@ function App() {
             element={
               <ProtectedRoute>
                 <FlexboxArena />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/game/tictactoe-arena"
+            element={
+              <ProtectedRoute>
+                <TicTacToeArena />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/game/queens-arena"
+            element={
+              <ProtectedRoute>
+                <QueensArena />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/game/zip-game"
+            element={
+              <ProtectedRoute>
+                <ZipGame />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/game/grid-arena"
+            element={
+              <ProtectedRoute>
+                <GridArena />
               </ProtectedRoute>
             }
           />

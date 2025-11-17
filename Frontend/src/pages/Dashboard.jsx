@@ -43,7 +43,59 @@ const Dashboard = () => {
         testCases: new Array(8).fill(null) // 8 levels
       };
 
-      filteredGames = [...filteredGames, flexboxArena];
+      // Add Tic-Tac-Toe Arena as a static game
+      const ticTacToeArena = {
+        id: 'tictactoe-arena',
+        name: 'Tic-Tac-Toe Arena',
+        description: 'Challenge the AI in a classic game of Tic-Tac-Toe with strategic gameplay!',
+        difficulty: 'EASY',
+        category: 'GRAPH',
+        xpReward: 500,
+        timeLimit: 600, // 10 minutes
+        isActive: true,
+        testCases: new Array(1).fill(null) // 1 game
+      };
+
+      // Add Queens Arena as a static game
+      const queensArena = {
+        id: 'queens-arena',
+        name: 'Queens Arena',
+        description: 'Master the classic N-Queens problem with beautiful visuals and learn backtracking!',
+        difficulty: 'MEDIUM',
+        category: 'GRAPH',
+        xpReward: 1000,
+        timeLimit: 1200, // 20 minutes
+        isActive: true,
+        testCases: new Array(3).fill(null) // 3 difficulty levels
+      };
+
+      // Add Zip Game (LinkedIn-style path puzzle)
+      const zipGame = {
+        id: 'zip-game',
+        name: 'Zip Game',
+        description: 'Connect numbers 1 to N by moving through adjacent cells. New puzzle every time!',
+        difficulty: 'EASY',
+        category: 'GRAPH',
+        xpReward: 400,
+        timeLimit: 300,
+        isActive: true,
+        testCases: new Array(10).fill(null)
+      };
+
+      // Add Grid Arena (CSS Grid learning game)
+      const gridArena = {
+        id: 'grid-arena',
+        name: 'Grid Arena',
+        description: 'Master CSS Grid layout by growing your carrot garden! 28 levels of grid mastery.',
+        difficulty: 'MEDIUM',
+        category: 'CSS_FLEXBOX',
+        xpReward: 1500,
+        timeLimit: 3600,
+        isActive: true,
+        testCases: new Array(28).fill(null)
+      };
+
+      filteredGames = [...filteredGames, flexboxArena, ticTacToeArena, queensArena, zipGame, gridArena];
 
       if (selectedCategory !== "ALL") {
         filteredGames = filteredGames.filter(
@@ -79,6 +131,14 @@ const Dashboard = () => {
       navigate("/game/sorting-showdown");
     } else if (gameName === "Flexbox Arena") {
       navigate("/game/flexbox-arena");
+    } else if (gameName === "Tic-Tac-Toe Arena") {
+      navigate("/game/tictactoe-arena");
+    } else if (gameName === "Queens Arena") {
+      navigate("/game/queens-arena");
+    } else if (gameName === "Zip Game") {
+      navigate("/game/zip-game");
+    } else if (gameName === "Grid Arena") {
+      navigate("/game/grid-arena");
     } else {
       navigate(`/game/${gameId}`);
     }

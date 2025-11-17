@@ -19,8 +19,9 @@ const TargetCursor = ({ targetSelector = '.cursor-target', spinDuration = 2, hid
     gsap.to(cursorRef.current, {
       x,
       y,
-      duration: 0.1,
-      ease: 'power3.out'
+      duration: 0.08,
+      ease: 'power2.out',
+      overwrite: 'auto'
     });
   }, []);
 
@@ -68,8 +69,15 @@ const TargetCursor = ({ targetSelector = '.cursor-target', spinDuration = 2, hid
 
     createSpinTimeline();
 
-    const moveHandler = e => moveCursor(e.clientX, e.clientY);
-    window.addEventListener('mousemove', moveHandler);
+    let moveThrottle = null;
+    const moveHandler = e => {
+      if (!cursorRef.current || moveThrottle) return;
+      moveThrottle = requestAnimationFrame(() => {
+        moveCursor(e.clientX, e.clientY);
+        moveThrottle = null;
+      });
+    };
+    window.addEventListener('mousemove', moveHandler, { passive: true });
 
     const scrollHandler = () => {
       if (!activeTarget || !cursorRef.current) return;
@@ -109,14 +117,23 @@ const TargetCursor = ({ targetSelector = '.cursor-target', spinDuration = 2, hid
     //----------------------------------------------------------------
 
     const enterHandler = e => {
+      if (!e.target) return;
+      
       const directTarget = e.target;
       const allTargets = [];
       let current = directTarget;
-      while (current && current !== document.body) {
-        if (current.matches(targetSelector)) {
-          allTargets.push(current);
+      
+      // Improved target detection with error handling
+      try {
+        while (current && current !== document.body && current.nodeType === 1) {
+          if (current.matches && current.matches(targetSelector)) {
+            allTargets.push(current);
+          }
+          current = current.parentElement;
         }
-        current = current.parentElement;
+      } catch (error) {
+        console.warn('Target detection error:', error);
+        return;
       }
 
       const target = allTargets[0] || null;

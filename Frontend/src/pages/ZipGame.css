@@ -1,0 +1,442 @@
+.zip-game {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.zip-game.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.back-button,
+.control-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover,
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.game-stats {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+}
+
+.stat svg {
+  color: #ffd700;
+}
+
+.progress-text {
+  color: #4ade80;
+  font-weight: 700;
+}
+
+.number-progress {
+  color: #ffd700;
+  font-weight: 700;
+}
+
+.game-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.game-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 3rem;
+  padding: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: center;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.game-info h1 {
+  font-size: 3rem;
+  color: #ffd700;
+  margin: 0;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.game-info p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.rules-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.rules-box h3 {
+  color: #ffd700;
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+}
+
+.rules-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rules-box li {
+  padding: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rules-box li:last-child {
+  border-bottom: none;
+}
+
+.current-number {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(74, 222, 128, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.current-number span {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+}
+
+.number-display {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  min-width: 80px;
+  text-align: center;
+}
+
+.board-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-board {
+  display: grid;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(255, 215, 0, 0.3);
+  width: 550px;
+  height: 550px;
+  max-width: 90vw;
+  max-height: 90vw;
+}
+
+.game-cell {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  user-select: none;
+}
+
+.game-cell.empty-cell {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+.game-cell.start {
+  border-color: rgba(74, 222, 128, 0.8);
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
+}
+
+.game-cell.end {
+  border-color: rgba(255, 215, 0, 0.8);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.game-cell:hover {
+  background: linear-gradient(135deg, #34495e, #3d566e);
+  transform: scale(1.05);
+}
+
+.game-cell.next-number {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(74, 222, 128, 0.9);
+  }
+}
+
+.game-cell.in-path {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  border-color: #16a34a;
+  color: white;
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.6);
+}
+
+.cell-number {
+  position: relative;
+  z-index: 1;
+}
+
+.path-connector {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.path-connector::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 215, 0, 0.8);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.victory-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.victory-card {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 30px;
+  padding: 3rem;
+  text-align: center;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.victory-icon {
+  font-size: 5rem;
+  color: #4ade80;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 10px 30px rgba(74, 222, 128, 0.5));
+}
+
+.victory-card h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.victory-card p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+}
+
+.victory-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.victory-stats div {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.victory-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.victory-actions button {
+  padding: 1rem 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.victory-actions button.primary {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  border-color: transparent;
+}
+
+.victory-actions button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.victory-actions button.primary:hover {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  box-shadow: 0 10px 30px rgba(74, 222, 128, 0.5);
+}
+
+@media (max-width: 1024px) {
+  .game-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .game-info {
+    text-align: center;
+  }
+
+  .game-board {
+    width: 500px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .game-stats {
+    justify-content: space-between;
+  }
+
+  .game-controls {
+    justify-content: center;
+  }
+
+  .game-container {
+    padding: 1.5rem;
+  }
+
+  .game-info h1 {
+    font-size: 2.5rem;
+  }
+
+  .game-board {
+    width: 380px;
+    height: 380px;
+    gap: 8px;
+    padding: 20px;
+  }
+
+  .game-cell {
+    font-size: 1.5rem;
+  }
+
+  .number-display {
+    font-size: 2rem;
+  }
+
+  .victory-card {
+    padding: 2rem;
+    margin: 1rem;
+  }
+
+  .victory-icon {
+    font-size: 3.5rem;
+  }
+
+  .victory-card h2 {
+    font-size: 2rem;
+  }
+}

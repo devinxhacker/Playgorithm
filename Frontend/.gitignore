@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Grid Garden node_modules (already copied to public)
+public/gridgarden/node_modules/

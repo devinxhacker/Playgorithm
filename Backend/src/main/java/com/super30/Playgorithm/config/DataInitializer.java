@@ -110,6 +110,19 @@ public class DataInitializer implements CommandLineRunner {
                         Arrays.asList(
                                 new Game.TestCase("const greeting = 'Hello, World!';", "const greeting = 'Hello, World!';", false, 10)
                         )
+                ),
+                createGame(
+                        "Tic-Tac-Toe Arena",
+                        "Master game theory and Minimax algorithm through strategic gameplay!",
+                        "GAME_THEORY",
+                        "MEDIUM",
+                        750,
+                        0,
+                        "Learn the Minimax algorithm and play against an unbeatable AI. Two modes: Learn the strategy step-by-step, or Play to test your skills!",
+                        "// Tic-Tac-Toe with Minimax Algorithm\nfunction minimax(board, isMaximizing) {\n  // Your code here\n}",
+                        Arrays.asList(
+                                new Game.TestCase("Perfect play always results in a tie", "TIE", false, 50)
+                        )
                 )
         );
 

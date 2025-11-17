@@ -1,0 +1,107 @@
+﻿.grid-arena-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Rajdhani', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.grid-arena-header {
+  padding: 1.5rem 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 100;
+}
+
+.grid-arena-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(74, 222, 128, 0.1), transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(102, 126, 234, 0.1), transparent 50%);
+  pointer-events: none;
+}
+
+.back-button-grid {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Rajdhani', sans-serif;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.back-button-grid:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.grid-arena-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.grid-arena-icon {
+  font-size: 2rem;
+  color: #4ade80;
+  filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.5));
+}
+
+.grid-arena-title h1 {
+  color: white;
+  font-size: 2rem;
+  margin: 0;
+  font-family: 'Orbitron', 'Rajdhani', sans-serif;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grid-arena-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .grid-arena-header {
+    padding: 1rem;
+  }
+  
+  .grid-arena-title h1 {
+    font-size: 1.5rem;
+  }
+  
+  .grid-arena-icon {
+    font-size: 1.5rem;
+  }
+}

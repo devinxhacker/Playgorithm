@@ -16,4 +16,10 @@
 /References/
 /Reference_UI_Components_Library.txt
 
+/tictactoe-main/
+
+# Ignore Postman collections (optional - uncomment if you don't want to push)
+# *.postman_collection.json
+# *.postman_environment.json
+
 # Note: each sub-project (Frontend/ Backend/) can manage their own ignores.
