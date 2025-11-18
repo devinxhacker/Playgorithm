@@ -82,7 +82,7 @@ public class GameService {
     }
 
     public List<String> getSupportedLanguages() {
-        return List.of("cpp", "cpp17", "cpp20", "java", "python", "python3", "javascript", "c");
+        return languageTemplateService.getSupportedLanguageKeys();
     }
 
     public boolean isLanguageSupported(String language) {

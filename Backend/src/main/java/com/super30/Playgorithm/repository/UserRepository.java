@@ -4,6 +4,7 @@ import com.super30.Playgorithm.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -12,4 +13,8 @@ public interface UserRepository extends MongoRepository<User, String> {
     Optional<User> findByEmail(String email);
     Boolean existsByUsername(String username);
     Boolean existsByEmail(String email);
+    boolean existsByRolesContaining(String role);
+    long countByIsActiveTrue();
+    long countByRolesContaining(String role);
+    List<User> findTop5ByOrderByCreatedAtDesc();
 }

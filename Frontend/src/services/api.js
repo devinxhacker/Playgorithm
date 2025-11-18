@@ -25,6 +25,8 @@ api.interceptors.request.use(
 export const authAPI = {
   signup: (data) => api.post('/auth/signup', data),
   login: (data) => api.post('/auth/login', data),
+  adminSignup: (data) => api.post('/auth/admin/signup', data),
+  adminLogin: (data) => api.post('/auth/admin/login', data),
 };
 
 // User API
@@ -50,6 +52,18 @@ export const gameAPI = {
 export const leaderboardAPI = {
   getGlobalLeaderboard: (limit = 100) => api.get(`/leaderboard/global?limit=${limit}`),
   getGameLeaderboard: (gameId, limit = 100) => api.get(`/leaderboard/game/${gameId}?limit=${limit}`),
+};
+
+export const adminAPI = {
+  getStats: () => api.get('/admin/stats'),
+  getUsers: () => api.get('/admin/users'),
+  updateUser: (userId, data) => api.put(`/admin/users/${userId}`, data),
+  deleteUser: (userId) => api.delete(`/admin/users/${userId}`),
+  getGames: () => api.get('/admin/games'),
+  createGame: (data) => api.post('/admin/games', data),
+  updateGame: (gameId, data) => api.put(`/admin/games/${gameId}`, data),
+  updateGameStatus: (gameId, isActive) => api.patch(`/admin/games/${gameId}/status`, {}, { params: { isActive } }),
+  deleteGame: (gameId) => api.delete(`/admin/games/${gameId}`),
 };
 
 export default api;

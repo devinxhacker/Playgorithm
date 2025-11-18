@@ -109,6 +109,25 @@
   transform: translateY(-2px);
 }
 
+.admin-link-button {
+  background: rgba(123, 97, 255, 0.2);
+  color: #b5a7ff;
+  border: 1px solid rgba(123, 97, 255, 0.6);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-link-button:hover {
+  background: rgba(123, 97, 255, 0.3);
+  transform: translateY(-2px);
+}
+
 .category-filter {
   display: flex;
   gap: 10px;
