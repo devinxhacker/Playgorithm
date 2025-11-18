@@ -1,11 +1,16 @@
 package com.super30.Playgorithm.config;
 
 import com.super30.Playgorithm.model.Game;
+import com.super30.Playgorithm.model.User;
 import com.super30.Playgorithm.repository.GameRepository;
+import com.super30.Playgorithm.repository.UserRepository;
 import com.super30.Playgorithm.service.LanguageTemplateService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,14 +22,56 @@ import java.util.Map;
 public class DataInitializer implements CommandLineRunner {
 
     private final GameRepository gameRepository;
-    private final LanguageTemplateService languageTemplateService;
+        private final UserRepository userRepository;
+        private final LanguageTemplateService languageTemplateService;
+        private final PasswordEncoder passwordEncoder;
+
+        @Value("${admin.bootstrap.username:}")
+        private String bootstrapAdminUsername;
+
+        @Value("${admin.bootstrap.email:}")
+        private String bootstrapAdminEmail;
+
+        @Value("${admin.bootstrap.password:}")
+        private String bootstrapAdminPassword;
 
     @Override
     public void run(String... args) throws Exception {
+                bootstrapAdmin();
         if (gameRepository.count() == 0) {
             initializeGames();
         }
     }
+
+        private void bootstrapAdmin() {
+                if (userRepository.existsByRolesContaining("ROLE_ADMIN")) {
+                        return;
+                }
+
+                if (!StringUtils.hasText(bootstrapAdminUsername) ||
+                                !StringUtils.hasText(bootstrapAdminEmail) ||
+                                !StringUtils.hasText(bootstrapAdminPassword)) {
+                        System.out.println("⚠️ Admin bootstrap skipped. Missing credentials in properties.");
+                        return;
+                }
+
+                User admin = new User();
+                admin.setUsername(bootstrapAdminUsername);
+                admin.setEmail(bootstrapAdminEmail);
+                admin.setFullName("Playgorithm Admin");
+                admin.setPassword(passwordEncoder.encode(bootstrapAdminPassword));
+                admin.setRoles(Arrays.asList("ROLE_ADMIN", "ROLE_USER"));
+                admin.setAchievementIds(new java.util.ArrayList<>());
+                admin.setIsActive(true);
+                admin.setLevel(1);
+                admin.setTotalXP(0);
+                admin.setGamesPlayed(0);
+                admin.setGamesWon(0);
+                admin.setWinRate(0.0);
+
+                userRepository.save(admin);
+                System.out.println("✅ Bootstrapped default admin user '" + bootstrapAdminUsername + "'");
+        }
 
     private void initializeGames() {
         List<Game> games = Arrays.asList(
@@ -159,7 +206,7 @@ public class DataInitializer implements CommandLineRunner {
         game.setStarterCodeTemplates(starterCodeTemplates);
         
         // Set supported languages
-        game.setSupportedLanguages(Arrays.asList("cpp", "cpp17", "cpp20", "java", "python", "python3", "javascript", "c"));
+                game.setSupportedLanguages(Arrays.asList("cpp", "cpp17", "cpp20", "java", "python", "python3", "javascript", "c"));
         game.setIsActive(true);
         return game;
     }

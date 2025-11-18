@@ -43,6 +43,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/games/public/**").permitAll()
                         .requestMatchers("/ws/**").permitAll()
+                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -69,6 +70,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @SuppressWarnings("deprecation")
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(passwordEncoder());
         authProvider.setUserDetailsService(userDetailsService);

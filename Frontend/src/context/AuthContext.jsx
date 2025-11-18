@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { authAPI, userAPI } from '../services/api';
 
@@ -28,9 +28,10 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   };
 
-  const login = async (credentials) => {
+  const login = async (credentials, options = {}) => {
     try {
-      const response = await authAPI.login(credentials);
+      const endpoint = options.isAdmin ? authAPI.adminLogin : authAPI.login;
+      const response = await endpoint(credentials);
       const { token, ...userData } = response.data;
       localStorage.setItem('token', token);
       setUser(userData);
@@ -46,9 +47,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = async (userData) => {
+  const signup = async (userData, options = {}) => {
     try {
-      const response = await authAPI.signup(userData);
+      const endpoint = options.isAdmin ? authAPI.adminSignup : authAPI.signup;
+      const response = await endpoint(userData);
       const { token, ...user } = response.data;
       localStorage.setItem('token', token);
       setUser(user);
@@ -74,11 +76,17 @@ export const AuthProvider = ({ children }) => {
     setUser(updatedUser);
   };
 
+  const isAdmin = useMemo(() => {
+    if (!user || !user.roles) return false;
+    return user.roles.includes('ROLE_ADMIN');
+  }, [user]);
+
   return (
     <AuthContext.Provider
       value={{
         user,
         isAuthenticated,
+        isAdmin,
         loading,
         login,
         signup,

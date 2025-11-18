@@ -12,4 +12,5 @@ public interface GameRepository extends MongoRepository<Game, String> {
     List<Game> findByDifficulty(String difficulty);
     List<Game> findByIsActiveTrue();
     List<Game> findByCategoryAndDifficulty(String category, String difficulty);
+    long countByIsActiveTrue();
 }

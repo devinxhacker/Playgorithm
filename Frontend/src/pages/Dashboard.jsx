@@ -10,12 +10,13 @@ import {
   FaClock,
   FaCode,
   FaPlay,
+  FaShieldAlt,
 } from "react-icons/fa";
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, logout, isAdmin } = useAuth();
   const [games, setGames] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("ALL");
@@ -200,6 +201,14 @@ const Dashboard = () => {
           <button onClick={logout} className="logout-button cursor-target">
             Logout
           </button>
+          {isAdmin && (
+            <button
+              onClick={() => navigate("/admin")}
+              className="admin-link-button cursor-target"
+            >
+              <FaShieldAlt /> Admin Panel
+            </button>
+          )}
         </div>
       </div>
 

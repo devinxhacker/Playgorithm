@@ -2,7 +2,9 @@ package com.super30.Playgorithm.service;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -212,6 +214,10 @@ public class LanguageTemplateService {
                 "{\"version\": \"gcc 9.4.0\", \"extension\": \".c\", \"compile\": \"gcc -o solution solution.c\", \"run\": \"./solution\", \"timeout\": 5, \"memory\": 256}");
 
         return configs;
+    }
+
+    public List<String> getSupportedLanguageKeys() {
+        return new ArrayList<>(getDefaultStarterCodeTemplates("default").keySet());
     }
 
     public String getStarterCodeForLanguage(String language, String problemType) {
