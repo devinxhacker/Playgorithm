@@ -146,16 +146,17 @@ public class DataInitializer implements CommandLineRunner {
                         )
                 ),
                 createGame(
-                        "Speed Typing: Variables",
-                        "Type the correct code as fast as possible!",
-                        "SPEED_TYPING",
-                        "EASY",
-                        200,
-                        120,
-                        "Type: const greeting = 'Hello, World!';",
+                        "Speed Debugging: Bug Hunt",
+                        "Race through syntax, logic, and runtime gauntlets to stabilize production before the clock hits zero!",
+                        "DEBUGGING",
+                        "MEDIUM",
+                        900,
+                        900,
+                        "Fix 30 bite-sized bugs across Syntax Sprint, Logic Lab, and Runtime Rumble levels.",
                         "",
                         Arrays.asList(
-                                new Game.TestCase("const greeting = 'Hello, World!';", "const greeting = 'Hello, World!';", false, 10)
+                                new Game.TestCase("Levels", "3", false, 10),
+                                new Game.TestCase("Bugs per level", "10", false, 10)
                         )
                 ),
                 createGame(

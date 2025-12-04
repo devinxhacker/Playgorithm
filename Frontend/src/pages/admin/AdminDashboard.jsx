@@ -497,7 +497,7 @@ const AdminDashboard = () => {
                         <option value="GRAPH">Graph</option>
                         <option value="DYNAMIC_PROGRAMMING">Dynamic Programming</option>
                         <option value="CODE_GOLF">Code Golf</option>
-                        <option value="SPEED_TYPING">Speed Typing</option>
+                        <option value="DEBUGGING">Speed Debugging</option>
                         <option value="CSS_FLEXBOX">CSS Flexbox</option>
                       </select>
                     </label>

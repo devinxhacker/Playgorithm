@@ -187,41 +187,60 @@ const ZipGame = () => {
     return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
   };
 
+  const getNextNumberFromPath = (pathCoords, grid) => {
+    if (!grid || pathCoords.length === 0) return 1;
+    let expected = 1;
+    for (const [row, col] of pathCoords) {
+      const value = grid[row][col];
+      if (value !== null && value === expected) {
+        expected += 1;
+      }
+    }
+    return expected;
+  };
+
   const handleMouseDown = (row, col, value) => {
     if (isComplete) return;
     
-    if (value === 1) {
-      setIsDragging(true);
-      setPath([[row, col]]);
-      setCurrentNumber(2);
-    }
+    // Can only start from cell 1
+    if (value !== 1) return;
+    
+    setIsDragging(true);
+    const startingPath = [[row, col]];
+    setPath(startingPath);
+    setCurrentNumber(getNextNumberFromPath(startingPath, currentPuzzle.grid));
   };
 
   const handleMouseEnter = (row, col, value) => {
-    if (!isDragging || isComplete) return;
-    
-    // Check if already visited
-    if (isInPath(row, col)) return;
+    if (!isDragging || isComplete || path.length === 0) return;
+
+    const existingIndex = getPathIndex(row, col);
+    if (existingIndex >= 0) {
+      const trimmedPath = path.slice(0, existingIndex + 1);
+      setPath(trimmedPath);
+      setCurrentNumber(getNextNumberFromPath(trimmedPath, currentPuzzle.grid));
+      return;
+    }
 
     // Check if it's adjacent to the last cell
     const lastCell = path[path.length - 1];
     if (!isAdjacent(lastCell, [row, col])) return;
 
+    // Only allow numbered cells in the next expected order
+    if (value !== null && value !== currentNumber) return;
+
     const newPath = [...path, [row, col]];
     setPath(newPath);
 
-    // If this cell has a number, check if it's the next in sequence
-    let nextNum = currentNumber;
-    if (value !== null && value === currentNumber) {
-      nextNum = currentNumber + 1;
-      setCurrentNumber(nextNum);
-    }
+    const nextNum = getNextNumberFromPath(newPath, currentPuzzle.grid);
+    setCurrentNumber(nextNum);
 
-    // Check if puzzle is complete: all cells visited AND reached maxNumber
+    // Check if puzzle is complete: all cells visited AND found all numbered cells in sequence
     const totalCells = currentPuzzle.size * currentPuzzle.size;
-    const hasReachedMaxNumber = (value === maxNumber) || (nextNum > maxNumber);
+    const hasVisitedAllCells = newPath.length === totalCells;
+    const hasCompletedSequence = nextNum > maxNumber;
     
-    if (newPath.length === totalCells && hasReachedMaxNumber) {
+    if (hasVisitedAllCells && hasCompletedSequence) {
       setIsComplete(true);
       setStreak(streak + 1);
       setIsDragging(false);
@@ -277,7 +296,7 @@ const ZipGame = () => {
           </div>
           <div className="stat">
             <span className="number-progress">
-              Num: {currentNumber - 1}/{maxNumber}
+              Found: {currentNumber - 1}/{maxNumber}
             </span>
           </div>
           <div className="stat">
@@ -343,18 +362,9 @@ const ZipGame = () => {
                     onMouseDown={() => handleMouseDown(rowIndex, colIndex, value)}
                     onMouseEnter={() => handleMouseEnter(rowIndex, colIndex, value)}
                     onMouseUp={handleMouseUp}
+                    onMouseLeave={() => {}}
                     onTouchStart={() => handleMouseDown(rowIndex, colIndex, value)}
-                    onTouchMove={(e) => {
-                      const touch = e.touches[0];
-                      const element = document.elementFromPoint(touch.clientX, touch.clientY);
-                      if (element && element.dataset.row && element.dataset.col) {
-                        handleMouseEnter(
-                          parseInt(element.dataset.row),
-                          parseInt(element.dataset.col),
-                          parseInt(element.dataset.value)
-                        );
-                      }
-                    }}
+                    onTouchMove={() => handleMouseEnter(rowIndex, colIndex, value)}
                     onTouchEnd={handleMouseUp}
                     data-row={rowIndex}
                     data-col={colIndex}
