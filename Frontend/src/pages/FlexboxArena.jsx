@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -16,6 +16,105 @@ import {
 } from 'react-icons/fa';
 import { GiSwordman } from 'react-icons/gi';
 import './FlexboxArena.css';
+
+const buildBaseFlexStyles = () => ({
+  display: 'flex',
+  width: '100%',
+  height: '100%',
+  justifyContent: 'flex-start',
+  alignItems: 'stretch',
+  flexDirection: 'row',
+  flexWrap: 'nowrap'
+});
+
+const getTargetStyles = (level) => {
+  const styles = buildBaseFlexStyles();
+
+  switch (level.targetProperty) {
+    case 'justify-content':
+      styles.justifyContent = level.correctValue;
+      break;
+    case 'align-items':
+      styles.alignItems = level.correctValue;
+      break;
+    case 'both':
+      styles.justifyContent = 'center';
+      styles.alignItems = 'center';
+      break;
+    case 'column-center':
+      styles.flexDirection = 'column';
+      styles.justifyContent = 'center';
+      styles.alignItems = 'center';
+      break;
+    case 'column-end':
+      styles.flexDirection = 'column';
+      styles.justifyContent = 'flex-end';
+      styles.alignItems = 'center';
+      break;
+    case 'flex-direction':
+      styles.flexDirection = level.correctValue;
+      break;
+    case 'flex-wrap':
+      styles.flexWrap = level.correctValue;
+      styles.alignContent = 'flex-start';
+      break;
+    case 'align-content':
+      styles.flexWrap = 'wrap';
+      styles.alignContent = level.correctValue;
+      styles.justifyContent = 'center';
+      break;
+    case 'flex-grow':
+      styles.alignItems = 'stretch';
+      break;
+    case 'align-self':
+      styles.alignItems = 'center';
+      break;
+    case 'master':
+      styles.flexDirection = 'column';
+      styles.flexWrap = 'wrap';
+      styles.justifyContent = 'center';
+      styles.alignItems = 'center';
+      styles.alignContent = 'center';
+      break;
+    default:
+      styles.justifyContent = styles.justifyContent || 'flex-start';
+      styles.alignItems = styles.alignItems || 'stretch';
+  }
+
+  if (level.targetProperty === 'column-center' || level.targetProperty === 'column-end') {
+    styles.flexWrap = 'nowrap';
+  }
+
+  return styles;
+};
+
+const getGoalItemStyles = (item, level) => {
+  const styles = {};
+
+  if (item.needsOrder) {
+    if (typeof item.orderValue !== 'undefined') {
+      styles.order = item.orderValue;
+    } else if (level.targetProperty === 'order') {
+      const numericOrder = parseInt(level.correctValue, 10);
+      if (!Number.isNaN(numericOrder)) {
+        styles.order = numericOrder;
+      }
+    } else if (level.targetProperty === 'complex-order') {
+      styles.order = item.orderValue || 0;
+    }
+  }
+
+  if (item.needsAlignSelf && level.targetProperty === 'align-self') {
+    styles.alignSelf = level.correctValue;
+  }
+
+  if (item.needsFlexGrow && level.targetProperty === 'flex-grow') {
+    const growValue = Number(level.correctValue);
+    styles.flexGrow = Number.isNaN(growValue) ? 1 : growValue;
+  }
+
+  return styles;
+};
 
 const FlexboxArena = () => {
   const navigate = useNavigate();
@@ -468,6 +567,7 @@ const FlexboxArena = () => {
   ];
 
   const currentLevelData = levels[currentLevel - 1];
+  const targetLayerStyles = useMemo(() => getTargetStyles(currentLevelData), [currentLevelData]);
 
   useEffect(() => {
     // Ensure user can't access locked levels
@@ -557,15 +657,8 @@ const FlexboxArena = () => {
     setShowHint(false);
   };
 
-  const getFlexboxStyles = () => {
-    const styles = { 
-      display: 'flex',
-      minHeight: '200px',
-      width: '100%',
-      position: 'relative'
-    };
-    
-    // Parse user code to extract CSS properties
+  const playerFlexStyles = useMemo(() => {
+    const styles = buildBaseFlexStyles();
     const lines = userCode.split('\n');
     lines.forEach(line => {
       const [property, value] = line.split(':').map(s => s?.trim());
@@ -575,11 +668,10 @@ const FlexboxArena = () => {
         styles[camelCaseProperty] = cleanValue;
       }
     });
-    
     return styles;
-  };
+  }, [userCode]);
 
-  const getItemStyles = (item) => {
+  const getPlayerItemStyles = (item) => {
     const styles = {};
     
     // Parse individual item properties from user code
@@ -648,7 +740,7 @@ const FlexboxArena = () => {
             </select>
           </div>
           <span className="level-badge">Level {currentLevel}/{levels.length}</span>
-          <div className="progress-bar">
+          {/* <div className="progress-bar">
             <div 
               className="progress-fill" 
               style={{ width: `${(completedLevels.size / levels.length) * 100}%` }}
@@ -657,7 +749,7 @@ const FlexboxArena = () => {
               className="progress-accessible" 
               style={{ width: `${(Math.max(completedLevels.size + 1, 1) / levels.length) * 100}%` }}
             />
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -811,75 +903,87 @@ const FlexboxArena = () => {
             </div>
             <div 
               className={`battlefield ${isCorrect ? 'correct' : ''}`}
-              style={getFlexboxStyles()}
             >
-              {/* Render targets first (background) */}
-              {currentLevelData.targets.map((target, index) => (
+              {currentLevelData.items.length > 0 && (
                 <div 
-                  key={`target-${index}`} 
-                  className={`target ${target.type} ${target.position} ${target.color || ''} ${isCorrect ? 'target-hit' : ''}`}
-                  data-color={target.color}
-                />
-              ))}
-              
-              {/* Render warriors with real-time movement */}
-              {currentLevelData.items.map((item) => (
-                <motion.div
-                  key={`${currentLevel}-${item.id}`}
-                  className={`game-item ${item.type} ${item.color || ''} ${item.size || ''} ${isCorrect ? 'warrior-success' : ''}`}
-                  style={getItemStyles(item)}
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={{ 
-                    scale: isCorrect ? 1.1 : 1, 
-                    rotate: 0,
-                    transition: { 
-                      type: "spring", 
-                      stiffness: 300,
-                      damping: 20
-                    }
-                  }}
-                  layout
-                  transition={{ 
-                    layout: { 
-                      type: "spring", 
-                      stiffness: 400, 
-                      damping: 30 
-                    } 
-                  }}
-                  data-color={item.color}
+                  className={`battlefield-layer target-layer ${isCorrect ? 'targets-complete' : ''}`}
+                  style={targetLayerStyles}
+                  aria-hidden="true"
                 >
-                  <GiSwordman />
-                  {isCorrect && (
-                    <>
-                      <motion.div 
-                        className="success-indicator-small"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        <FaCheckCircle />
-                      </motion.div>
-                      <motion.div 
-                        className="hit-effect"
-                        initial={{ scale: 0, opacity: 1 }}
-                        animate={{ scale: 3, opacity: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                      >
-                        HIT!
-                      </motion.div>
-                    </>
-                  )}
-                  {item.needsOrder && (
-                    <div className="property-indicator">order</div>
-                  )}
-                  {item.needsAlignSelf && (
-                    <div className="property-indicator">align-self</div>
-                  )}
-                  {item.needsFlexGrow && (
-                    <div className="property-indicator">flex-grow</div>
-                  )}
-                </motion.div>
-              ))}
+                  {currentLevelData.items.map((item) => (
+                    <div
+                      key={`target-${currentLevel}-${item.id}`}
+                      className={`target ${item.color || ''} ${isCorrect ? 'target-hit' : ''}`}
+                      style={getGoalItemStyles(item, currentLevelData)}
+                    >
+                      <FaStar className="target-icon" />
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div 
+                className="battlefield-layer warrior-layer"
+                style={playerFlexStyles}
+              >
+                {currentLevelData.items.map((item) => (
+                  <motion.div
+                    key={`${currentLevel}-${item.id}`}
+                    className={`game-item ${item.type} ${item.color || ''} ${item.size || ''} ${isCorrect ? 'warrior-success' : ''}`}
+                    style={getPlayerItemStyles(item)}
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ 
+                      scale: isCorrect ? 1.1 : 1, 
+                      rotate: 0,
+                      transition: { 
+                        type: "spring", 
+                        stiffness: 300,
+                        damping: 20
+                      }
+                    }}
+                    layout
+                    transition={{ 
+                      layout: { 
+                        type: "spring", 
+                        stiffness: 400, 
+                        damping: 30 
+                      } 
+                    }}
+                    data-color={item.color}
+                  >
+                    <GiSwordman />
+                    {isCorrect && (
+                      <>
+                        <motion.div 
+                          className="success-indicator-small"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          <FaCheckCircle />
+                        </motion.div>
+                        <motion.div 
+                          className="hit-effect"
+                          initial={{ scale: 0, opacity: 1 }}
+                          animate={{ scale: 3, opacity: 0 }}
+                          transition={{ duration: 0.6, ease: "easeOut" }}
+                        >
+                          HIT!
+                        </motion.div>
+                      </>
+                    )}
+                    {item.needsOrder && (
+                      <div className="property-indicator">order</div>
+                    )}
+                    {item.needsAlignSelf && (
+                      <div className="property-indicator">align-self</div>
+                    )}
+                    {item.needsFlexGrow && (
+                      <div className="property-indicator">flex-grow</div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
             </div>
             
 

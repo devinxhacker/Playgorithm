@@ -44,13 +44,15 @@ const ChallengesList = () => {
       description: 'Write the shortest code possible to solve FizzBuzz!'
     },
     {
-      id: 'speed-typing-variables',
-      name: 'Speed Typing: Variables',
-      difficulty: 'EASY',
-      timeLimit: 120, // 2 minutes
-      xpReward: 200,
-      testCount: 1,
-      description: 'Type the correct code as fast as possible!'
+      id: 'speed-debugging-bugs',
+      name: 'Speed Debugging: Bug Hunt',
+      difficulty: 'MEDIUM',
+      timeLimit: 900, // 15 minutes across levels
+      xpReward: 900,
+      testCount: 30,
+      description: 'Race through three levels of syntax, logic, and runtime fixes with 10 bugs each.',
+      interactive: true,
+      customRoute: '/game/speed-debugging'
     }
   ];
 
@@ -60,8 +62,12 @@ const ChallengesList = () => {
     return `${mins} min${secs > 0 ? ` ${secs}s` : ''}`;
   };
 
-  const handleChallengeClick = (challengeId) => {
-    navigate(`/coding-challenge/${challengeId}`);
+  const handleChallengeClick = (challenge) => {
+    if (challenge.customRoute) {
+      navigate(challenge.customRoute);
+      return;
+    }
+    navigate(`/coding-challenge/${challenge.id}`);
   };
 
   return (
@@ -113,7 +119,7 @@ const ChallengesList = () => {
 
             <button 
               className="play-button cursor-target"
-              onClick={() => handleChallengeClick(challenge.id)}
+              onClick={() => handleChallengeClick(challenge)}
             >
               <FaPlay /> Play Now
             </button>

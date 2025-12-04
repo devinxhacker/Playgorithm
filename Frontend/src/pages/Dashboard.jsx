@@ -122,7 +122,7 @@ const Dashboard = () => {
     "GRAPH",
     "DYNAMIC_PROGRAMMING",
     "CODE_GOLF",
-    "SPEED_TYPING",
+    "DEBUGGING",
     "CSS_FLEXBOX",
   ];
 
@@ -140,6 +140,8 @@ const Dashboard = () => {
       navigate("/game/zip-game");
     } else if (gameName === "Grid Arena") {
       navigate("/game/grid-arena");
+    } else if (gameName === "Speed Debugging: Bug Hunt") {
+      navigate("/game/speed-debugging");
     } else {
       navigate(`/game/${gameId}`);
     }

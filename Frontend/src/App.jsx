@@ -18,6 +18,7 @@ import TicTacToeArena from "./pages/TicTacToeArena";
 import QueensArena from "./pages/QueensArena";
 import ZipGame from "./pages/ZipGame";
 import GridArena from "./pages/GridArena";
+import SpeedDebugging from "./pages/SpeedDebugging";
 import TargetCursor from "./components/ui/TargetCursor";
 import "./App.css";
 
@@ -95,6 +96,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <GridArena />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/game/speed-debugging"
+            element={
+              <ProtectedRoute>
+                <SpeedDebugging />
               </ProtectedRoute>
             }
           />

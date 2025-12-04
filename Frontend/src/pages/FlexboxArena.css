@@ -36,134 +36,130 @@
   border-radius: 15px;
   border: 2px solid rgba(123, 97, 255, 0.4);
   backdrop-filter: blur(15px);
-  box-shadow: 
-    0 0 30px rgba(123, 97, 255, 0.3),
-    inset 0 0 20px rgba(0, 0, 0, 0.2);
-  position: relative;
-}
+  /* Targets */
+  .target {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.35);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+    opacity: 0.85;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+    animation: target-pulse 2.6s ease-in-out infinite;
+  }
 
-.arena-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 2px,
-      rgba(123, 97, 255, 0.1) 2px,
-      rgba(123, 97, 255, 0.1) 4px
-    );
-  border-radius: 15px;
-  opacity: 0.3;
-  pointer-events: none;
-}
+  .target::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.6);
+    transition: transform 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+  }
 
-.back-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  background: rgba(123, 97, 255, 0.2);
-  color: #7b61ff;
-  border: 1px solid #7b61ff;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-}
+  .target::after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
 
-.back-button:hover {
-  background: rgba(123, 97, 255, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(123, 97, 255, 0.4);
-}
+  .target-icon {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4));
+  }
 
-.arena-title {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  flex: 1;
-  justify-content: center;
-}
+  .target.red {
+    border-color: rgba(255, 71, 87, 0.8);
+    box-shadow: inset 0 0 15px rgba(255, 71, 87, 0.35);
+  }
 
-.arena-icon {
-  font-size: 2.5rem;
-  color: #00ff88;
-  filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.6));
-}
+  .target.yellow {
+    border-color: rgba(255, 165, 2, 0.8);
+    box-shadow: inset 0 0 15px rgba(255, 165, 2, 0.35);
+  }
 
-.arena-title h1 {
-  font-family: 'Orbitron', monospace;
-  font-size: 2rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, #7b61ff 0%, #ff6b9d 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0;
-}
+  .target.green {
+    border-color: rgba(46, 213, 115, 0.8);
+    box-shadow: inset 0 0 15px rgba(46, 213, 115, 0.35);
+  }
 
-.level-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-}
+  .target.blue {
+    border-color: rgba(55, 66, 250, 0.8);
+    box-shadow: inset 0 0 15px rgba(55, 66, 250, 0.35);
+  }
 
-.level-selector {
-  margin-bottom: 8px;
-}
+  .target.purple {
+    border-color: rgba(165, 94, 234, 0.8);
+    box-shadow: inset 0 0 15px rgba(165, 94, 234, 0.35);
+  }
 
-.level-dropdown {
-  background: rgba(26, 31, 58, 0.9);
-  color: white;
-  border: 1px solid rgba(123, 97, 255, 0.3);
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  min-width: 150px;
-}
+  .target.orange {
+    border-color: rgba(255, 99, 72, 0.8);
+    box-shadow: inset 0 0 15px rgba(255, 99, 72, 0.35);
+  }
 
-.level-dropdown:focus {
-  outline: none;
-  border-color: #7b61ff;
-  box-shadow: 0 0 0 2px rgba(123, 97, 255, 0.2);
-}
+  .target.target-hit {
+    border-color: #00ff88;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.7);
+    transform: scale(1.08);
+    opacity: 1;
+    animation: target-success 1.4s ease-in-out infinite;
+  }
 
-.level-dropdown option:disabled {
-  opacity: 0.5;
-}
+  .target.target-hit::before {
+    background: #ff004c;
+    border-color: #ff004c;
+    animation: bullseye-hit 0.6s ease-in-out infinite;
+  }
 
-.level-badge {
-  background: linear-gradient(135deg, #00ff88, #00d4ff);
-  color: #0a0e27;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
-}
+  .target.target-hit::after {
+    border-color: rgba(0, 255, 136, 0.6);
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+  }
 
-.progress-bar {
-  width: 120px;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-  overflow: hidden;
-  position: relative;
-}
+  @keyframes target-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.95;
+    }
+  }
 
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #00ff88, #00d4ff);
-  border-radius: 3px;
-  transition: width 0.5s ease;
+  @keyframes bullseye-hit {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes target-success {
+    from {
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+    }
+    to {
+      box-shadow: 0 0 40px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 212, 255, 0.4);
+    }
+  }
   position: absolute;
   top: 0;
   left: 0;
@@ -570,7 +566,7 @@
     linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
   border: 2px solid rgba(123, 97, 255, 0.4);
   border-radius: 12px;
-  min-height: 300px;
+  min-height: 360px;
   position: relative;
   overflow: hidden;
   margin-bottom: 15px;
@@ -616,6 +612,38 @@
     radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.2) 0%, transparent 50%),
     linear-gradient(135deg, rgba(0, 50, 30, 0.8), rgba(15, 23, 42, 0.9));
   animation: battlefield-success 2s ease-in-out;
+}
+
+.battlefield-layer {
+  width: 100%;
+  height: 100%;
+  min-height: 310px;
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.warrior-layer {
+  position: relative;
+  z-index: 2;
+}
+
+.target-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.85;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 15px rgba(123, 97, 255, 0.35));
+}
+
+.target-layer.targets-complete {
+  opacity: 1;
+  filter: drop-shadow(0 0 35px rgba(0, 255, 136, 0.6));
 }
 
 @keyframes battlefield-success {
@@ -822,371 +850,106 @@
 
 /* Targets */
 .target {
-  position: absolute;
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  z-index: 1;
-  border: 3px solid;
-  animation: target-pulse 2s ease-in-out infinite;
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 60%);
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.8;
-  background: radial-gradient(
-    circle,
-    transparent 0%,
-    transparent 15%,
-    rgba(255, 255, 255, 0.1) 15%,
-    rgba(255, 255, 255, 0.1) 25%,
-    transparent 25%,
-    transparent 35%,
-    rgba(255, 255, 255, 0.1) 35%,
-    rgba(255, 255, 255, 0.1) 45%,
-    transparent 45%
-  );
+  position: relative;
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+  animation: target-pulse 2.6s ease-in-out infinite;
 }
 
 .target::before {
   content: '';
-  width: 12px;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.8);
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.6);
+  transition: transform 0.4s ease, background 0.4s ease, border-color 0.4s ease;
 }
 
 .target::after {
   content: '';
   position: absolute;
-  width: 6px;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.4);
+  width: 70%;
+  height: 70%;
   border-radius: 50%;
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Target Colors */
+.target-icon {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4));
+}
+
 .target.red {
-  background: radial-gradient(circle, rgba(255, 71, 87, 0.2), rgba(255, 71, 87, 0.05));
-  border-color: rgba(255, 71, 87, 0.6);
+  border-color: rgba(255, 71, 87, 0.8);
+  box-shadow: inset 0 0 15px rgba(255, 71, 87, 0.35);
 }
 
 .target.yellow {
-  background: radial-gradient(circle, rgba(255, 165, 2, 0.2), rgba(255, 165, 2, 0.05));
-  border-color: rgba(255, 165, 2, 0.6);
+  border-color: rgba(255, 165, 2, 0.8);
+  box-shadow: inset 0 0 15px rgba(255, 165, 2, 0.35);
 }
 
 .target.green {
-  background: radial-gradient(circle, rgba(46, 213, 115, 0.2), rgba(46, 213, 115, 0.05));
-  border-color: rgba(46, 213, 115, 0.6);
+  border-color: rgba(46, 213, 115, 0.8);
+  box-shadow: inset 0 0 15px rgba(46, 213, 115, 0.35);
 }
 
 .target.blue {
-  background: radial-gradient(circle, rgba(55, 66, 250, 0.2), rgba(55, 66, 250, 0.05));
-  border-color: rgba(55, 66, 250, 0.6);
+  border-color: rgba(55, 66, 250, 0.8);
+  box-shadow: inset 0 0 15px rgba(55, 66, 250, 0.35);
 }
 
 .target.purple {
-  background: radial-gradient(circle, rgba(165, 94, 234, 0.2), rgba(165, 94, 234, 0.05));
-  border-color: rgba(165, 94, 234, 0.6);
+  border-color: rgba(165, 94, 234, 0.8);
+  box-shadow: inset 0 0 15px rgba(165, 94, 234, 0.35);
 }
 
 .target.orange {
-  background: radial-gradient(circle, rgba(255, 99, 72, 0.2), rgba(255, 99, 72, 0.05));
-  border-color: rgba(255, 99, 72, 0.6);
+  border-color: rgba(255, 99, 72, 0.8);
+  box-shadow: inset 0 0 15px rgba(255, 99, 72, 0.35);
 }
 
-/* Target Positions */
-.target.end {
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+.target.target-hit {
+  border-color: #00ff88;
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.7);
+  transform: scale(1.08);
+  opacity: 1;
+  animation: target-success 1.4s ease-in-out infinite;
 }
 
-.target.center {
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+.target.target-hit::before {
+  background: #ff004c;
+  border-color: #ff004c;
+  animation: bullseye-hit 0.6s ease-in-out infinite;
 }
 
-.target.start {
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+.target.target-hit::after {
+  border-color: rgba(0, 255, 136, 0.6);
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
 }
-
-.target.top {
-  left: 50%;
-  top: 20px;
-  transform: translateX(-50%);
-}
-
-.target.bottom {
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
-}
-
-.target.center-center {
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 90px;
-  height: 90px;
-  animation: center-glow 2s ease-in-out infinite;
-}
-
-/* Specific positioning for different layouts */
-.target.v-center-1 {
-  left: 20%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.v-center-2 {
-  left: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.v-center-3 {
-  left: 80%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.around-1 {
-  left: 25%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.around-2 {
-  right: 25%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.evenly-1 {
-  left: 16.66%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.evenly-2 {
-  left: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.evenly-3 {
-  right: 16.66%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Column layout targets */
-.target.col-1 {
-  left: 50%;
-  top: 30%;
-  transform: translateX(-50%);
-}
-
-.target.col-2 {
-  left: 50%;
-  top: 70%;
-  transform: translateX(-50%);
-}
-
-.target.col-center-1 {
-  left: 50%;
-  top: 40%;
-  transform: translateX(-50%);
-}
-
-.target.col-center-2 {
-  left: 50%;
-  top: 60%;
-  transform: translateX(-50%);
-}
-
-.target.col-end-1 {
-  left: 50%;
-  bottom: 40px;
-  transform: translateX(-50%);
-}
-
-.target.col-end-2 {
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
-}
-
-/* Reverse order targets */
-.target.rev-1 {
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.rev-2 {
-  right: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.rev-3 {
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.col-rev-1 {
-  left: 50%;
-  bottom: 30%;
-  transform: translateX(-50%);
-}
-
-.target.col-rev-2 {
-  left: 50%;
-  top: 30%;
-  transform: translateX(-50%);
-}
-
-/* Order targets */
-.target.order-1,
-.target.neg-order-1,
-.target.complex-1 {
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.order-2,
-.target.neg-order-2,
-.target.complex-2 {
-  left: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.order-3,
-.target.neg-order-3,
-.target.complex-3 {
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Baseline targets */
-.target.baseline-1 {
-  left: 20%;
-  bottom: 60px;
-  transform: none;
-}
-
-.target.baseline-2 {
-  left: 50%;
-  bottom: 40px;
-  transform: translateX(-50%);
-}
-
-.target.baseline-3 {
-  right: 20%;
-  bottom: 50px;
-  transform: none;
-}
-
-/* Individual alignment targets */
-.target.self-1 {
-  left: 20%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.self-2 {
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
-}
-
-.target.self-3 {
-  right: 20%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Flex grow targets */
-.target.grow-1 {
-  left: 10%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.target.grow-2 {
-  left: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 200px;
-}
-
-.target.grow-3 {
-  right: 10%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Master challenge targets */
-.target.master-1,
-.target.master-2,
-.target.master-3 {
-  left: 40%;
-  transform: translateX(-50%);
-}
-
-.target.master-4,
-.target.master-5,
-.target.master-6 {
-  right: 40%;
-  transform: translateX(50%);
-}
-
-.target.master-1 { top: 20%; }
-.target.master-2 { top: 40%; }
-.target.master-3 { top: 60%; }
-.target.master-4 { top: 20%; }
-.target.master-5 { top: 40%; }
-.target.master-6 { top: 60%; }
 
 @keyframes target-pulse {
   0%, 100% {
     transform: scale(1);
-    opacity: 0.6;
+    opacity: 0.7;
   }
   50% {
     transform: scale(1.05);
-    opacity: 0.8;
+    opacity: 0.95;
   }
-}
-
-.target.target-hit {
-  animation: target-success 1s ease-in-out infinite alternate;
-  opacity: 1;
-  border-color: #00ff88 !important;
-}
-
-.target.target-hit::before {
-  background: #ff0000 !important;
-  border-color: #ff0000 !important;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.4);
-  animation: bullseye-hit 0.5s ease-in-out;
-}
-
-.target.target-hit::after {
-  background: #ff0000 !important;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 1);
 }
 
 @keyframes bullseye-hit {
@@ -1203,43 +966,10 @@
 
 @keyframes target-success {
   from {
-    border-color: #00ff88;
-    background: radial-gradient(
-      circle,
-      rgba(255, 0, 0, 0.2) 0%,
-      rgba(255, 0, 0, 0.1) 15%,
-      rgba(0, 255, 136, 0.1) 15%,
-      rgba(0, 255, 136, 0.1) 25%,
-      transparent 25%,
-      transparent 35%,
-      rgba(0, 255, 136, 0.1) 35%,
-      rgba(0, 255, 136, 0.1) 45%,
-      transparent 45%
-    );
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
   }
   to {
-    border-color: #00ff88;
-    background: radial-gradient(
-      circle,
-      rgba(255, 0, 0, 0.4) 0%,
-      rgba(255, 0, 0, 0.2) 15%,
-      rgba(0, 255, 136, 0.2) 15%,
-      rgba(0, 255, 136, 0.2) 25%,
-      transparent 25%,
-      transparent 35%,
-      rgba(0, 255, 136, 0.2) 35%,
-      rgba(0, 255, 136, 0.2) 45%,
-      transparent 45%
-    );
-  }
-}
-
-@keyframes center-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(255, 20, 147, 0.9);
+    box-shadow: 0 0 40px rgba(0, 255, 136, 0.8), 0 0 60px rgba(0, 212, 255, 0.4);
   }
 }
 

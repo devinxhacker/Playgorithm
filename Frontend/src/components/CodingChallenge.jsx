@@ -12,7 +12,6 @@ const CodingChallenge = () => {
   const [code, setCode] = useState('');
   const [challenge, setChallenge] = useState(null);
   const [testResults, setTestResults] = useState([]);
-  const [isRunning, setIsRunning] = useState(false);
   const [runningTests, setRunningTests] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -62,16 +61,6 @@ const CodingChallenge = () => {
       problemStatement: 'Write the shortest code possible to solve FizzBuzz! Print numbers 1 to 100, but replace multiples of 3 with "Fizz", multiples of 5 with "Buzz", and multiples of both with "FizzBuzz".',
       testCases: [
         { input: 'n = 15', expectedOutput: '1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzz' }
-      ]
-    },
-    'speed-typing-variables': {
-      name: 'Speed Typing: Variables',
-      difficulty: 'EASY',
-      timeLimit: 120, // 2 minutes
-      xpReward: 200,
-      problemStatement: 'Type the correct code as fast as possible! Declare and initialize variables according to the given specifications.',
-      testCases: [
-        { input: 'Declare integer x = 10, string name = "John"', expectedOutput: 'int x = 10; string name = "John";' }
       ]
     }
   };
