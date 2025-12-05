@@ -7,7 +7,7 @@ import com.super30.Playgorithm.dto.AdminUserUpdateRequest;
 import com.super30.Playgorithm.model.Game;
 import com.super30.Playgorithm.service.AdminService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +18,14 @@ import java.util.List;
 @RequestMapping("/api/admin")
 @CrossOrigin(origins = "*")
 @PreAuthorize("hasRole('ADMIN')")
-@RequiredArgsConstructor
 public class AdminController {
 
     private final AdminService adminService;
+
+    @Autowired
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @GetMapping("/stats")
     public ResponseEntity<AdminDashboardStats> getDashboardStats() {

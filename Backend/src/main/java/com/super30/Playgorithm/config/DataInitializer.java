@@ -5,7 +5,7 @@ import com.super30.Playgorithm.model.User;
 import com.super30.Playgorithm.repository.GameRepository;
 import com.super30.Playgorithm.repository.UserRepository;
 import com.super30.Playgorithm.service.LanguageTemplateService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,13 +18,23 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-@RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
     private final GameRepository gameRepository;
-        private final UserRepository userRepository;
-        private final LanguageTemplateService languageTemplateService;
-        private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final LanguageTemplateService languageTemplateService;
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public DataInitializer(GameRepository gameRepository, 
+                          UserRepository userRepository,
+                          LanguageTemplateService languageTemplateService,
+                          PasswordEncoder passwordEncoder) {
+        this.gameRepository = gameRepository;
+        this.userRepository = userRepository;
+        this.languageTemplateService = languageTemplateService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
         @Value("${admin.bootstrap.username:}")
         private String bootstrapAdminUsername;

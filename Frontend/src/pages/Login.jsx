@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { FaShieldAlt } from "react-icons/fa";
 import "./Login.css";
 
 const Login = () => {
@@ -168,6 +169,18 @@ const Login = () => {
                 {isLogin ? "Sign Up" : "Login"}
               </button>
             </p>
+            
+            {isLogin && (
+              <div className="admin-login-link">
+                <p>
+                  Are you an admin?
+                  <a href="/admin/login" className="admin-link cursor-target">
+                    <FaShieldAlt className="admin-icon" />
+                    Admin Login
+                  </a>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </motion.div>

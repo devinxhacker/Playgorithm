@@ -427,55 +427,66 @@
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  background: rgba(5, 7, 19, 0.65);
   backdrop-filter: blur(16px);
+  background: rgba(5, 7, 19, 0.65);
+  margin-top: 20px;
 }
 
 .table-header,
 .table-row {
   display: grid;
-  grid-template-columns: 2fr 1.2fr 1fr 0.8fr 1.2fr;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-  gap: 12px;
-  padding: 14px 18px;
+  grid-template-columns: 2.5fr 1.5fr 1fr 0.8fr 1.8fr;
+  gap: 16px;
+  padding: 16px 20px;
   align-items: center;
+  min-height: 60px;
 }
 
 .table-header {
-.game-list li:hover {
-  transform: translateX(6px);
-  border-color: rgba(123, 97, 255, 0.4);
-}
   background: rgba(255, 255, 255, 0.04);
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .table-row {
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
 }
 
-.role-pill {
-  display: inline-flex;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(123, 97, 255, 0.2);
-  margin-right: 6px;
-  font-size: 0.75rem;
+.table-row:hover {
+  background: rgba(123, 97, 255, 0.08);
+  transform: translateX(4px);
 }
 
-.status.active {
-  color: #2ed573;
+.table-row:last-child {
+  border-bottom: none;
 }
 
-.status.inactive {
-  color: #ff6b9d;
+/* Column specific styles */
+.col-user,
+.col-roles,
+.col-status,
+.col-xp,
+.col-actions {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
 
-.row-actions {
-  display: inline-flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.col-user {
+  min-width: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  width: 100%;
 }
 
 .games-content {
@@ -605,4 +616,376 @@
   .admin-tab-bar {
     width: 100%;
   }
+}
+
+
+/* Theme Variables */
+:root[data-theme="dark"] {
+  --admin-bg-primary: #050813;
+  --admin-bg-card: rgba(11, 16, 36, 0.78);
+  --admin-text-primary: #f5f5ff;
+  --admin-text-secondary: rgba(255, 255, 255, 0.7);
+  --admin-border: rgba(255, 255, 255, 0.12);
+  --admin-shadow: rgba(3, 7, 18, 0.55);
+}
+
+:root[data-theme="light"] {
+  --admin-bg-primary: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  --admin-bg-card: rgba(255, 255, 255, 0.95);
+  --admin-text-primary: #1a1a2e;
+  --admin-text-secondary: rgba(0, 0, 0, 0.7);
+  --admin-border: rgba(0, 0, 0, 0.12);
+  --admin-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Theme Toggle Button in Header */
+.ghost-button.theme-toggle {
+  position: relative;
+  overflow: hidden;
+}
+
+.ghost-button.theme-toggle svg {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.ghost-button.theme-toggle:hover svg {
+  transform: rotate(180deg);
+}
+
+.ghost-button.theme-toggle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(123, 97, 255, 0.3), transparent);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.ghost-button.theme-toggle:hover::before {
+  width: 200%;
+  height: 200%;
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] .admin-dashboard-page {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .admin-dashboard-page::before,
+[data-theme="light"] .admin-dashboard-page::after {
+  opacity: 0.1;
+}
+
+[data-theme="light"] .admin-aurora {
+  opacity: 0.15;
+}
+
+[data-theme="light"] :is(
+  .admin-header,
+  .overview-card,
+  .recent-users,
+  .spotlight-games,
+  .users-panel,
+  .games-panel,
+  .game-form,
+  .game-list,
+  .admin-tab-bar,
+  .search-box
+) {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .admin-header h1,
+[data-theme="light"] .overview-card h3,
+[data-theme="light"] .panel-header h3 {
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .admin-header p,
+[data-theme="light"] .overview-card small,
+[data-theme="light"] .panel-header p {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] .ghost-button,
+[data-theme="light"] .admin-tab {
+  background: rgba(0, 0, 0, 0.04);
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .ghost-button:hover {
+  background: rgba(123, 97, 255, 0.1);
+}
+
+[data-theme="light"] .admin-tab.active {
+  background: linear-gradient(135deg, rgba(123, 97, 255, 0.2), rgba(255, 107, 157, 0.2));
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .table-row {
+  border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .table-row:hover {
+  background: rgba(123, 97, 255, 0.05);
+}
+
+[data-theme="light"] .game-form input,
+[data-theme="light"] .game-form textarea,
+[data-theme="light"] .game-form select,
+[data-theme="light"] .search-box input {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .testcase-card {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .game-list li {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+
+/* User Table Column Styles */
+.col-user,
+.col-roles,
+.col-status,
+.col-xp,
+.col-actions {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.col-user {
+  min-width: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  width: 100%;
+}
+
+.user-info strong {
+  font-size: 0.95rem;
+  color: var(--admin-text-primary, #f5f5ff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-info small {
+  font-size: 0.8rem;
+  color: var(--admin-text-secondary, rgba(255, 255, 255, 0.6));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.roles-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.role-pill {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(123, 97, 255, 0.2);
+  border: 1px solid rgba(123, 97, 255, 0.4);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #b5a7ff;
+}
+
+.col-status {
+  justify-content: center;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status.active {
+  background: rgba(46, 213, 115, 0.15);
+  color: #2ed573;
+  border: 1px solid rgba(46, 213, 115, 0.3);
+}
+
+.status.inactive {
+  background: rgba(255, 99, 132, 0.15);
+  color: #ff6b9d;
+  border: 1px solid rgba(255, 99, 132, 0.3);
+}
+
+.status.active::before {
+  content: '●';
+  font-size: 0.6rem;
+}
+
+.status.inactive::before {
+  content: '●';
+  font-size: 0.6rem;
+}
+
+.col-xp {
+  justify-content: center;
+}
+
+.xp-value {
+  font-weight: 700;
+  color: #ffa801;
+  font-size: 0.9rem;
+}
+
+.col-actions {
+  justify-content: flex-end;
+}
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.action-btn {
+  padding: 8px 12px !important;
+  min-width: auto !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn svg {
+  font-size: 1rem;
+}
+
+.action-btn.ghost-button {
+  background: rgba(123, 97, 255, 0.1);
+  border-color: rgba(123, 97, 255, 0.3);
+}
+
+.action-btn.ghost-button:hover {
+  background: rgba(123, 97, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.action-btn.danger-button {
+  background: rgba(255, 99, 132, 0.1);
+  border-color: rgba(255, 99, 132, 0.3);
+}
+
+.action-btn.danger-button:hover {
+  background: rgba(255, 99, 132, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Responsive Table */
+@media (max-width: 1200px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 2fr 1.2fr 1fr 0.8fr 1.5fr;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  .table-header,
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .table-header {
+    display: none;
+  }
+  
+  .table-row {
+    padding: 20px;
+    gap: 12px;
+  }
+  
+  .col-user,
+  .col-roles,
+  .col-status,
+  .col-xp,
+  .col-actions {
+    justify-content: flex-start;
+  }
+  
+  .col-user::before,
+  .col-roles::before,
+  .col-status::before,
+  .col-xp::before {
+    content: attr(data-label);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-right: 10px;
+    min-width: 80px;
+  }
+  
+  .row-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* Light Mode Table Overrides */
+[data-theme="light"] .user-table {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .table-header {
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.8);
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .table-row {
+  border-bottom-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .table-row:hover {
+  background: rgba(123, 97, 255, 0.05);
+}
+
+[data-theme="light"] .user-info strong {
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .user-info small {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="light"] .role-pill {
+  background: rgba(123, 97, 255, 0.15);
+  color: #6c5ce7;
 }

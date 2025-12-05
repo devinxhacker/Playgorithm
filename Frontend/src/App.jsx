@@ -19,6 +19,7 @@ import QueensArena from "./pages/QueensArena";
 import ZipGame from "./pages/ZipGame";
 import GridArena from "./pages/GridArena";
 import SpeedDebugging from "./pages/SpeedDebugging";
+import MissionariesArena from "./pages/MissionariesArena";
 import TargetCursor from "./components/ui/TargetCursor";
 import "./App.css";
 
@@ -104,6 +105,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <SpeedDebugging />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/game/missionaries-arena"
+            element={
+              <ProtectedRoute>
+                <MissionariesArena />
               </ProtectedRoute>
             }
           />

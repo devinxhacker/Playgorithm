@@ -2,7 +2,7 @@ package com.super30.Playgorithm.security;
 
 import com.super30.Playgorithm.model.User;
 import com.super30.Playgorithm.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +13,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+    @Autowired
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,6 +32,11 @@ public class CustomUserDetailsService implements UserDetailsService {
             roles = List.of("ROLE_USER");
         }
 
+        Boolean isActive = user.getIsActive();
+        if (isActive == null) {
+            isActive = true;
+        }
+
         return org.springframework.security.core.userdetails.User
                 .builder()
                 .username(user.getUsername())
@@ -36,9 +45,9 @@ public class CustomUserDetailsService implements UserDetailsService {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList()))
                 .accountExpired(false)
-                .accountLocked(!user.getIsActive())
+                .accountLocked(!isActive)
                 .credentialsExpired(false)
-                .disabled(!user.getIsActive())
+                .disabled(!isActive)
                 .build();
     }
 }

@@ -16,9 +16,12 @@ import {
   FaArrowLeft,
   FaSearch,
   FaTools,
+  FaMoon,
+  FaSun,
 } from 'react-icons/fa';
 import { adminAPI } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import LoadingScreen from '../../components/ui/LoadingScreen';
 import './AdminDashboard.css';
 
@@ -41,6 +44,7 @@ const blankGameForm = {
 
 const AdminDashboard = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
@@ -290,6 +294,13 @@ const AdminDashboard = () => {
           <p>Monitor system vitals, onboard new challenges, and guide the Playgorithm community.</p>
         </div>
         <div className="admin-header-actions">
+          <button 
+            className="ghost-button theme-toggle cursor-target" 
+            onClick={toggleTheme} 
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {theme === 'dark' ? <FaSun /> : <FaMoon />}
+          </button>
           <button className="ghost-button cursor-target" onClick={fetchAdminData} disabled={refreshing}>
             <FaSync /> {refreshing ? 'Refreshing...' : 'Refresh'}
           </button>
@@ -418,38 +429,60 @@ const AdminDashboard = () => {
 
               <div className="user-table">
                 <div className="table-header">
-                  <span>User</span>
-                  <span>Roles</span>
-                  <span>Status</span>
-                  <span>XP</span>
-                  <span>Actions</span>
+                  <div className="col-user">User</div>
+                  <div className="col-roles">Roles</div>
+                  <div className="col-status">Status</div>
+                  <div className="col-xp">XP</div>
+                  <div className="col-actions">Actions</div>
                 </div>
                 {filteredUsers.map((item) => (
                   <div key={item.id} className="table-row">
-                    <span>
-                      <strong>@{item.username}</strong>
-                      <small>{item.email}</small>
-                    </span>
-                    <span>
-                      {item.roles?.map((role) => (
-                        <span key={role} className="role-pill">{role.replace('ROLE_', '')}</span>
-                      ))}
-                    </span>
-                    <span className={item.isActive ? 'status active' : 'status inactive'}>
-                      {item.isActive ? 'Active' : 'Suspended'}
-                    </span>
-                    <span>{item.totalXP} XP</span>
-                    <span className="row-actions">
-                      <button onClick={() => handleToggleAdmin(item)} className="ghost-button cursor-target">
-                        {isUserAdmin(item.roles) ? 'Remove Admin' : 'Promote Admin'}
-                      </button>
-                      <button onClick={() => handleToggleActive(item)} className="ghost-button cursor-target">
-                        {item.isActive ? <FaToggleOn /> : <FaToggleOff />}
-                      </button>
-                      <button onClick={() => handleDeleteUser(item)} className="danger-button cursor-target">
-                        <FaTrash />
-                      </button>
-                    </span>
+                    <div className="col-user">
+                      <div className="user-info">
+                        <strong>@{item.username}</strong>
+                        <small>{item.email}</small>
+                      </div>
+                    </div>
+                    <div className="col-roles">
+                      <div className="roles-container">
+                        {item.roles?.map((role) => (
+                          <span key={role} className="role-pill">{role.replace('ROLE_', '')}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="col-status">
+                      <span className={item.isActive ? 'status active' : 'status inactive'}>
+                        {item.isActive ? 'Active' : 'Suspended'}
+                      </span>
+                    </div>
+                    <div className="col-xp">
+                      <span className="xp-value">{item.totalXP} XP</span>
+                    </div>
+                    <div className="col-actions">
+                      <div className="row-actions">
+                        <button 
+                          onClick={() => handleToggleAdmin(item)} 
+                          className="action-btn ghost-button cursor-target"
+                          title={isUserAdmin(item.roles) ? 'Remove Admin' : 'Promote Admin'}
+                        >
+                          <FaShieldAlt />
+                        </button>
+                        <button 
+                          onClick={() => handleToggleActive(item)} 
+                          className="action-btn ghost-button cursor-target"
+                          title={item.isActive ? 'Deactivate' : 'Activate'}
+                        >
+                          {item.isActive ? <FaToggleOn /> : <FaToggleOff />}
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteUser(item)} 
+                          className="action-btn danger-button cursor-target"
+                          title="Delete User"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>

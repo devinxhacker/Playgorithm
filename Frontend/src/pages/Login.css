@@ -187,3 +187,43 @@
   color: #ff6b9d;
   text-decoration: underline;
 }
+
+.admin-login-link {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.admin-login-link p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.admin-link {
+  color: #ffd700;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admin-link:hover {
+  color: #ffed4e;
+  text-decoration: underline;
+  transform: translateX(2px);
+}
+
+.admin-icon {
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+.admin-link:hover .admin-icon {
+  transform: scale(1.1);
+}
