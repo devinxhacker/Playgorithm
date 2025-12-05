@@ -1,0 +1,111 @@
+/* Theme Variables */
+:root[data-theme="dark"] {
+  --bg-primary: #050813;
+  --bg-secondary: rgba(11, 16, 36, 0.78);
+  --bg-card: rgba(26, 31, 58, 0.95);
+  --text-primary: #f5f5ff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --border-color: rgba(255, 255, 255, 0.12);
+  --accent-primary: #7b61ff;
+  --accent-secondary: #ff6b9d;
+  --success-color: #2ed573;
+  --danger-color: #ff6384;
+  --shadow-color: rgba(3, 7, 18, 0.55);
+}
+
+:root[data-theme="light"] {
+  --bg-primary: #f8f9fa;
+  --bg-secondary: rgba(255, 255, 255, 0.95);
+  --bg-card: #ffffff;
+  --text-primary: #1a1a2e;
+  --text-secondary: rgba(0, 0, 0, 0.7);
+  --border-color: rgba(0, 0, 0, 0.12);
+  --accent-primary: #6c5ce7;
+  --accent-secondary: #fd79a8;
+  --success-color: #00b894;
+  --danger-color: #d63031;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard-page {
+  min-height: 100vh;
+  padding: 40px 30px 80px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  position: relative;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1) rotate(15deg);
+  border-color: var(--accent-primary);
+}
+
+.theme-toggle-btn svg {
+  font-size: 1.3rem;
+  color: var(--accent-primary);
+}
+
+/* Rest of your existing styles with theme variables... */
+.admin-header {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 25px 45px var(--shadow-color);
+  backdrop-filter: blur(18px);
+  transition: all 0.3s ease;
+}
+
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(123, 97, 255, 0.2);
+  border: 1px solid rgba(123, 97, 255, 0.4);
+  color: var(--accent-primary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.admin-header h1 {
+  margin: 10px 0 5px;
+  font-size: 2rem;
+  color: var(--text-primary);
+}
+
+.admin-header p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Continue with all other styles using CSS variables... */

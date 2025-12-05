@@ -96,7 +96,46 @@ const Dashboard = () => {
         testCases: new Array(28).fill(null)
       };
 
-      filteredGames = [...filteredGames, flexboxArena, ticTacToeArena, queensArena, zipGame, gridArena];
+      // Add Missionaries & Cannibals Arena (Classic AI puzzle)
+      const missionariesArena = {
+        id: 'missionaries-arena',
+        name: 'Missionaries & Cannibals',
+        description: 'Solve the classic river-crossing puzzle! Learn constraint satisfaction and state-space search.',
+        difficulty: 'MEDIUM',
+        category: 'GRAPH',
+        xpReward: 1200,
+        timeLimit: 900,
+        isActive: true,
+        testCases: new Array(11).fill(null) // 11 optimal moves
+      };
+
+      // Add Algorithm Visualizer Hub
+      const algorithmVisualizer = {
+        id: 'algorithm-visualizer',
+        name: 'Algorithm Visualizer',
+        description: 'Explore 8 interactive algorithm visualizations: sorting, pathfinding, recursion, and more!',
+        difficulty: 'MEDIUM',
+        category: 'ALL',
+        xpReward: 2000,
+        timeLimit: 0, // No time limit
+        isActive: true,
+        testCases: new Array(8).fill(null) // 8 visualizers
+      };
+
+      // Add Chess Arena
+      const chessArena = {
+        id: 'chess-arena',
+        name: 'Chess Arena',
+        description: 'Play chess against AI with Minimax algorithm! Learn mode explains alpha-beta pruning.',
+        difficulty: 'HARD',
+        category: 'GRAPH',
+        xpReward: 2500,
+        timeLimit: 0,
+        isActive: true,
+        testCases: new Array(3).fill(null) // 3 difficulty levels
+      };
+
+      filteredGames = [...filteredGames, flexboxArena, ticTacToeArena, queensArena, zipGame, gridArena, missionariesArena, algorithmVisualizer, chessArena];
 
       if (selectedCategory !== "ALL") {
         filteredGames = filteredGames.filter(
@@ -142,6 +181,12 @@ const Dashboard = () => {
       navigate("/game/grid-arena");
     } else if (gameName === "Speed Debugging: Bug Hunt") {
       navigate("/game/speed-debugging");
+    } else if (gameName === "Missionaries & Cannibals") {
+      navigate("/game/missionaries-arena");
+    } else if (gameName === "Algorithm Visualizer") {
+      navigate("/visualizer");
+    } else if (gameName === "Chess Arena") {
+      navigate("/game/chess-arena");
     } else {
       navigate(`/game/${gameId}`);
     }

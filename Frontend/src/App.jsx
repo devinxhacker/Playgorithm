@@ -20,6 +20,9 @@ import ZipGame from "./pages/ZipGame";
 import GridArena from "./pages/GridArena";
 import SpeedDebugging from "./pages/SpeedDebugging";
 import MissionariesArena from "./pages/MissionariesArena";
+import AlgorithmVisualizerHub from "./pages/AlgorithmVisualizerHub";
+import AlgorithmVisualizerFrame from "./pages/AlgorithmVisualizerFrame";
+import ChessArena from "./pages/ChessArena";
 import TargetCursor from "./components/ui/TargetCursor";
 import "./App.css";
 
@@ -113,6 +116,30 @@ function App() {
             element={
               <ProtectedRoute>
                 <MissionariesArena />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/game/chess-arena"
+            element={
+              <ProtectedRoute>
+                <ChessArena />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/visualizer"
+            element={
+              <ProtectedRoute>
+                <AlgorithmVisualizerHub />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/visualizer/:visualizerId"
+            element={
+              <ProtectedRoute>
+                <AlgorithmVisualizerFrame />
               </ProtectedRoute>
             }
           />

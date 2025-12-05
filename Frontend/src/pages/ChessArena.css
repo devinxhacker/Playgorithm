@@ -1,0 +1,450 @@
+.chess-arena {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+  padding: 2rem;
+  color: white;
+}
+
+.chess-header {
+  max-width: 1400px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  position: relative;
+}
+
+.chess-header .back-button {
+  position: absolute;
+  left: 0;
+}
+
+.chess-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00ff88, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-5px);
+}
+
+.chess-header .back-button {
+  position: absolute;
+  left: 0;
+}
+
+/* Mode Selection */
+.mode-selection {
+  max-width: 1000px;
+  margin: 4rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 3rem;
+}
+
+.mode-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.mode-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 255, 136, 0.5);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+}
+
+.mode-card svg {
+  color: #00ff88;
+  margin-bottom: 1.5rem;
+}
+
+.mode-card h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.mode-card p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+/* Difficulty Selection */
+.difficulty-selection {
+  max-width: 1200px;
+  margin: 4rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.difficulty-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.difficulty-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.difficulty-card.easy {
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.difficulty-card.easy:hover {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: rgba(0, 255, 136, 0.6);
+}
+
+.difficulty-card.medium {
+  border-color: rgba(255, 193, 7, 0.3);
+}
+
+.difficulty-card.medium:hover {
+  background: rgba(255, 193, 7, 0.1);
+  border-color: rgba(255, 193, 7, 0.6);
+}
+
+.difficulty-card.impossible {
+  border-color: rgba(255, 0, 128, 0.3);
+}
+
+.difficulty-card.impossible:hover {
+  background: rgba(255, 0, 128, 0.1);
+  border-color: rgba(255, 0, 128, 0.6);
+}
+
+.difficulty-card h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.difficulty-card p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Learn Mode */
+.learn-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.learn-section {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 3rem;
+}
+
+.learn-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #00ff88;
+}
+
+.learn-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+}
+
+.algorithm-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.algorithm-box h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #00d4ff;
+}
+
+.algorithm-box ol, .algorithm-box ul {
+  margin-left: 1.5rem;
+  line-height: 2;
+}
+
+.algorithm-box li {
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.algorithm-box pre {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  color: #00ff88;
+  margin: 1rem 0;
+}
+
+.start-play-button {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #00ff88, #00d4ff);
+  border: none;
+  border-radius: 12px;
+  color: #0a0e27;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+}
+
+.start-play-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+}
+
+/* Game Container */
+.chess-game-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.game-info {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.player-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.player-info svg {
+  color: #00ff88;
+}
+
+.player-info span {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.captured-pieces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  min-height: 40px;
+}
+
+.captured-pieces span {
+  font-size: 1.5rem;
+}
+
+.game-status {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 1rem;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 12px;
+  color: #00d4ff;
+}
+
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.control-btn {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.control-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.control-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Chess Board */
+.chess-board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chess-board {
+  display: inline-block;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: #312e2b;
+}
+
+.chess-row {
+  display: flex;
+}
+
+.chess-square {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chess-square.light {
+  background: #f0d9b5;
+}
+
+.chess-square.dark {
+  background: #b58863;
+}
+
+.chess-square.selected {
+  background: #baca44 !important;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.chess-square.possible {
+  background: rgba(0, 255, 136, 0.3) !important;
+}
+
+.chess-square.last-move {
+  background: rgba(255, 255, 0, 0.3) !important;
+}
+
+.chess-square:hover {
+  filter: brightness(1.1);
+}
+
+.chess-piece {
+  font-size: 50px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.piece-white {
+  color: #ffffff;
+  text-shadow: 
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    0 0 5px rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.5));
+}
+
+.piece-black {
+  color: #2c2c2c;
+  text-shadow: 
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff,
+    0 0 3px rgba(0, 0, 0, 0.8);
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.7));
+}
+
+.move-indicator {
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 255, 136, 0.6);
+  border-radius: 50%;
+  position: absolute;
+}
+
+@media (max-width: 1200px) {
+  .chess-game-container {
+    grid-template-columns: 1fr;
+  }
+
+  .game-info {
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .chess-square {
+    width: 60px;
+    height: 60px;
+  }
+
+  .chess-piece {
+    font-size: 40px;
+  }
+
+  .mode-selection,
+  .difficulty-selection {
+    grid-template-columns: 1fr;
+  }
+}

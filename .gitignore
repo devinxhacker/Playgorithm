@@ -1,4 +1,4 @@
-# Root .gitignore - make the repository show only Frontend/ and Backend/
+# Root .gitignore - make the repository show only Frontend/, Backend/, and AlgorithmVisualizer-master/
 # Ignore everything by default
 /*
 
@@ -10,16 +10,37 @@
 !/Frontend/**
 !/Backend/
 !/Backend/**
+!/AlgorithmVisualizer-master/
+!/AlgorithmVisualizer-master/**
 
 # Ignore editor and reference artifacts
 .vscode/
 /References/
 /Reference_UI_Components_Library.txt
 
+# Ignore other game folders
 /tictactoe-main/
+/gridgarden-master/
+/MediChain/
+/Missionaries-and-Cannibals-Game-master/
+
+# Ignore documentation files in root
+/*.md
+/AlgorithmVisualizer-master/*.md
+
+# AlgorithmVisualizer specific ignores
+/AlgorithmVisualizer-master/node_modules/
+/AlgorithmVisualizer-master/.next/
+/AlgorithmVisualizer-master/build/
+/AlgorithmVisualizer-master/out/
+/AlgorithmVisualizer-master/package-lock.json
+/AlgorithmVisualizer-master/.github/
+/AlgorithmVisualizer-master/Assets/
+/AlgorithmVisualizer-master/README.md
+/AlgorithmVisualizer-master/LICENSE
 
 # Ignore Postman collections (optional - uncomment if you don't want to push)
 # *.postman_collection.json
 # *.postman_environment.json
 
-# Note: each sub-project (Frontend/ Backend/) can manage their own ignores.
+# Note: each sub-project (Frontend/ Backend/ AlgorithmVisualizer-master/) can manage their own ignores.
