@@ -599,7 +599,7 @@ function getPossibleMoves(state):
               <img src="/boat.png" alt="boat" className="boat-icon" />
               <div className="boat-passengers">
                 {boatPassengers.missionaries + boatPassengers.cannibals === 0 ? (
-                  <span className="empty-boat">Empty</span>
+                  <span className=""></span>
                 ) : (
                   <>
                     {renderPeople(boatPassengers.missionaries, "missionary", "boat")}
