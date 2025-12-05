@@ -15,7 +15,7 @@
 
 .game-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 1.5rem 2rem;
   background: rgba(0, 0, 0, 0.3);
@@ -23,6 +23,31 @@
   border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   flex-wrap: wrap;
   gap: 1rem;
+  position: relative;
+}
+
+.game-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.game-icon {
+  font-size: 2rem;
+  color: #4ade80;
+  filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.5));
+}
+
+.game-title h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
 .back-button,
@@ -39,6 +64,11 @@
   font-size: 1rem;
   font-weight: 600;
   transition: all 0.3s ease;
+}
+
+.game-header .back-button {
+  position: absolute;
+  left: 2rem;
 }
 
 .back-button:hover,

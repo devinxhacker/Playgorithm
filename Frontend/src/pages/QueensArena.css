@@ -23,7 +23,7 @@
 /* Header */
 .arena-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 1.5rem 2rem;
   background: rgba(0, 0, 0, 0.3);
@@ -48,6 +48,8 @@
   font-size: 1rem;
   font-weight: 600;
   transition: all 0.3s ease;
+  position: absolute;
+  left: 2rem;
 }
 
 .back-button:hover {
@@ -69,12 +71,14 @@
 
 .arena-title h1 {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 800;
   margin: 0;
   background: linear-gradient(135deg, #ffd700, #ffed4e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
 .learn-progress {

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaTrophy, FaClock, FaUndo, FaCheckCircle } from "react-icons/fa";
+import { GiSwordman } from "react-icons/gi";
 import "./ZipGame.css";
 
 // Pre-defined puzzle set (10 different puzzles)
@@ -283,6 +284,11 @@ const ZipGame = () => {
         <button onClick={() => navigate("/dashboard")} className="back-button cursor-target">
           <FaArrowLeft /> Back
         </button>
+        
+        <div className="game-title">
+          <GiSwordman className="game-icon" />
+          <h1>Zip Game</h1>
+        </div>
 
         <div className="game-stats">
           <div className="stat">

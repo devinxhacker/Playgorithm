@@ -17,6 +17,7 @@
   border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   position: relative;
   z-index: 100;
@@ -49,7 +50,8 @@
   font-weight: 600;
   font-family: 'Rajdhani', sans-serif;
   transition: all 0.3s ease;
-  position: relative;
+  position: absolute;
+  left: 2rem;
   z-index: 1;
 }
 
@@ -78,11 +80,13 @@
   font-size: 2rem;
   margin: 0;
   font-family: 'Orbitron', 'Rajdhani', sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   background: linear-gradient(135deg, #4ade80, #22c55e);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
 .grid-arena-iframe {
