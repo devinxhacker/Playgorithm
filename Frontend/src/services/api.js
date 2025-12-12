@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+export const API_BASE_URL = 'http://localhost:8080/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -52,6 +52,11 @@ export const gameAPI = {
 export const leaderboardAPI = {
   getGlobalLeaderboard: (limit = 100) => api.get(`/leaderboard/global?limit=${limit}`),
   getGameLeaderboard: (gameId, limit = 100) => api.get(`/leaderboard/game/${gameId}?limit=${limit}`),
+};
+
+export const copilotAPI = {
+  createSession: (payload) => api.post('/copilot/session', payload),
+  publishEvent: (payload) => api.post('/copilot/event', payload),
 };
 
 export const adminAPI = {
