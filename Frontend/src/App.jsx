@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { CopilotProvider } from "./context/CopilotContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import Login from "./pages/Login";
@@ -24,17 +25,24 @@ import AlgorithmVisualizerHub from "./pages/AlgorithmVisualizerHub";
 import AlgorithmVisualizerFrame from "./pages/AlgorithmVisualizerFrame";
 import ChessArena from "./pages/ChessArena";
 import TargetCursor from "./components/ui/TargetCursor";
+import CopilotBridge from "./components/copilot/CopilotBridge";
+import CopilotActionRouter from "./components/copilot/CopilotActionRouter";
+import FloatingCopilot from "./components/copilot/FloatingCopilot";
 import "./App.css";
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <TargetCursor 
-          spinDuration={2}
-          hideDefaultCursor={true}
-        />
-        <Routes>
+      <CopilotProvider>
+        <Router>
+          <TargetCursor 
+            spinDuration={2}
+            hideDefaultCursor={true}
+          />
+          <CopilotBridge />
+          <CopilotActionRouter />
+          <FloatingCopilot />
+          <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin/login" element={<AdminLogin />} />
@@ -176,8 +184,9 @@ function App() {
             }
           />
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Router>
+          </Routes>
+        </Router>
+      </CopilotProvider>
     </AuthProvider>
   );
 }

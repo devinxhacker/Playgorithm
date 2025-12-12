@@ -4,6 +4,7 @@ import com.super30.Playgorithm.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -40,8 +41,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/games/public/**").permitAll()
+                .requestMatchers("/api/copilot/**").permitAll()
+                .requestMatchers("/api/error", "/error").permitAll()
+                    .requestMatchers("/api/games/public/**").permitAll()
                         .requestMatchers("/ws/**").permitAll()
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
