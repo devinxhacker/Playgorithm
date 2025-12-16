@@ -2,9 +2,15 @@ import PropTypes from 'prop-types';
 import './Button.css';
 
 const Button = ({ children, variant = 'primary', size = 'medium', onClick, disabled, className = '' }) => {
+  const sizeMap = {
+    small: 'sm',
+    medium: 'md',
+    large: 'lg'
+  };
+  
   return (
     <button
-      className={`custom-button ${variant} ${size} ${className}`}
+      className={`gaming-btn gaming-btn--${variant} gaming-btn--${sizeMap[size]} ${className} cursor-target`}
       onClick={onClick}
       disabled={disabled}
     >

@@ -2,10 +2,11 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+  padding-left: 5%;
 }
 
 .login-background {
@@ -15,66 +16,69 @@
   right: 0;
   bottom: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
-.stars {
+.auth-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+}
+
+.auth-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVQImWNgYGD4z8DAwAAACgAD/tCdUAAAAABJRU5ErkJggg==') repeat;
-  animation: twinkle 200s linear infinite;
-}
-
-.twinkling {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVQImWP4////fwYGBgYACgAD/YpJUQAAAABJRU5ErkJggg==') repeat;
-  animation: twinkling 100s linear infinite;
-  opacity: 0.3;
-}
-
-@keyframes twinkle {
-  from { transform: translateY(0); }
-  to { transform: translateY(-2000px); }
-}
-
-@keyframes twinkling {
-  from { transform: translateY(0); }
-  to { transform: translateY(-2000px); }
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
 .login-container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   max-width: 450px;
   padding: 20px;
 }
 
+@media (max-width: 768px) {
+  .login-page {
+    justify-content: center;
+    padding-left: 0;
+  }
+  
+  .auth-bg-image {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
 .login-card {
-  background: rgba(26, 31, 58, 0.95);
-  border: 2px solid rgba(123, 97, 255, 0.3);
+  background: rgba(15, 20, 35, 0.92);
+  border: 2px solid rgba(0, 255, 136, 0.4);
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
-              0 0 40px rgba(123, 97, 255, 0.2);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7),
+              0 0 40px rgba(0, 255, 136, 0.25);
+  backdrop-filter: blur(15px);
 }
 
 .login-title {
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #7b61ff 0%, #ff6b9d 100%);
+  background: linear-gradient(135deg, #00ff88 0%, #00d4aa 50%, #00ffaa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-align: center;
   margin-bottom: 10px;
+  text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
 }
 
 .login-subtitle {
@@ -114,8 +118,8 @@
 }
 
 .form-group input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(123, 97, 255, 0.2);
+  background: rgba(30, 35, 50, 0.6);
+  border: 1px solid rgba(0, 255, 136, 0.3);
   border-radius: 10px;
   padding: 12px 16px;
   color: white;
@@ -125,9 +129,9 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #7b61ff;
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 3px rgba(123, 97, 255, 0.1);
+  border-color: #00ff88;
+  background: rgba(30, 35, 50, 0.8);
+  box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
 }
 
 .form-group input::placeholder {
@@ -135,8 +139,8 @@
 }
 
 .login-button {
-  background: linear-gradient(135deg, #7b61ff 0%, #ff6b9d 100%);
-  color: white;
+  background: linear-gradient(135deg, #00ff88 0%, #00d4aa 50%, #00cc99 100%);
+  color: #0a0e27;
   border: none;
   border-radius: 10px;
   padding: 14px;
@@ -145,11 +149,13 @@
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
 }
 
 .login-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+  background: linear-gradient(135deg, #00ffaa 0%, #00e6bb 50%, #00d4aa 100%);
 }
 
 .login-button:active:not(:disabled) {
@@ -176,7 +182,7 @@
 .toggle-button {
   background: none;
   border: none;
-  color: #7b61ff;
+  color: #00ff88;
   font-weight: 600;
   cursor: pointer;
   margin-left: 8px;
@@ -184,7 +190,7 @@
 }
 
 .toggle-button:hover {
-  color: #ff6b9d;
+  color: #00ffaa;
   text-decoration: underline;
 }
 

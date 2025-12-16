@@ -225,8 +225,15 @@
 }
 
 .admin-primary {
-  background: linear-gradient(135deg, #7b61ff, #ff6b9d);
+  background: linear-gradient(135deg, #00ff88 0%, #00d4aa 50%, #00cc99 100%);
   border: none;
+  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+  color: #0a0e27;
+}
+
+.admin-primary:hover {
+  background: linear-gradient(135deg, #00ffaa 0%, #00e6bb 50%, #00d4aa 100%);
+  box-shadow: 0 6px 20px rgba(0, 255, 136, 0.5);
 }
 
 .admin-tab-bar {

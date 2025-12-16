@@ -24,10 +24,13 @@ import ScrollToTop from "../components/ui/ScrollToTop";
 import TargetCursor from "../components/ui/TargetCursor";
 import LoadingScreen from "../components/ui/LoadingScreen";
 import Button from "../components/ui/Button";
+import algoBattlesImage from "../assets/images/algo-battles.jpg";
 import "../App.css";
 
 function LandingPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [hideNav, setHideNav] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
@@ -43,6 +46,26 @@ function LandingPage() {
 
     return () => clearTimeout(timer);
   }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down
+        setHideNav(true);
+      } else {
+        // Scrolling up
+        setHideNav(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const handleGetStarted = () => {
     navigate("/login");
@@ -81,7 +104,7 @@ function LandingPage() {
           <AnimatedBackground />
           
           {/* Simple Navigation for Landing Page */}
-          <nav className="landing-nav">
+          <nav className={`landing-nav ${hideNav ? 'hidden' : ''}`}>
             <div className="container">
               <div className="nav-brand">
                 <GiSwordman className="brand-icon" />
@@ -134,9 +157,16 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* Battle Preview Section */}
-      <section id="battles" className="battle-section py-5">
-        <div className="container">
+      {/* Battle and CTA Sections with Shared Background */}
+      <div className="battle-cta-wrapper">
+        <div className="battle-bg-container">
+          <img src={algoBattlesImage} alt="Algorithm Battles" className="battle-bg-image" />
+          <div className="battle-overlay"></div>
+        </div>
+
+        {/* Battle Preview Section */}
+        <section id="battles" className="battle-section py-5">
+          <div className="container">
           <motion.div className="text-center mb-5" {...fadeInUp}>
             <h2 className="section-title">Algorithm Battles</h2>
             <p className="section-subtitle">
@@ -145,7 +175,7 @@ function LandingPage() {
           </motion.div>
 
           <motion.div
-            className="row g-4"
+            className="row g-4 battle-cards-row"
             variants={staggerContainer}
             initial="initial"
             whileInView="animate"
@@ -160,7 +190,7 @@ function LandingPage() {
                 <div className="battle-content">
                   <p>
                     Race against time to implement the fastest sorting
-                    algorithm. Bubble sort vs Quick sort - who will win?
+                    algorithm. Bubble sort vs Quick sort - who will claim victory?
                   </p>
                   <div className="battle-stats">
                     <span>
@@ -247,11 +277,11 @@ function LandingPage() {
               </motion.div>
             </div>
           </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* CTA Section */}
-      <section className="cta-section py-5">
+        {/* CTA Section */}
+        <section className="cta-section py-5">
         <div className="container">
           <motion.div
             className="row justify-content-center text-center"
@@ -269,13 +299,15 @@ function LandingPage() {
                 size="lg"
                 icon={<FaRocket />}
                 onClick={handleGetStarted}
+                className="hero-cta-primary"
               >
                 Start Your Journey
               </Button>
             </div>
           </motion.div>
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* Footer */}
       <footer className="gaming-footer py-5">

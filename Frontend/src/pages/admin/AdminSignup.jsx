@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import authImage from '../../assets/images/auth-image.jpg';
 import '../../pages/Login.css';
 import './AdminAuth.css';
 
@@ -49,8 +50,8 @@ const AdminSignup = () => {
   return (
     <div className="admin-auth-page">
       <div className="admin-auth-background">
-        <div className="stars" />
-        <div className="twinkling" />
+        <img src={authImage} alt="Auth Background" className="admin-auth-bg-image" />
+        <div className="admin-auth-overlay"></div>
       </div>
 
       <motion.div

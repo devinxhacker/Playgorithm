@@ -2,12 +2,13 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
   overflow: hidden;
   background: radial-gradient(circle at top, rgba(123, 97, 255, 0.2), transparent 55%),
               radial-gradient(circle at bottom, rgba(255, 107, 157, 0.2), transparent 45%),
               #050813;
+  padding-left: 5%;
 }
 
 .admin-auth-background {
@@ -16,15 +17,37 @@
   overflow: hidden;
 }
 
+.admin-auth-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+}
+
+.admin-auth-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
 .admin-auth-card {
   position: relative;
-  z-index: 1;
-  width: min(500px, 95%);
-  background: rgba(10, 14, 35, 0.9);
-  border: 1px solid rgba(123, 97, 255, 0.5);
+  z-index: 2;
+  width: min(440px, 95%);
+  background: rgba(15, 20, 35, 0.92);
+  border: 2px solid rgba(0, 255, 136, 0.5);
   border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  padding: 38px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7),
+              0 0 40px rgba(0, 255, 136, 0.3);
+  backdrop-filter: blur(15px);
   color: white;
 }
 
@@ -66,11 +89,20 @@
 .admin-form input,
 .admin-form textarea {
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  background: rgba(30, 35, 50, 0.6);
   padding: 12px 16px;
   color: white;
   font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus {
+  outline: none;
+  border-color: #00ff88;
+  background: rgba(30, 35, 50, 0.8);
+  box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
 }
 
 .admin-primary {
@@ -86,9 +118,26 @@
 }
 
 .admin-link {
-  color: #b5a7ff;
+  color: #00ff88;
   margin-left: 8px;
   font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.admin-link:hover {
+  color: #00ffaa;
+}
+
+@media (max-width: 768px) {
+  .admin-auth-page {
+    justify-content: center;
+    padding-left: 0;
+  }
+  
+  .admin-auth-bg-image {
+    object-fit: cover;
+    object-position: center;
+  }
 }
 
 @media (max-width: 600px) {

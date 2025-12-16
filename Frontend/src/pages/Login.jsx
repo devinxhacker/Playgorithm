@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { FaShieldAlt } from "react-icons/fa";
+import authImage from "../assets/images/auth-image.jpg";
 import "./Login.css";
 
 const Login = () => {
@@ -64,8 +65,8 @@ const Login = () => {
   return (
     <div className="login-page">
       <div className="login-background">
-        <div className="stars"></div>
-        <div className="twinkling"></div>
+        <img src={authImage} alt="Auth Background" className="auth-bg-image" />
+        <div className="auth-overlay"></div>
       </div>
 
       <motion.div

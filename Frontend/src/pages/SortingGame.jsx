@@ -750,10 +750,6 @@ const SortingGame = () => {
         </button>
         <div className="game-title">
           <h1>🎮 Sorting Showdown</h1>
-          <p>Learn by doing: demos, guided steps, and challenges.</p>
-        </div>
-        <div className="score-display">
-          <FaCode /> <span>{ALGORITHMS[algorithm]?.name}</span>
         </div>
       </div>
 
