@@ -15,6 +15,7 @@ import {
   FaForward
 } from "react-icons/fa";
 import { GiSwordman } from "react-icons/gi";
+import { SparklesCore } from '../components/ui/sparkles';
 import "./QueensArena.css";
 
 const QueensArena = () => {
@@ -238,7 +239,25 @@ const QueensArena = () => {
 
   if (mode === "menu") {
     return (
-      <div className="queens-arena">
+      <div className="queens-arena" style={{ background: '#000000', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ 
+          position: 'fixed', 
+          top: 0, 
+          left: 0, 
+          width: '100vw', 
+          height: '100vh',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}>
+          <SparklesCore
+            id="queensparticlesfullpage"
+            background="transparent"
+            minSize={1}
+            maxSize={3}
+            particleDensity={150}
+            particleColor="#FFFFFF"
+          />
+        </div>
         <div className="arena-header">
           <button onClick={() => navigate("/dashboard")} className="back-button cursor-target">
             <FaArrowLeft /> Back to Dashboard
@@ -254,6 +273,7 @@ const QueensArena = () => {
             className="menu-content"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
+            style={{ position: 'relative', zIndex: 20 }}
           >
             <h2>Choose Your Path</h2>
             <p className="menu-subtitle">Master the N-Queens problem through learning or challenge yourself!</p>

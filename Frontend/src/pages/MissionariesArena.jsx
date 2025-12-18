@@ -14,6 +14,7 @@ import {
   FaBook
 } from "react-icons/fa";
 import { GiSwordman, GiBoatFishing } from "react-icons/gi";
+import { SparklesCore } from '../components/ui/sparkles';
 import "./MissionariesArena.css";
 
 const MissionariesArena = () => {
@@ -241,7 +242,25 @@ const MissionariesArena = () => {
 
   if (mode === "menu") {
     return (
-      <div className="missionaries-arena">
+      <div className="missionaries-arena" style={{ background: '#000000', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ 
+          position: 'fixed', 
+          top: 0, 
+          left: 0, 
+          width: '100vw', 
+          height: '100vh',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}>
+          <SparklesCore
+            id="missionariesparticlesfullpage"
+            background="transparent"
+            minSize={1}
+            maxSize={3}
+            particleDensity={150}
+            particleColor="#FFFFFF"
+          />
+        </div>
         <div className="arena-header">
           <button onClick={() => navigate("/dashboard")} className="back-button cursor-target">
             <FaArrowLeft /> Back to Dashboard
@@ -257,6 +276,7 @@ const MissionariesArena = () => {
             className="menu-content"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
+            style={{ position: 'relative', zIndex: 20 }}
           >
             <h2>Choose Your Path</h2>
             <p className="menu-subtitle">Master the classic river-crossing puzzle through learning or challenge yourself!</p>

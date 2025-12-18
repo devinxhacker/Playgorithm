@@ -13,6 +13,9 @@ import {
   FaUser
 } from 'react-icons/fa';
 import { GiSwordman } from 'react-icons/gi';
+import ticTacToeImage from '../assets/images/tic-tac-toe.png';
+import warriorImage from '../assets/images/warrior-tic-tac-toe.png';
+import { SparklesCore } from '../components/ui/sparkles';
 import './TicTacToeArena.css';
 
 const TicTacToeArena = () => {
@@ -324,7 +327,25 @@ const TicTacToeArena = () => {
 
   if (mode === 'menu') {
     return (
-      <div className="tictactoe-arena">
+      <div className="tictactoe-arena" style={{ background: '#000000', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ 
+          position: 'fixed', 
+          top: 0, 
+          left: 0, 
+          width: '100vw', 
+          height: '100vh',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}>
+          <SparklesCore
+            id="tsparticlesfullpage"
+            background="transparent"
+            minSize={1}
+            maxSize={3}
+            particleDensity={150}
+            particleColor="#FFFFFF"
+          />
+        </div>
         <div className="arena-header">
           <button onClick={() => navigate('/dashboard')} className="back-button cursor-target">
             <FaArrowLeft /> Back to Dashboard
@@ -340,20 +361,26 @@ const TicTacToeArena = () => {
             className="menu-content"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
+            style={{ position: 'relative', zIndex: 20 }}
           >
             <h2>Choose Your Path</h2>
             <p className="menu-subtitle">Master the game through learning or test your skills!</p>
 
-            <div className="mode-cards">
-              <motion.div
-                className="mode-card learn-card cursor-target"
-                onClick={() => {
-                  setMode('learn');
-                  setLearnStep(0);
-                }}
-                whileHover={{ scale: 1.05, y: -10 }}
-                whileTap={{ scale: 0.95 }}
-              >
+            <div className="menu-layout">
+              <div className="warrior-image-container">
+                <img src={warriorImage} alt="Tic Tac Toe Warrior" className="warrior-image" />
+              </div>
+
+              <div className="mode-cards">
+                <motion.div
+                  className="mode-card learn-card cursor-target"
+                  onClick={() => {
+                    setMode('learn');
+                    setLearnStep(0);
+                  }}
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                 <div className="mode-icon">
                   <FaGraduationCap />
                 </div>
@@ -383,6 +410,7 @@ const TicTacToeArena = () => {
                   <span><FaTrophy /> Track Your Score</span>
                 </div>
               </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>
