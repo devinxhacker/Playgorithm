@@ -12,6 +12,7 @@ import {
   FaPlay,
   FaShieldAlt,
 } from "react-icons/fa";
+import featuredEventArt from "../assets/images/featured-event-art.jpeg";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -54,7 +55,8 @@ const Dashboard = () => {
         xpReward: 500,
         timeLimit: 600, // 10 minutes
         isActive: true,
-        testCases: new Array(1).fill(null) // 1 game
+        testCases: new Array(1).fill(null), // 1 game
+        imageUrl: '/src/assets/images/tic-tac-toe.png'
       };
 
       // Add Queens Arena as a static game
@@ -259,14 +261,39 @@ const Dashboard = () => {
         </div>
       </div>
 
+      <div className="dashboard-hero">
+        <div className="hero-content">
+          <h1><span className="hero-highlight">Master Algorithms</span> through Play</h1>
+          <p>Level up your coding skills with interactive challenges and competitive arenas.</p>
+          <div className="hero-stats">
+            <div className="hero-stat">
+              <span className="h-value">{games.length}</span>
+              <span className="h-label">Active Arenas</span>
+            </div>
+            <div className="hero-stat">
+              <span className="h-value">{user.totalXP || 0}</span>
+              <span className="h-label">Your XP</span>
+            </div>
+            <div className="hero-stat">
+              <span className="h-value">#{user.rank || "N/A"}</span>
+              <span className="h-label">Global Rank</span>
+            </div>
+          </div>
+        </div>
+        <div className="hero-visual">
+          <div className="hero-image-container">
+            <img src={featuredEventArt} alt="Featured Event" className="hero-image" />
+          </div>
+        </div>
+      </div>
+
       <div className="dashboard-content">
         <div className="category-filter">
           {categories.map((category) => (
             <button
               key={category}
-              className={`category-btn cursor-target ${
-                selectedCategory === category ? "active" : ""
-              }`}
+              className={`category-btn cursor-target ${selectedCategory === category ? "active" : ""
+                }`}
               onClick={() => setSelectedCategory(category)}
             >
               {category.replace("_", " ")}
@@ -279,42 +306,52 @@ const Dashboard = () => {
             <motion.div
               key={game.id}
               className="game-card cursor-target"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -5 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.05, translateY: -10 }}
+              transition={{ duration: 0.3 }}
             >
-              <div className="game-card-header">
-                <h3>
-                  {game.name}
-                  {game.name === "Sorting Showdown" && (
-                    <span className="special-badge">🎮 INTERACTIVE</span>
-                  )}
-                </h3>
-                <span className={`badge ${game.difficulty.toLowerCase()}`}>
-                  {game.difficulty}
-                </span>
+              <div className="game-card-image-placeholder">
+                {game.imageUrl ? (
+                  <img src={game.imageUrl} alt={game.name} className="game-card-image" />
+                ) : (
+                  <span>{game.name} Art</span>
+                )}
               </div>
-              <p className="game-description">{game.description}</p>
-              <div className="game-meta">
-                <div className="meta-item">
-                  <FaClock />
-                  <span>{Math.floor(game.timeLimit / 60)} mins</span>
+              <div className="game-card-content">
+                <div className="game-card-header">
+                  <h3>
+                    {game.name}
+                    {game.name === "Sorting Showdown" && (
+                      <span className="special-badge">🎮 LIVE</span>
+                    )}
+                  </h3>
+                  <span className={`badge ${game.difficulty.toLowerCase()}`}>
+                    {game.difficulty}
+                  </span>
                 </div>
-                <div className="meta-item">
-                  <FaTrophy />
-                  <span>{game.xpReward} XP</span>
+                <p className="game-description">{game.description}</p>
+                <div className="game-meta">
+                  <div className="meta-item">
+                    <FaClock />
+                    <span>{Math.floor(game.timeLimit / 60)}m</span>
+                  </div>
+                  <div className="meta-item">
+                    <FaTrophy />
+                    <span>{game.xpReward} XP</span>
+                  </div>
+                  <div className="meta-item">
+                    <FaCode />
+                    <span>{game.testCases.length} Lvls</span>
+                  </div>
                 </div>
-                <div className="meta-item">
-                  <FaCode />
-                  <span>{game.testCases.length} levels</span>
-                </div>
+                <button
+                  className="play-button cursor-target"
+                  onClick={() => handlePlayGame(game.id, game.name)}
+                >
+                  <FaPlay /> Enter Arena
+                </button>
               </div>
-              <button
-                className="play-button cursor-target"
-                onClick={() => handlePlayGame(game.id, game.name)}
-              >
-                <FaPlay /> Play Now
-              </button>
             </motion.div>
           ))}
         </div>
