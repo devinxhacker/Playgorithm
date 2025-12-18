@@ -43,6 +43,8 @@ public class Game {
 
     private Map<String, Object> metadata;
 
+    private String imageUrl;
+
     private Boolean isActive = true;
 
     @Data

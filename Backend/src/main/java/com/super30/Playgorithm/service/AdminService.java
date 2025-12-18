@@ -148,6 +148,7 @@ public class AdminService {
         game.setXpReward(request.getXpReward() != null ? request.getXpReward() : 0);
         game.setTimeLimit(request.getTimeLimit() != null ? request.getTimeLimit() : 0);
         game.setProblemStatement(request.getProblemStatement());
+        game.setImageUrl(request.getImageUrl());
         game.setIsActive(request.getIsActive() != null ? request.getIsActive() : Boolean.TRUE);
 
         List<Game.TestCase> testCases = request.getTestCases();

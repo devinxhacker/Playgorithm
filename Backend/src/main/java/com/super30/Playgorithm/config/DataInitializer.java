@@ -93,12 +93,14 @@ public class DataInitializer implements CommandLineRunner {
                         500,
                         300,
                         "Implement a function to sort an array of numbers in ascending order.",
+                        
                         "function sortArray(arr) {\n  // Your code here\n  return arr;\n}",
                         Arrays.asList(
                                 new Game.TestCase("[5, 2, 8, 1, 9]", "[1, 2, 5, 8, 9]", false, 10),
                                 new Game.TestCase("[3, 3, 3]", "[3, 3, 3]", false, 10),
                                 new Game.TestCase("[]", "[]", false, 10)
-                        )
+                        ),
+                        "/src/assets/images/sorting-showdown.png"
                 ),
                 createGame(
                         "Graph Gladiator",
@@ -112,7 +114,8 @@ public class DataInitializer implements CommandLineRunner {
                         Arrays.asList(
                                 new Game.TestCase("graph: [[1,2],[3],[3],[]], start: 0, end: 3", "[0, 1, 3]", false, 20),
                                 new Game.TestCase("graph: [[1],[2],[]], start: 0, end: 2", "[0, 1, 2]", false, 20)
-                        )
+                        ),
+                        "/src/assets/images/algo-battles.jpg"
                 ),
                 createGame(
                         "Dynamic Programming Duel",
@@ -126,7 +129,8 @@ public class DataInitializer implements CommandLineRunner {
                         Arrays.asList(
                                 new Game.TestCase("[10, 9, 2, 5, 3, 7, 101, 18]", "4", false, 30),
                                 new Game.TestCase("[0, 1, 0, 3, 2, 3]", "4", false, 30)
-                        )
+                        ),
+                        "/src/assets/images/epic-feature.jpg"
                 ),
                 createGame(
                         "Binary Search Challenge",
@@ -140,7 +144,8 @@ public class DataInitializer implements CommandLineRunner {
                         Arrays.asList(
                                 new Game.TestCase("arr: [1, 2, 3, 4, 5], target: 3", "2", false, 10),
                                 new Game.TestCase("arr: [1, 2, 3, 4, 5], target: 6", "-1", false, 10)
-                        )
+                        ),
+                        "/src/assets/images/futuristic-ninja-digital-art.jpg"
                 ),
                 createGame(
                         "Code Golf: FizzBuzz",
@@ -153,7 +158,8 @@ public class DataInitializer implements CommandLineRunner {
                         "function fizzBuzz(n) {\n  // Your code here\n}",
                         Arrays.asList(
                                 new Game.TestCase("15", "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz", false, 10)
-                        )
+                        ),
+                        "/src/assets/images/code-gulf.png"
                 ),
                 createGame(
                         "Speed Debugging: Bug Hunt",
@@ -167,20 +173,155 @@ public class DataInitializer implements CommandLineRunner {
                         Arrays.asList(
                                 new Game.TestCase("Levels", "3", false, 10),
                                 new Game.TestCase("Bugs per level", "10", false, 10)
-                        )
+                        ),
+                        "/src/assets/images/bug-hunt.png"
                 ),
                 createGame(
                         "Tic-Tac-Toe Arena",
+                        "Challenge the AI in a classic game of Tic-Tac-Toe with strategic gameplay!",
+                        "GRAPH",
+                        "EASY",
+                        500,
+                        600,
                         "Master game theory and Minimax algorithm through strategic gameplay!",
-                        "GAME_THEORY",
-                        "MEDIUM",
-                        750,
-                        0,
-                        "Learn the Minimax algorithm and play against an unbeatable AI. Two modes: Learn the strategy step-by-step, or Play to test your skills!",
                         "// Tic-Tac-Toe with Minimax Algorithm\nfunction minimax(board, isMaximizing) {\n  // Your code here\n}",
                         Arrays.asList(
                                 new Game.TestCase("Perfect play always results in a tie", "TIE", false, 50)
-                        )
+                        ),
+                        "/src/assets/images/tic-tac-toe.png"
+                ),
+                createGame(
+                        "Flexbox Arena",
+                        "Master CSS Flexbox through interactive challenges and warrior battles!",
+                        "CSS_FLEXBOX",
+                        "MEDIUM",
+                        750,
+                        1800,
+                        "Learn and master CSS Flexbox properties through 8 exciting levels of warrior combat!",
+                        "",
+                        Arrays.asList(
+                                new Game.TestCase("Level 1", "Basic Flexbox", false, 10),
+                                new Game.TestCase("Level 2", "Flex Direction", false, 10),
+                                new Game.TestCase("Level 3", "Justify Content", false, 10),
+                                new Game.TestCase("Level 4", "Align Items", false, 10),
+                                new Game.TestCase("Level 5", "Flex Wrap", false, 10),
+                                new Game.TestCase("Level 6", "Align Content", false, 10),
+                                new Game.TestCase("Level 7", "Flex Properties", false, 10),
+                                new Game.TestCase("Level 8", "Master Challenge", false, 10)
+                        ),
+                        "/src/assets/images/flexbox-arena.png"
+                ),
+                createGame(
+                        "Queens Arena",
+                        "Master the classic N-Queens problem with beautiful visuals and learn backtracking!",
+                        "GRAPH",
+                        "MEDIUM",
+                        1000,
+                        1200,
+                        "Place N queens on an N×N chessboard so that no two queens threaten each other. Learn backtracking algorithm!",
+                        "",
+                        Arrays.asList(
+                                new Game.TestCase("4x4 Board", "2 solutions", false, 20),
+                                new Game.TestCase("8x8 Board", "92 solutions", false, 30),
+                                new Game.TestCase("12x12 Board", "14200 solutions", false, 50)
+                        ),
+                        "/src/assets/images/queen-arena.png"
+                ),
+                createGame(
+                        "Zip Game",
+                        "Connect numbers 1 to N by moving through adjacent cells. New puzzle every time!",
+                        "GRAPH",
+                        "EASY",
+                        400,
+                        300,
+                        "Create a path from 1 to N by visiting each number in sequence, moving only to adjacent cells!",
+                        "",
+                        Arrays.asList(
+                                new Game.TestCase("3x3 Grid", "Connect 1-9", false, 10),
+                                new Game.TestCase("4x4 Grid", "Connect 1-16", false, 15),
+                                new Game.TestCase("5x5 Grid", "Connect 1-25", false, 20),
+                                new Game.TestCase("6x6 Grid", "Connect 1-36", false, 25),
+                                new Game.TestCase("7x7 Grid", "Connect 1-49", false, 30)
+                        ),
+                        "/src/assets/images/zip-game.png"
+                ),
+                createGame(
+                        "Grid Arena",
+                        "Master CSS Grid layout by growing your carrot garden! 28 levels of grid mastery.",
+                        "CSS_FLEXBOX",
+                        "MEDIUM",
+                        1500,
+                        3600,
+                        "Learn CSS Grid properties through 28 challenging levels of garden design!",
+                        "",
+                        Arrays.asList(
+                                new Game.TestCase("Level 1-7", "Basic Grid", false, 10),
+                                new Game.TestCase("Level 8-14", "Grid Areas", false, 15),
+                                new Game.TestCase("Level 15-21", "Grid Template", false, 20),
+                                new Game.TestCase("Level 22-28", "Advanced Grid", false, 25)
+                        ),
+                        "/src/assets/images/grid-arena.png"
+                ),
+                createGame(
+                        "Missionaries & Cannibals",
+                        "Solve the classic river-crossing puzzle! Learn constraint satisfaction and state-space search.",
+                        "GRAPH",
+                        "MEDIUM",
+                        1200,
+                        900,
+                        "Get 3 missionaries and 3 cannibals across the river using a 2-person boat. Cannibals must never outnumber missionaries!",
+                        "",
+                        Arrays.asList(
+                                new Game.TestCase("Move 1", "Valid", false, 10),
+                                new Game.TestCase("Move 2", "Valid", false, 10),
+                                new Game.TestCase("Move 3", "Valid", false, 10),
+                                new Game.TestCase("Move 4", "Valid", false, 10),
+                                new Game.TestCase("Move 5", "Valid", false, 10),
+                                new Game.TestCase("Move 6", "Valid", false, 10),
+                                new Game.TestCase("Move 7", "Valid", false, 10),
+                                new Game.TestCase("Move 8", "Valid", false, 10),
+                                new Game.TestCase("Move 9", "Valid", false, 10),
+                                new Game.TestCase("Move 10", "Valid", false, 10),
+                                new Game.TestCase("Move 11", "Complete", false, 10)
+                        ),
+                        "/src/assets/images/mission-cannible.png"
+                ),
+                createGame(
+                        "Algorithm Visualizer",
+                        "Explore 8 interactive algorithm visualizations: sorting, pathfinding, recursion, and more!",
+                        "ALL",
+                        "MEDIUM",
+                        2000,
+                        0,
+                        "Interactive visualizations for: Sorting Algorithms, Pathfinding, Binary Search, N-Queens, Game of Life, Recursion Tree, Convex Hull, and 15-Puzzle!",
+                        "",
+                        Arrays.asList(
+                                new Game.TestCase("Sorting", "6 algorithms", false, 25),
+                                new Game.TestCase("Pathfinding", "4 algorithms", false, 25),
+                                new Game.TestCase("Binary Search", "Interactive", false, 25),
+                                new Game.TestCase("N-Queens", "Backtracking", false, 25),
+                                new Game.TestCase("Game of Life", "Cellular Automata", false, 25),
+                                new Game.TestCase("Recursion Tree", "Visual Tree", false, 25),
+                                new Game.TestCase("Convex Hull", "Geometry", false, 25),
+                                new Game.TestCase("15-Puzzle", "A* Search", false, 25)
+                        ),
+                        "/src/assets/images/algo-visu.png"
+                ),
+                createGame(
+                        "Chess Arena",
+                        "Play chess against AI with Minimax algorithm! Learn mode explains alpha-beta pruning.",
+                        "GRAPH",
+                        "HARD",
+                        2500,
+                        0,
+                        "Play chess with three difficulty levels. Learn mode explains the Minimax algorithm and Alpha-Beta pruning step-by-step!",
+                        "",
+                        Arrays.asList(
+                                new Game.TestCase("Easy AI", "Random moves", false, 30),
+                                new Game.TestCase("Medium AI", "Depth 2 Minimax", false, 40),
+                                new Game.TestCase("Hard AI", "Depth 3 with pruning", false, 50)
+                        ),
+                        "/src/assets/images/chess-arena.png"
                 )
         );
 
@@ -190,7 +331,7 @@ public class DataInitializer implements CommandLineRunner {
 
     private Game createGame(String name, String description, String category, String difficulty,
                            Integer xpReward, Integer timeLimit, String problemStatement,
-                           String starterCode, List<Game.TestCase> testCases) {
+                           String starterCode, List<Game.TestCase> testCases, String imageUrl) {
         Game game = new Game();
         game.setName(name);
         game.setDescription(description);
@@ -200,6 +341,7 @@ public class DataInitializer implements CommandLineRunner {
         game.setTimeLimit(timeLimit);
         game.setProblemStatement(problemStatement);
         game.setTestCases(testCases);
+        game.setImageUrl(imageUrl);
         
         // Set up multi-language starter code templates
         Map<String, String> starterCodeTemplates = new HashMap<>();
