@@ -55,7 +55,7 @@
 }
 
 .avatar {
-  width: 90px;
+  width: 140px;
   height: 90px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
