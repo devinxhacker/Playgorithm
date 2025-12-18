@@ -36,6 +36,7 @@ public class AdminGameRequest {
     private Integer timeLimit;
 
     private String problemStatement;
+    
 
     private List<Game.TestCase> testCases;
 
@@ -48,6 +49,6 @@ public class AdminGameRequest {
     private String primaryLanguage;
 
     private String primaryStarterCode;
-
+    private String imageUrl;
     private Boolean isActive;
 }
