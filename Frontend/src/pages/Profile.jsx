@@ -99,6 +99,13 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
+      <div className="profile-header-bar">
+        <button onClick={() => navigate('/dashboard')} className="back-to-dashboard-btn">
+          <span>←</span> Back to Dashboard
+        </button>
+        <h1 className="profile-page-title">Profile Management</h1>
+      </div>
+      
       <div className="profile-content">
         <div className="profile-header">
           <h1>My Profile</h1>

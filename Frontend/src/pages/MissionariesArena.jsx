@@ -15,6 +15,7 @@ import {
 } from "react-icons/fa";
 import { GiSwordman, GiBoatFishing } from "react-icons/gi";
 import { SparklesCore } from '../components/ui/sparkles';
+import warriorImage from '../assets/images/warrior-tic-tac-toe.png';
 import "./MissionariesArena.css";
 
 const MissionariesArena = () => {
@@ -281,17 +282,22 @@ const MissionariesArena = () => {
             <h2>Choose Your Path</h2>
             <p className="menu-subtitle">Master the classic river-crossing puzzle through learning or challenge yourself!</p>
 
-            <div className="mode-cards">
-              <motion.div
-                className="mode-card learn-card cursor-target"
-                onClick={() => {
-                  setMode("learn");
-                  setLearnStep(0);
-                  resetGame();
-                }}
-                whileHover={{ scale: 1.05, y: -10 }}
-                whileTap={{ scale: 0.95 }}
-              >
+            <div className="menu-layout">
+              <div className="warrior-image-container">
+                <img src={warriorImage} alt="Missionaries Warrior" className="warrior-image" />
+              </div>
+
+              <div className="mode-cards">
+                <motion.div
+                  className="mode-card learn-card cursor-target"
+                  onClick={() => {
+                    setMode("learn");
+                    setLearnStep(0);
+                    resetGame();
+                  }}
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                 <div className="mode-icon">
                   <FaGraduationCap />
                 </div>
@@ -324,6 +330,7 @@ const MissionariesArena = () => {
                   <span><FaTrophy /> Score Tracking</span>
                 </div>
               </motion.div>
+              </div>
             </div>
 
             <motion.button

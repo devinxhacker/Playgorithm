@@ -1,12 +1,72 @@
 .profile-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
-  padding: 80px 20px 40px;
+  padding: 0;
+  padding-top: 100px;
+}
+
+.profile-header-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+  background: linear-gradient(135deg, rgba(10, 25, 47, 0.95), rgba(15, 35, 60, 0.95));
+  border-bottom: 2px solid rgba(0, 255, 136, 0.4);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 2px 10px rgba(0, 255, 136, 0.15);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.back-to-dashboard-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  border: 2px solid rgba(0, 255, 136, 0.5);
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.back-to-dashboard-btn:hover {
+  border-color: #00ff88;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.back-to-dashboard-btn span {
+  font-size: 1.2rem;
+}
+
+.profile-page-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 .profile-content {
   max-width: 900px;
   margin: 0 auto;
+  padding: 40px 20px;
 }
 
 .profile-header {
@@ -330,7 +390,21 @@
 
 @media (max-width: 768px) {
   .profile-container {
-    padding: 60px 15px 30px;
+    padding-top: 100px;
+  }
+  
+  .back-to-dashboard-btn {
+    font-size: 0.9rem;
+    padding: 10px 16px;
+    left: 20px;
+  }
+  
+  .profile-page-title {
+    font-size: 1.3rem;
+  }
+  
+  .profile-content {
+    padding: 30px 15px;
   }
 
   .profile-header h1 {

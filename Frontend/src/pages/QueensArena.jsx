@@ -16,6 +16,7 @@ import {
 } from "react-icons/fa";
 import { GiSwordman } from "react-icons/gi";
 import { SparklesCore } from '../components/ui/sparkles';
+import warriorImage from '../assets/images/warrior-tic-tac-toe.png';
 import "./QueensArena.css";
 
 const QueensArena = () => {
@@ -278,13 +279,18 @@ const QueensArena = () => {
             <h2>Choose Your Path</h2>
             <p className="menu-subtitle">Master the N-Queens problem through learning or challenge yourself!</p>
 
-            <div className="mode-cards">
-              <motion.div
-                className="mode-card learn-card cursor-target"
-                onClick={startLearn}
-                whileHover={{ scale: 1.05, y: -10 }}
-                whileTap={{ scale: 0.95 }}
-              >
+            <div className="menu-layout">
+              <div className="warrior-image-container">
+                <img src={warriorImage} alt="Queens Warrior" className="warrior-image" />
+              </div>
+
+              <div className="mode-cards">
+                <motion.div
+                  className="mode-card learn-card cursor-target"
+                  onClick={startLearn}
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                 <div className="mode-icon">
                   <FaGraduationCap />
                 </div>
@@ -314,6 +320,7 @@ const QueensArena = () => {
                   <span><FaTrophy /> Score Tracking</span>
                 </div>
               </motion.div>
+              </div>
             </div>
 
             <motion.button
