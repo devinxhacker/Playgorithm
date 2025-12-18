@@ -11,6 +11,7 @@ import {
   FaCode,
   FaPlay,
   FaShieldAlt,
+  FaUser,
 } from "react-icons/fa";
 import featuredEventArt from "../assets/images/featured-event-art.jpeg";
 import "./Dashboard.css";
@@ -109,9 +110,13 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <div className="user-profile">
+        <div className="user-profile" onClick={() => navigate("/profile")} style={{ cursor: 'pointer' }}>
           <div className="avatar">
-            {user.username?.charAt(0).toUpperCase() || 'U'}
+            {user.avatarUrl ? (
+              <img src={user.avatarUrl} alt={user.username} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+            ) : (
+              user.username?.charAt(0).toUpperCase() || 'U'
+            )}
           </div>
           <div className="user-info">
             <h2>{user.fullName || user.username}</h2>
@@ -140,6 +145,9 @@ const Dashboard = () => {
               <div className="stat-label">Win Rate</div>
             </div>
           </div>
+          <button onClick={() => navigate("/profile")} className="profile-button cursor-target">
+            <FaUser /> Profile
+          </button>
           <button onClick={logout} className="logout-button cursor-target">
             Logout
           </button>
