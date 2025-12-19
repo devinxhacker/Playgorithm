@@ -24,6 +24,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    overflow: hidden;
 }
 
 .comments-close-btn {
@@ -411,8 +412,7 @@
 }
 
 .reaction-picker {
-    position: absolute;
-    bottom: calc(100% + 8px);
+    position: fixed;
     display: flex;
     gap: 8px;
     padding: 10px 12px;
@@ -420,9 +420,10 @@
     border: 1px solid var(--primary-color);
     border-radius: 25px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 243, 255, 0.3);
-    z-index: 100;
+    z-index: 10000;
     animation: reactionSlideUp 0.2s ease-out;
     backdrop-filter: blur(10px);
+    pointer-events: auto;
 }
 
 @keyframes reactionSlideUp {
@@ -434,14 +435,6 @@
         opacity: 1;
         transform: translateY(0) scale(1);
     }
-}
-
-.reaction-picker.left {
-    left: 0;
-}
-
-.reaction-picker.right {
-    right: 0;
 }
 
 .reaction-picker::before {
@@ -463,6 +456,11 @@
 
 .reaction-picker.right::before {
     right: 20px;
+}
+
+.reaction-picker.center::before {
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
 }
 
 .reaction-btn {

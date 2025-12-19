@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaHeart, FaFire, FaThumbsUp, FaLaugh, FaSadTear, FaReply, FaEdit, FaTrash } from 'react-icons/fa';
 import { commentAPI } from '../../services/api';
@@ -20,9 +20,10 @@ const CommentItem = ({ comment, onReply, onEdit, onDelete, onReaction, currentUs
     const [isEditing, setIsEditing] = useState(false);
     const [editContent, setEditContent] = useState(comment.content);
     const [localComment, setLocalComment] = useState(comment);
-    const [reactionPosition, setReactionPosition] = useState('left');
-    const reactionTimeoutRef = useState(null);
-    const reactionButtonRef = useState(null);
+    const [pickerStyle, setPickerStyle] = useState({});
+    const [arrowPosition, setArrowPosition] = useState('left');
+    const reactionTimeoutRef = useRef(null);
+    const reactionButtonRef = useRef(null);
 
     // Update local comment when prop changes
     useEffect(() => {
@@ -38,16 +39,42 @@ const CommentItem = ({ comment, onReply, onEdit, onDelete, onReaction, currentUs
         // Calculate position
         const button = e.currentTarget;
         const rect = button.getBoundingClientRect();
+        
+        // Picker dimensions (approximate)
+        const pickerWidth = 280; // 5 buttons * 42px + gaps + padding
+        const pickerHeight = 62; // button height + padding
+        
+        // Calculate available space
         const spaceOnRight = window.innerWidth - rect.right;
         const spaceOnLeft = rect.left;
-
-        // If not enough space on left (default), show on right
-        if (spaceOnLeft < 250 && spaceOnRight > 250) {
-            setReactionPosition('right');
+        const spaceAbove = rect.top;
+        
+        let left, top;
+        let arrow = 'left';
+        
+        // Determine horizontal position
+        if (spaceOnRight >= pickerWidth) {
+            // Enough space on right, align to button left
+            left = rect.left;
+            arrow = 'left';
+        } else if (spaceOnLeft >= pickerWidth) {
+            // Not enough space on right, align to button right
+            left = rect.right - pickerWidth;
+            arrow = 'right';
         } else {
-            setReactionPosition('left');
+            // Not enough space on either side, center and fit
+            left = Math.max(10, Math.min(window.innerWidth - pickerWidth - 10, rect.left - (pickerWidth - rect.width) / 2));
+            arrow = 'center';
         }
-
+        
+        // Position above the button
+        top = rect.top - pickerHeight - 8;
+        
+        setPickerStyle({
+            left: `${left}px`,
+            top: `${top}px`,
+        });
+        setArrowPosition(arrow);
         setShowReactions(true);
     };
 
@@ -216,7 +243,8 @@ const CommentItem = ({ comment, onReply, onEdit, onDelete, onReaction, currentUs
                             </button>
                             {showReactions && (
                                 <div 
-                                    className={`reaction-picker ${reactionPosition}`}
+                                    className={`reaction-picker ${arrowPosition}`}
+                                    style={pickerStyle}
                                     onMouseEnter={handlePickerEnter}
                                     onMouseLeave={handlePickerLeave}
                                 >
