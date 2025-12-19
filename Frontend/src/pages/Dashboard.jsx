@@ -148,6 +148,9 @@ const Dashboard = () => {
           <button onClick={() => navigate("/profile")} className="profile-button cursor-target">
             <FaUser /> Profile
           </button>
+          <button onClick={() => navigate("/community")} className="community-button cursor-target">
+            💬 Community
+          </button>
           <button onClick={logout} className="logout-button cursor-target">
             Logout
           </button>
