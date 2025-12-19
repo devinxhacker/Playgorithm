@@ -25,6 +25,7 @@ import AlgorithmVisualizerHub from "./pages/AlgorithmVisualizerHub";
 import AlgorithmVisualizerFrame from "./pages/AlgorithmVisualizerFrame";
 import ChessArena from "./pages/ChessArena";
 import Profile from "./pages/Profile";
+import MessageCenter from "./pages/MessageCenter";
 import TargetCursor from "./components/ui/TargetCursor";
 import CopilotBridge from "./components/copilot/CopilotBridge";
 import CopilotActionRouter from "./components/copilot/CopilotActionRouter";
@@ -181,6 +182,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/community"
+            element={
+              <ProtectedRoute>
+                <MessageCenter />
               </ProtectedRoute>
             }
           />
