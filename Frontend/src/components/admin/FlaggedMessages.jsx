@@ -3,7 +3,7 @@ import axios from 'axios';
 import './FlaggedMessages.css';
 import { FaCheckCircle, FaTrash, FaExclamationTriangle } from 'react-icons/fa';
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const FlaggedMessages = ({ token }) => {
   const [flaggedMessages, setFlaggedMessages] = useState([]);

@@ -6,7 +6,7 @@ import axios from 'axios';
 import './MessageCenter.css';
 import { FaComments, FaImage, FaPaperPlane, FaTimes, FaTrash } from 'react-icons/fa';
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const MessageCenter = () => {
   const { user } = useAuth();

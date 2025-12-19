@@ -3,7 +3,7 @@
 /*
 
 # But don't ignore this gitignore file
-!.gitignore
+.gitignore
 
 # Keep only the main project folders visible to git
 !/Frontend/

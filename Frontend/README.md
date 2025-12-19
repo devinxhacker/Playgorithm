@@ -28,12 +28,28 @@ A modern, interactive landing page for Playgorithm - the gamified algorithmic le
    npm install
    ```
 
-2. **Start Development Server**
+2. **Configure Environment Variables**
+   
+   Copy the `.env.example` file to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Update the environment variables in `.env`:
+   ```
+   VITE_API_BASE_URL=http://localhost:8080
+   VITE_VISUALIZER_BASE_URL=http://localhost:3001
+   ```
+   
+   - `VITE_API_BASE_URL`: Backend API server URL (default: http://localhost:8080)
+   - `VITE_VISUALIZER_BASE_URL`: Algorithm Visualizer Next.js server URL (default: http://localhost:3001)
+
+3. **Start Development Server**
    ```bash
    npm run dev
    ```
 
-3. **Build for Production**
+4. **Build for Production**
    ```bash
    npm run build
    ```
