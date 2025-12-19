@@ -21,6 +21,11 @@
   border-radius: 50%;
   transform: translate(-50%, -50%);
   will-change: transform;
+  transition: background-color 0.2s ease;
+}
+
+.target-cursor-dot.capturing {
+  background: #ff0000;
 }
 
 .target-cursor-corner {

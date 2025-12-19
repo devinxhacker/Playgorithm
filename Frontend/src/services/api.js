@@ -71,4 +71,24 @@ export const adminAPI = {
   deleteGame: (gameId) => api.delete(`/admin/games/${gameId}`),
 };
 
+// Rating API
+export const ratingAPI = {
+  rateGame: (gameId, rating) => api.post(`/ratings/games/${gameId}`, { rating }),
+  getGameRatingStats: (gameId) => api.get(`/ratings/games/${gameId}/stats`),
+  deleteRating: (gameId) => api.delete(`/ratings/games/${gameId}`),
+};
+
+// Comment API
+export const commentAPI = {
+  addComment: (gameId, content, parentCommentId = null) => 
+    api.post(`/comments/games/${gameId}`, { content, parentCommentId }),
+  getTopLevelComments: (gameId) => api.get(`/comments/games/${gameId}`),
+  getReplies: (commentId) => api.get(`/comments/${commentId}/replies`),
+  updateComment: (commentId, content) => api.put(`/comments/${commentId}`, { content }),
+  deleteComment: (commentId) => api.delete(`/comments/${commentId}`),
+  toggleReaction: (commentId, reactionType) => 
+    api.post(`/comments/${commentId}/reactions`, { reactionType }),
+  getCommentCount: (gameId) => api.get(`/comments/games/${gameId}/count`),
+};
+
 export default api;

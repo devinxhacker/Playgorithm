@@ -5,16 +5,53 @@
   box-sizing: border-box;
 }
 
+:root {
+  /* Default Theme (Classic / Sci-Fi Blue) */
+  --primary-color: #00f3ff;
+  --secondary-color: #bc13fe;
+  --accent-color: #0aff68;
+  --bg-dark: #050b14;
+  --bg-card: rgba(13, 19, 33, 0.85);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+.theme-neon {
+  --primary-color: #ff00ff;
+  --secondary-color: #00ffff;
+  --accent-color: #ffff00;
+  --bg-dark: #1a0b2e;
+  --bg-card: rgba(45, 10, 60, 0.85);
+}
+
+.theme-cyberpunk {
+  --primary-color: #fcee0a;
+  --secondary-color: #00f0ff;
+  --accent-color: #ff003c;
+  --bg-dark: #000000;
+  --bg-card: rgba(20, 20, 20, 0.9);
+}
+
+.theme-forest {
+  --primary-color: #00ff9d;
+  --secondary-color: #50c878;
+  --accent-color: #ffbf00;
+  --bg-dark: #05140a;
+  --bg-card: rgba(10, 30, 15, 0.85);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   font-family: 'Rajdhani', sans-serif;
-  background: #0a0a0a;
-  color: #ffffff;
+  background: var(--bg-dark);
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Remove default Bootstrap focus styles and add gaming ones */
@@ -25,7 +62,10 @@ body {
 }
 
 /* Smooth transitions for all interactive elements */
-a, button, .card, .nav-link {
+a,
+button,
+.card,
+.nav-link {
   transition: all 0.3s ease;
 }
 

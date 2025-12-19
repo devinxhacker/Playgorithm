@@ -155,6 +155,11 @@ const TargetCursor = ({ targetSelector = '.cursor-target', spinDuration = 2, hid
         gsap.killTweensOf(corner);
       });
 
+      // Add active class to dot when capturing boundary
+      if (dotRef.current) {
+        dotRef.current.classList.add('capturing');
+      }
+
       gsap.killTweensOf(cursorRef.current, 'rotation');
       spinTl.current?.pause();
       gsap.set(cursorRef.current, { rotation: 0 });
@@ -234,6 +239,11 @@ const TargetCursor = ({ targetSelector = '.cursor-target', spinDuration = 2, hid
       const leaveHandler = () => {
         activeTarget = null;
         isAnimatingToTarget = false;
+
+        // Remove active class from dot when leaving boundary
+        if (dotRef.current) {
+          dotRef.current.classList.remove('capturing');
+        }
 
         if (cornersRef.current) {
           const corners = Array.from(cornersRef.current);

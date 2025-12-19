@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { gameAPI } from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import SettingsModal from "../components/Settings/SettingsModal";
+import RatingModal from "../components/RatingModal/RatingModal";
+import CommentsModal from "../components/CommentsModal/CommentsModal";
 import {
   FaGamepad,
   FaTrophy,
@@ -12,6 +15,9 @@ import {
   FaPlay,
   FaShieldAlt,
   FaUser,
+  FaCog,
+  FaStar,
+  FaComment,
 } from "react-icons/fa";
 import featuredEventArt from "../assets/images/featured-event-art.jpeg";
 import "./Dashboard.css";
@@ -23,6 +29,10 @@ const Dashboard = () => {
   const [sessions, setSessions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [loading, setLoading] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
+  const [selectedGame, setSelectedGame] = useState(null);
 
   useEffect(() => {
     loadDashboardData();
@@ -109,8 +119,10 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
+      <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
+
       <div className="dashboard-header">
-        <div className="user-profile" onClick={() => navigate("/profile")} style={{ cursor: 'pointer' }}>
+        <div className="user-profile" onClick={() => setShowSettings(true)} style={{ cursor: 'pointer' }}>
           <div className="avatar">
             {user.avatarUrl ? (
               <img src={user.avatarUrl} alt={user.username} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
@@ -145,8 +157,8 @@ const Dashboard = () => {
               <div className="stat-label">Win Rate</div>
             </div>
           </div>
-          <button onClick={() => navigate("/profile")} className="profile-button cursor-target">
-            <FaUser /> Profile
+          <button onClick={() => setShowSettings(true)} className="profile-button cursor-target">
+            <FaCog /> Settings
           </button>
           <button onClick={logout} className="logout-button cursor-target">
             Logout
@@ -252,6 +264,28 @@ const Dashboard = () => {
                 >
                   <FaPlay /> Enter Arena
                 </button>
+                <div className="game-actions">
+                  <button
+                    className="action-button rate-button cursor-target"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedGame(game);
+                      setShowRatingModal(true);
+                    }}
+                  >
+                    <FaStar /> Rate
+                  </button>
+                  <button
+                    className="action-button comment-button cursor-target"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedGame(game);
+                      setShowCommentsModal(true);
+                    }}
+                  >
+                    <FaComment /> Comments
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -263,6 +297,24 @@ const Dashboard = () => {
           </div>
         )}
       </div>
+
+      <RatingModal
+        isOpen={showRatingModal}
+        onClose={() => {
+          setShowRatingModal(false);
+          setSelectedGame(null);
+        }}
+        game={selectedGame}
+      />
+
+      <CommentsModal
+        isOpen={showCommentsModal}
+        onClose={() => {
+          setShowCommentsModal(false);
+          setSelectedGame(null);
+        }}
+        game={selectedGame}
+      />
     </div>
   );
 };

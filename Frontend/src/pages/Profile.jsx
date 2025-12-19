@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { userAPI } from '../services/api';
+import warriorImage from '../assets/images/warrior-profile-management-3.png';
 import './Profile.css';
 
 const Profile = () => {
@@ -98,21 +99,26 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
-      <div className="profile-header-bar">
-        <button onClick={() => navigate('/dashboard')} className="back-to-dashboard-btn">
-          <span>←</span> Back to Dashboard
-        </button>
-        <h1 className="profile-page-title">Profile Management</h1>
-      </div>
-      
-      <div className="profile-content">
+    <>
+      <div className="profile-container">
+        <div className="profile-header-bar">
+          <button onClick={() => navigate('/dashboard')} className="back-to-dashboard-btn">
+            <span>←</span> Back to Dashboard
+          </button>
+          <h1 className="profile-page-title">Profile Management</h1>
+        </div>
+        
+        <div className="profile-background-image">
+          <img src={warriorImage} alt="Profile Warrior" className="warrior-bg-image" />
+        </div>
+        
         <div className="profile-header">
           <h1>My Profile</h1>
           <p>Manage your account settings and view your progress</p>
         </div>
-
-        <div className="profile-card">
+        
+        <div className="profile-content">
+          <div className="profile-card">
           {message.text && (
             <div className={`${message.type}-message`}>
               {message.text}
@@ -229,6 +235,7 @@ const Profile = () => {
               </form>
             </div>
           </div>
+          </div>
         </div>
       </div>
 
@@ -273,7 +280,7 @@ const Profile = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

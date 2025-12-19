@@ -564,3 +564,73 @@
     justify-content: center;
   }
 }
+
+/* Game Actions (Rating & Comments) */
+.game-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.action-button {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.rate-button {
+  background: rgba(255, 215, 0, 0.1);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.rate-button:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: #ffd700;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.comment-button {
+  background: rgba(0, 243, 255, 0.1);
+  color: var(--primary-color);
+  border: 1px solid rgba(0, 243, 255, 0.3);
+}
+
+.comment-button:hover {
+  background: rgba(0, 243, 255, 0.2);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+}
+
+/* Responsive for game actions */
+@media (max-width: 768px) {
+  .game-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .action-button {
+    width: 100%;
+    padding: 12px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-button {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+}

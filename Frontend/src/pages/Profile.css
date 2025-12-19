@@ -63,15 +63,46 @@
   letter-spacing: 3px;
 }
 
+.profile-background-image {
+  position: fixed;
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18%;
+  max-width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.warrior-bg-image {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0, 255, 136, 0.25));
+  opacity: 0.8;
+}
+
 .profile-content {
   max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  margin: 0;
+  margin-left: 5%;
+  padding: 0 20px 40px;
+  position: relative;
+  z-index: 2;
+  justify-content: center;
 }
 
 .profile-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin: 0 auto 40px;
+  padding: 40px 20px 0;
+  position: relative;
+  z-index: 2;
+  max-width: 100%;
 }
 
 .profile-header h1 {
@@ -405,6 +436,20 @@
   
   .profile-content {
     padding: 30px 15px;
+  }
+  
+  .profile-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .profile-right-section {
+    position: static;
+    order: -1;
+  }
+  
+  .warrior-image-container-profile {
+    max-width: 350px;
   }
 
   .profile-header h1 {
