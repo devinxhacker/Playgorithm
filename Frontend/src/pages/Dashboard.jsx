@@ -160,6 +160,9 @@ const Dashboard = () => {
           <button onClick={() => setShowSettings(true)} className="profile-button cursor-target">
             <FaCog /> Settings
           </button>
+          <button onClick={() => navigate("/community")} className="community-button cursor-target">
+            💬 Community
+          </button>
           <button onClick={logout} className="logout-button cursor-target">
             Logout
           </button>
