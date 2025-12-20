@@ -9,7 +9,7 @@ import {
   FaUsers,
   FaPlay,
   FaGithub,
-  FaTwitter,
+  FaLinkedin,
   FaDiscord,
 } from "react-icons/fa";
 import {
@@ -393,7 +393,9 @@ function LandingPage() {
               </p>
               <div className="social-links">
                 <motion.a
-                  href="#"
+                  href="https://github.com/Udaysapate212/Playgorithm"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="cursor-target"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
@@ -401,15 +403,19 @@ function LandingPage() {
                   <FaGithub />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="https://www.linkedin.com/in/uday-sapate-b99872282/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="cursor-target"
                   whileHover={{ scale: 1.2, rotate: -5 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <FaTwitter />
+                  <FaLinkedin />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="https://discord.gg/mbZ8tw4n2p"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="cursor-target"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
@@ -460,10 +466,10 @@ function LandingPage() {
             >
               <h5 className="footer-title">Community</h5>
               <ul className="footer-links">
-                <li><a href="#" className="cursor-target">Discord</a></li>
-                <li><a href="#" className="cursor-target">Forums</a></li>
-                <li><a href="#" className="cursor-target">Blog</a></li>
-                <li><a href="#" className="cursor-target">Events</a></li>
+                <li><a href="https://discord.gg/mbZ8tw4n2p" target="_blank" rel="noopener noreferrer" className="cursor-target">Discord</a></li>
+                <li><a href="/forums" className="cursor-target">Forums</a></li>
+                <li><a href="/blog" className="cursor-target">Blog</a></li>
+                <li><a href="/events" className="cursor-target">Events</a></li>
               </ul>
             </motion.div>
 

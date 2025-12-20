@@ -317,7 +317,7 @@ const HelpCenter = () => {
             <motion.div 
               className="contact-option-card"
               whileHover={{ y: -5 }}
-              onClick={() => window.open('https://discord.gg/playgorithm', '_blank')}
+              onClick={() => window.open('https://discord.gg/mbZ8tw4n2p', '_blank')}
             >
               <div className="contact-option-icon" style={{ '--option-color': '#7289da' }}>
                 <FaDiscord />

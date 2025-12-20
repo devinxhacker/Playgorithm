@@ -32,6 +32,8 @@ import CopilotActionRouter from "./components/copilot/CopilotActionRouter";
 import FloatingCopilot from "./components/copilot/FloatingCopilot";
 // Support Pages
 import { HelpCenter, Contact, PrivacyPolicy, TermsOfService } from "./pages/support";
+// Community Pages
+import { Forums, Blog, Events } from "./pages/community/index";
 import "./App.css";
 
 function App() {
@@ -209,6 +211,11 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
+          
+          {/* Community Pages - Public Routes */}
+          <Route path="/forums" element={<Forums />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/events" element={<Events />} />
           
           <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

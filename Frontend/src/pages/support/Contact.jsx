@@ -76,7 +76,7 @@ const Contact = () => {
   };
 
   const socialLinks = [
-    { icon: FaDiscord, label: 'Discord', url: 'https://discord.gg/playgorithm', color: '#7289da' },
+    { icon: FaDiscord, label: 'Discord', url: 'https://discord.gg/mbZ8tw4n2p', color: '#7289da' },
     { icon: FaTwitter, label: 'Twitter', url: 'https://twitter.com/playgorithm', color: '#1da1f2' },
     { icon: FaGithub, label: 'GitHub', url: 'https://github.com/playgorithm', color: '#ffffff' }
   ];
