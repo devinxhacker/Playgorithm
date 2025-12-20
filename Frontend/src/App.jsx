@@ -34,6 +34,10 @@ import FloatingCopilot from "./components/copilot/FloatingCopilot";
 import { HelpCenter, Contact, PrivacyPolicy, TermsOfService } from "./pages/support";
 // Community Pages
 import { Forums, Blog, Events } from "./pages/community/index";
+// Learn Pages
+import { Algorithms, DataStructures, Tutorials, Docs } from "./pages/learn/index";
+// Platform Pages
+import { Features, Battles, Tournaments } from "./pages/platform/index";
 import "./App.css";
 
 function App() {
@@ -216,6 +220,17 @@ function App() {
           <Route path="/forums" element={<Forums />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/events" element={<Events />} />
+          
+          {/* Learn Pages - Public Routes */}
+          <Route path="/algorithms" element={<Algorithms />} />
+          <Route path="/data-structures" element={<DataStructures />} />
+          <Route path="/tutorials" element={<Tutorials />} />
+          <Route path="/docs" element={<Docs />} />
+          
+          {/* Platform Pages - Public Routes */}
+          <Route path="/features" element={<Features />} />
+          <Route path="/battles" element={<Battles />} />
+          <Route path="/tournaments" element={<Tournaments />} />
           
           <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

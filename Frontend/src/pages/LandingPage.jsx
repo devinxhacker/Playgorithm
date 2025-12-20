@@ -434,10 +434,10 @@ function LandingPage() {
             >
               <h5 className="footer-title">Platform</h5>
               <ul className="footer-links">
-                <li><a href="#features" className="cursor-target">Features</a></li>
-                <li><a href="#battles" className="cursor-target">Battles</a></li>
-                <li><a href="#" className="cursor-target">Leaderboard</a></li>
-                <li><a href="#" className="cursor-target">Tournaments</a></li>
+                <li><a href="/features" className="cursor-target">Features</a></li>
+                <li><a href="/battles" className="cursor-target">Battles</a></li>
+                <li><a href="/login" className="cursor-target">Leaderboard</a></li>
+                <li><a href="/tournaments" className="cursor-target">Tournaments</a></li>
               </ul>
             </motion.div>
 
@@ -450,10 +450,10 @@ function LandingPage() {
             >
               <h5 className="footer-title">Learn</h5>
               <ul className="footer-links">
-                <li><a href="#" className="cursor-target">Algorithms</a></li>
-                <li><a href="#" className="cursor-target">Data Structures</a></li>
-                <li><a href="#" className="cursor-target">Tutorials</a></li>
-                <li><a href="#" className="cursor-target">Docs</a></li>
+                <li><a href="/algorithms" className="cursor-target">Algorithms</a></li>
+                <li><a href="/data-structures" className="cursor-target">Data Structures</a></li>
+                <li><a href="/tutorials" className="cursor-target">Tutorials</a></li>
+                <li><a href="/docs" className="cursor-target">Docs</a></li>
               </ul>
             </motion.div>
 

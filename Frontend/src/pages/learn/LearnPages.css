@@ -1,0 +1,569 @@
+/* ========================================
+   Learn Pages - Shared Styles
+   Educational content pages for Playgorithm
+   ======================================== */
+
+/* Learning Path Styles */
+.learning-path {
+  background: rgba(15, 15, 15, 0.9);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 25px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.learning-path::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--path-color, linear-gradient(180deg, #00ff88, #00d4ff));
+}
+
+.learning-path-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.learning-path-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.2));
+  border: 2px solid var(--path-color, #00ff88);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--path-color, #00ff88);
+  flex-shrink: 0;
+}
+
+.learning-path-info {
+  flex: 1;
+}
+
+.learning-path-info h3 {
+  font-family: "Orbitron", monospace;
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.learning-path-info p {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.learning-path-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.learning-path-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.learning-path-meta svg {
+  color: var(--path-color, #00ff88);
+}
+
+.learning-path-progress {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  height: 10px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--path-color, linear-gradient(90deg, #00ff88, #00d4ff));
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+/* Topic Cards Grid */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.topic-card {
+  background: rgba(15, 15, 15, 0.9);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.topic-card:hover {
+  border-color: var(--topic-color, #00ff88);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.topic-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, var(--topic-color, #00ff88)10, transparent 70%);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.topic-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.topic-card-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.2));
+  border: 2px solid var(--topic-color, #00ff88);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--topic-color, #00ff88);
+  flex-shrink: 0;
+}
+
+.topic-card h4 {
+  font-family: "Orbitron", monospace;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.topic-card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.topic-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.topic-difficulty {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.topic-difficulty.beginner {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+}
+
+.topic-difficulty.intermediate {
+  background: rgba(255, 170, 0, 0.2);
+  color: #ffaa00;
+}
+
+.topic-difficulty.advanced {
+  background: rgba(255, 0, 128, 0.2);
+  color: #ff0080;
+}
+
+.topic-lessons {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Algorithm/DS Detail Cards */
+.algo-detail-card {
+  background: rgba(15, 15, 15, 0.9);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.algo-detail-card:hover {
+  border-color: #00ff88;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.algo-detail-header {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.algo-detail-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--algo-color, #00ff88);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--algo-color, #00ff88);
+}
+
+.algo-detail-title {
+  flex: 1;
+}
+
+.algo-detail-title h3 {
+  font-family: "Orbitron", monospace;
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.algo-detail-title span {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.algo-detail-body {
+  padding: 1.5rem;
+}
+
+.algo-complexity {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.complexity-item {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  min-width: 100px;
+}
+
+.complexity-item .label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.complexity-item .value {
+  font-family: "Orbitron", monospace;
+  font-size: 1rem;
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.algo-description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.algo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.algo-tag {
+  padding: 0.3rem 0.8rem;
+  background: rgba(0, 212, 255, 0.15);
+  border-radius: 20px;
+  color: #00d4ff;
+  font-size: 0.8rem;
+}
+
+/* Documentation Styles */
+.docs-sidebar {
+  background: rgba(15, 15, 15, 0.9);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  position: sticky;
+  top: 100px;
+}
+
+.docs-sidebar-title {
+  font-family: "Orbitron", monospace;
+  font-size: 1.1rem;
+  color: #00ff88;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.docs-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.docs-nav-item {
+  margin-bottom: 0.25rem;
+}
+
+.docs-nav-item a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.docs-nav-item a:hover {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+}
+
+.docs-nav-item a.active {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.docs-nav-item a svg {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.docs-content {
+  background: rgba(15, 15, 15, 0.9);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.docs-content h2 {
+  font-family: "Orbitron", monospace;
+  font-size: 1.8rem;
+  color: #00ff88;
+  margin-bottom: 1rem;
+}
+
+.docs-content h3 {
+  font-family: "Orbitron", monospace;
+  font-size: 1.3rem;
+  color: #00d4ff;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.docs-content p {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.docs-content code {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  color: #00ff88;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+}
+
+.docs-content pre {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 10px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.docs-content pre code {
+  background: none;
+  padding: 0;
+  color: #e0e0e0;
+}
+
+/* Tutorial Card Styles */
+.tutorial-card {
+  background: rgba(15, 15, 15, 0.9);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tutorial-card:hover {
+  border-color: #00ff88;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.tutorial-card-image {
+  height: 180px;
+  background: linear-gradient(135deg, var(--tutorial-color, #00ff88)30, var(--tutorial-color-end, #00d4ff)30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.tutorial-card-image svg {
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.tutorial-card-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(transparent, rgba(15, 15, 15, 0.9));
+}
+
+.tutorial-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tutorial-badge.video {
+  background: rgba(255, 0, 0, 0.8);
+  color: #ffffff;
+}
+
+.tutorial-badge.interactive {
+  background: rgba(0, 255, 136, 0.8);
+  color: #0a0a0a;
+}
+
+.tutorial-badge.article {
+  background: rgba(0, 212, 255, 0.8);
+  color: #0a0a0a;
+}
+
+.tutorial-card-content {
+  padding: 1.5rem;
+}
+
+.tutorial-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.tutorial-card-category {
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.2));
+  border-radius: 20px;
+  color: #00ff88;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tutorial-card-duration {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.tutorial-card h4 {
+  font-family: "Orbitron", monospace;
+  font-size: 1.15rem;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.tutorial-card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .docs-sidebar {
+    position: static;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .topics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .learning-path-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .learning-path-meta {
+    justify-content: center;
+  }
+  
+  .algo-complexity {
+    justify-content: center;
+  }
+}
