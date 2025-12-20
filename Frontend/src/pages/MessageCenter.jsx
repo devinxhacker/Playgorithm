@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useSettings } from '../context/SettingsContext';
+import ThemeIndicator from '../components/ThemeIndicator/ThemeIndicator';
+import DarkModeToggle from '../components/DarkModeToggle/DarkModeToggle';
 import axios from 'axios';
 import './MessageCenter.css';
-import { FaComments, FaImage, FaPaperPlane, FaTimes, FaTrash } from 'react-icons/fa';
+import { FaComments, FaImage, FaPaperPlane, FaTimes, FaTrash, FaArrowLeft } from 'react-icons/fa';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const MessageCenter = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
+  const { settings } = useSettings();
   const token = localStorage.getItem('token');
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -289,22 +295,29 @@ const MessageCenter = () => {
   return (
     <div className="message-center">
       <div className="message-center-container">
+        <button 
+          className="back-to-dashboard-btn cursor-target"
+          onClick={() => navigate('/dashboard')}
+          title="Back to Dashboard"
+        >
+          <FaArrowLeft />
+          <span className="back-btn-text">Back to Dashboard</span>
+        </button>
+        
         <div className="message-center-header">
           <h1>
             <FaComments />
             Community Chat
           </h1>
-          <div className="online-count">
-            <span className="online-dot"></span>
-            <span>Live</span>
+          <div className="message-center-header-actions">
+            <div className="online-count">
+              <span className="online-dot"></span>
+              <span>Live</span>
+            </div>
+            <DarkModeToggle />
+            <ThemeIndicator />
           </div>
         </div>
-
-        {connected && (
-          <div className="connection-status connected">
-            ✓ Connected - Messages will update in real-time
-          </div>
-        )}
 
         {!connected && !loading && (
           <div className="connection-status disconnected">
@@ -429,25 +442,15 @@ const MessageCenter = () => {
                 </button>
               </div>
             )}
-            <div className="message-input-area">
-              {imagePreview && (
-                <div className="image-preview-container">
-                  <img src={imagePreview} alt="Preview" className="image-preview" />
-                  <button className="remove-image-btn" onClick={handleRemoveImage}>
-                    <FaTimes />
-                  </button>
-                </div>
-              )}
-              <textarea
-                className="message-input"
-                placeholder="Type your message... (Press Enter to send, Shift+Enter for new line)"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                rows={2}
-              />
-            </div>
-            <div className="message-input-buttons">
+            {imagePreview && (
+              <div className="image-preview-container">
+                <img src={imagePreview} alt="Preview" className="image-preview" />
+                <button className="remove-image-btn" onClick={handleRemoveImage}>
+                  <FaTimes />
+                </button>
+              </div>
+            )}
+            <div className="message-input-row">
               <input
                 type="file"
                 ref={fileInputRef}
@@ -456,17 +459,27 @@ const MessageCenter = () => {
                 style={{ display: 'none' }}
               />
               <button
-                className="upload-image-btn"
+                className="upload-image-btn cursor-target"
                 onClick={() => fileInputRef.current?.click()}
+                title="Upload Image"
               >
-                <FaImage /> Image
+                <FaImage />
               </button>
+              <textarea
+                className="message-input"
+                placeholder="Type your message... (Press Enter to send, Shift+Enter for new line)"
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                rows={1}
+              />
               <button
-                className="send-message-btn"
+                className="send-message-btn cursor-target"
                 onClick={handleSendMessage}
                 disabled={!newMessage.trim() && !selectedImage}
+                title="Send Message"
               >
-                <FaPaperPlane /> Send
+                <FaPaperPlane />
               </button>
             </div>
           </div>
