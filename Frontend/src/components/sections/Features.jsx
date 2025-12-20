@@ -55,20 +55,21 @@ const Features = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 60, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.6,
-        ease: "easeOut",
+        duration: 0.7,
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     },
   };
@@ -117,7 +118,7 @@ const Features = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
         >
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
