@@ -30,6 +30,16 @@ public class GameCoachAgent implements CopilotAgent {
         Object phase = payload.getOrDefault("phase", "active play");
         Object state = payload.getOrDefault("state", "" );
         Object difficulty = payload.getOrDefault("difficulty", "dynamic");
-        return "Assisting in " + game + " during " + phase + " (difficulty: " + difficulty + ") " + state;
+        String emoji = getGameEmoji(String.valueOf(phase));
+        return emoji + " Coaching in " + game + " | Phase: " + phase + " | Difficulty: " + difficulty + 
+               (state.toString().isEmpty() ? "" : " | Status: " + state) +
+               ". Offer strategy tips, encouragement, or explain concepts if user seems stuck.";
+    }
+
+    private String getGameEmoji(String phase) {
+        if (phase.toLowerCase().contains("start") || phase.toLowerCase().contains("begin")) return "🎬";
+        if (phase.toLowerCase().contains("complete") || phase.toLowerCase().contains("finish")) return "🎉";
+        if (phase.toLowerCase().contains("stuck") || phase.toLowerCase().contains("error")) return "🆘";
+        return "🎯";
     }
 }

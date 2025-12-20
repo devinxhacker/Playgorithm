@@ -41,7 +41,7 @@ const AlgorithmVisualizerFrame = () => {
 
   const currentVisualizer = visualizerInfo[visualizerId] || { path: "", name: "Algorithm Visualizer" };
   // AlgorithmVisualizer runs on port 3001 (configured in next.config.mjs)
-  const visualizerUrl = `http://localhost:3001${currentVisualizer.path}`;
+  const visualizerUrl = `${import.meta.env.VITE_VISUALIZER_BASE_URL}${currentVisualizer.path}`;
 
   return (
     <div className="visualizer-frame-container">

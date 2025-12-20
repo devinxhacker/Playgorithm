@@ -15,8 +15,14 @@ public class DataConciergeAgent implements CopilotAgent {
 
     @Override
     public Optional<String> buildContext(CopilotSession session) {
-        String summary = "Internal data services can fetch live game info, current leaderboards, a player's progress, " +
-            "and any starter templates they might need. Always summarize what you can provide rather than exposing raw endpoints.";
+        Object username = session.getMetadata().get("username");
+        Object level = session.getMetadata().get("level");
+        String userInfo = username != null ? " for " + username : "";
+        String levelInfo = level != null ? " (Level " + level + ")" : "";
+        
+        String summary = "📦 Data available" + userInfo + levelInfo + ": game stats, leaderboard rankings, user progress, starter code templates. " +
+            "When users ask about their performance or standings, offer to check this data. " +
+            "Present information conversationally (e.g., 'You're climbing the leaderboard! 📈') without mentioning technical endpoints.";
         return Optional.of(summary);
     }
 }

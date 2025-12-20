@@ -23,7 +23,18 @@ public class NavigatorAgent implements CopilotAgent {
                 .map(event -> {
                     Object path = event.getPayload().getOrDefault("path", "unknown");
                     Object label = event.getPayload().getOrDefault("label", path);
-                    return "User is exploring " + label + " (" + path + ")";
+                    String location = String.valueOf(path);
+                    String emoji = getLocationEmoji(location);
+                    return emoji + " Currently viewing: " + label + ". Provide context-aware suggestions for this location.";
                 });
+    }
+
+    private String getLocationEmoji(String path) {
+        if (path.contains("/game/")) return "🎮";
+        if (path.contains("dashboard")) return "📊";
+        if (path.contains("leaderboard")) return "🏆";
+        if (path.contains("challenges")) return "💻";
+        if (path.contains("visualizer")) return "📈";
+        return "📍";
     }
 }
