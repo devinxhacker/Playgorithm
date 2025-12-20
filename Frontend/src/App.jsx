@@ -30,6 +30,8 @@ import TargetCursor from "./components/ui/TargetCursor";
 import CopilotBridge from "./components/copilot/CopilotBridge";
 import CopilotActionRouter from "./components/copilot/CopilotActionRouter";
 import FloatingCopilot from "./components/copilot/FloatingCopilot";
+// Support Pages
+import { HelpCenter, Contact, PrivacyPolicy, TermsOfService } from "./pages/support";
 import "./App.css";
 
 function App() {
@@ -201,6 +203,13 @@ function App() {
               </ProtectedRoute>
             }
           />
+          
+          {/* Support Pages - Public Routes */}
+          <Route path="/help" element={<HelpCenter />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          
           <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Router>

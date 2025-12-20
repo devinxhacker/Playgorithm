@@ -1,0 +1,41 @@
+/* Scroll Progress Bar Styles */
+.scroll-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, 
+    #00ff88 0%, 
+    #00d4ff 50%, 
+    #ff0080 100%
+  );
+  background-size: 200% 100%;
+  animation: progressGradient 3s ease infinite;
+  transition: width 0.1s ease-out;
+  box-shadow: 
+    0 0 8px rgba(0, 255, 136, 0.6),
+    0 0 16px rgba(0, 212, 255, 0.4),
+    0 0 24px rgba(255, 0, 128, 0.2);
+  border-radius: 0 2px 2px 0;
+}
+
+@keyframes progressGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .scroll-progress-container {
+    height: 2px;
+  }
+}

@@ -1,0 +1,402 @@
+/* ========================================
+   Scroll Animation Styles
+   Production-ready animations for Playgorithm
+   ======================================== */
+
+/* ----------------------------------------
+   Base Animation Classes
+   ---------------------------------------- */
+
+/* Fade animations */
+.scroll-fade-in {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+}
+
+/* Fade with directional movement */
+.scroll-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade-down {
+  opacity: 0;
+  transform: translateY(-40px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-fade-down.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-fade-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-fade-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-fade-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-fade-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale animations */
+.scroll-scale-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.scroll-scale-up {
+  opacity: 0;
+  transform: scale(0.8) translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-scale-up.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Rotate animations */
+.scroll-rotate-in {
+  opacity: 0;
+  transform: rotate(-5deg) scale(0.95);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-rotate-in.visible {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+/* ----------------------------------------
+   Special Effect Classes
+   ---------------------------------------- */
+
+/* Blur reveal effect */
+.scroll-blur-in {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-blur-in.visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* Glow pulse on reveal */
+.scroll-glow-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-glow-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: glowPulse 2s ease-out;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0 rgba(0, 255, 136, 0);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 255, 136, 0.4), 
+                0 0 80px rgba(0, 255, 136, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(0, 255, 136, 0);
+  }
+}
+
+/* Slide with bounce */
+.scroll-bounce-in {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.scroll-bounce-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----------------------------------------
+   Stagger Animation Delays
+   Use these with staggered children
+   ---------------------------------------- */
+
+.stagger-1 { transition-delay: 0.1s !important; }
+.stagger-2 { transition-delay: 0.2s !important; }
+.stagger-3 { transition-delay: 0.3s !important; }
+.stagger-4 { transition-delay: 0.4s !important; }
+.stagger-5 { transition-delay: 0.5s !important; }
+.stagger-6 { transition-delay: 0.6s !important; }
+.stagger-7 { transition-delay: 0.7s !important; }
+.stagger-8 { transition-delay: 0.8s !important; }
+
+/* ----------------------------------------
+   Scroll Progress Bar
+   ---------------------------------------- */
+
+.scroll-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 9999;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff88, #00d4ff, #ff0080);
+  background-size: 200% 100%;
+  animation: gradientShift 3s ease infinite;
+  transition: width 0.1s ease-out;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5),
+              0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ----------------------------------------
+   Section Reveal Animations
+   ---------------------------------------- */
+
+.section-reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Title underline animation */
+.title-reveal {
+  position: relative;
+  display: inline-block;
+}
+
+.title-reveal::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00ff88, #00d4ff);
+  transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s,
+              left 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+  border-radius: 2px;
+}
+
+.title-reveal.visible::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ----------------------------------------
+   Counter Animation
+   ---------------------------------------- */
+
+.counter-animate {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.counter-animate.counting {
+  animation: counterBounce 0.3s ease;
+}
+
+@keyframes counterBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* ----------------------------------------
+   Card Hover Enhancements
+   ---------------------------------------- */
+
+.card-3d-hover {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.card-3d-hover:hover {
+  transform: translateY(-10px) rotateX(2deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+              0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+/* ----------------------------------------
+   Floating Animation (for decorative elements)
+   ---------------------------------------- */
+
+.float-animation {
+  animation: floatUpDown 4s ease-in-out infinite;
+}
+
+.float-animation-delayed {
+  animation: floatUpDown 4s ease-in-out infinite 1s;
+}
+
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ----------------------------------------
+   Text Character Animation
+   ---------------------------------------- */
+
+.text-reveal-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.text-reveal-char.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----------------------------------------
+   Parallax Classes
+   ---------------------------------------- */
+
+.parallax-slow {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.parallax-medium {
+  will-change: transform;
+  transition: transform 0.08s linear;
+}
+
+.parallax-fast {
+  will-change: transform;
+  transition: transform 0.05s linear;
+}
+
+/* ----------------------------------------
+   Performance Optimizations
+   ---------------------------------------- */
+
+.scroll-fade-up,
+.scroll-fade-down,
+.scroll-fade-left,
+.scroll-fade-right,
+.scroll-scale-in,
+.scroll-scale-up,
+.scroll-rotate-in,
+.scroll-blur-in,
+.scroll-glow-in,
+.scroll-bounce-in,
+.section-reveal {
+  will-change: opacity, transform;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fade-up,
+  .scroll-fade-down,
+  .scroll-fade-left,
+  .scroll-fade-right,
+  .scroll-scale-in,
+  .scroll-scale-up,
+  .scroll-rotate-in,
+  .scroll-blur-in,
+  .scroll-glow-in,
+  .scroll-bounce-in,
+  .section-reveal,
+  .float-animation,
+  .float-animation-delayed {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* ----------------------------------------
+   Mobile Optimizations
+   ---------------------------------------- */
+
+@media (max-width: 768px) {
+  .scroll-fade-up,
+  .scroll-fade-down,
+  .scroll-fade-left,
+  .scroll-fade-right {
+    transform: translateY(25px) !important;
+  }
+  
+  .scroll-fade-up.visible,
+  .scroll-fade-down.visible,
+  .scroll-fade-left.visible,
+  .scroll-fade-right.visible {
+    transform: translateY(0) !important;
+  }
+  
+  .scroll-progress-container {
+    height: 2px;
+  }
+}
