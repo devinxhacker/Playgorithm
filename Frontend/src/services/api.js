@@ -34,6 +34,7 @@ export const userAPI = {
   getCurrentUser: () => api.get('/users/me'),
   getUserByUsername: (username) => api.get(`/users/${username}`),
   updateProfile: (data) => api.put('/users/me', data),
+  getUserRank: () => api.get('/users/me/rank'),
 };
 
 // Game API
@@ -46,6 +47,7 @@ export const gameAPI = {
   getUserSessions: () => api.get('/games/sessions'),
   getSessionById: (sessionId) => api.get(`/games/sessions/${sessionId}`),
   submitGame: (data) => api.post('/games/submit', data),
+  completeGame: (data) => api.post('/games/complete', data),
 };
 
 // Leaderboard API

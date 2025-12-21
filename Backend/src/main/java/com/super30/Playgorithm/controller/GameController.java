@@ -72,12 +72,78 @@ public class GameController {
             @RequestBody Map<String, Object> submission,
             Authentication authentication
     ) {
-        // This is a simplified version - you'd implement actual code execution here
+        String username = authentication.getName();
+        var user = userService.getUserByUsername(username);
+        
+        // Get XP from submission or use default
+        Integer xpEarned = submission.get("xpEarned") != null 
+            ? Integer.valueOf(submission.get("xpEarned").toString()) 
+            : 50;
+        Boolean won = submission.get("won") != null 
+            ? Boolean.valueOf(submission.get("won").toString()) 
+            : true;
+        
+        // Update user stats
+        userService.addXP(user.getId(), xpEarned);
+        userService.incrementGamesPlayed(user.getId());
+        if (won) {
+            userService.incrementGamesWon(user.getId());
+        }
+        
+        // Get updated user data
+        var updatedUser = userService.getUserById(user.getId());
+        
         return ResponseEntity.ok(Map.of(
                 "success", true,
-                "message", "Code submitted successfully",
+                "message", "Game completed successfully",
                 "score", 100,
-                "xpEarned", 50
+                "xpEarned", xpEarned,
+                "totalXP", updatedUser.getTotalXP(),
+                "level", updatedUser.getLevel(),
+                "gamesPlayed", updatedUser.getGamesPlayed(),
+                "gamesWon", updatedUser.getGamesWon(),
+                "winRate", updatedUser.getWinRate()
+        ));
+    }
+
+    @PostMapping("/complete")
+    public ResponseEntity<?> completeGame(
+            @RequestBody Map<String, Object> gameData,
+            Authentication authentication
+    ) {
+        String username = authentication.getName();
+        var user = userService.getUserByUsername(username);
+        
+        // Get XP from request or use default
+        Integer xpEarned = gameData.get("xpEarned") != null 
+            ? Integer.valueOf(gameData.get("xpEarned").toString()) 
+            : 50;
+        Boolean won = gameData.get("won") != null 
+            ? Boolean.valueOf(gameData.get("won").toString()) 
+            : true;
+        String gameId = gameData.get("gameId") != null 
+            ? gameData.get("gameId").toString() 
+            : null;
+        
+        // Update user stats
+        userService.addXP(user.getId(), xpEarned);
+        userService.incrementGamesPlayed(user.getId());
+        if (won) {
+            userService.incrementGamesWon(user.getId());
+        }
+        
+        // Get updated user data
+        var updatedUser = userService.getUserById(user.getId());
+        
+        return ResponseEntity.ok(Map.of(
+                "success", true,
+                "message", "Game completed successfully",
+                "xpEarned", xpEarned,
+                "totalXP", updatedUser.getTotalXP(),
+                "level", updatedUser.getLevel(),
+                "gamesPlayed", updatedUser.getGamesPlayed(),
+                "gamesWon", updatedUser.getGamesWon(),
+                "winRate", updatedUser.getWinRate()
         ));
     }
 

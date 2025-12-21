@@ -17,4 +17,10 @@ public interface UserRepository extends MongoRepository<User, String> {
     long countByIsActiveTrue();
     long countByRolesContaining(String role);
     List<User> findTop5ByOrderByCreatedAtDesc();
+    
+    // Count users with XP greater than the given value (for ranking)
+    long countByTotalXPGreaterThan(Integer totalXP);
+    
+    // Get all users ordered by XP for leaderboard
+    List<User> findAllByOrderByTotalXPDesc();
 }

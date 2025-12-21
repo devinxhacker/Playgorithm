@@ -12,6 +12,8 @@ import {
   FaTrophy,
 } from 'react-icons/fa';
 import { SPEED_DEBUGGING_LEVELS } from '../data/speedDebuggingData';
+import { useAuth } from '../context/AuthContext';
+import { gameAPI } from '../services/api';
 import './SpeedDebugging.css';
 
 const buildInitialStats = () =>
@@ -58,6 +60,7 @@ const normalizeCode = (code) =>
 
 const SpeedDebugging = () => {
   const navigate = useNavigate();
+  const { user, updateUser } = useAuth();
   const [stats, setStats] = useState(buildInitialStats);
   const [levelTimers, setLevelTimers] = useState(buildInitialTimers);
   const [editorState, setEditorState] = useState(buildInitialEditors);
@@ -67,6 +70,7 @@ const SpeedDebugging = () => {
   const [showHint, setShowHint] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
+  const [xpSaved, setXpSaved] = useState({});
 
   const currentLevel = useMemo(
     () => SPEED_DEBUGGING_LEVELS.find((level) => level.id === activeLevelId),
@@ -199,6 +203,30 @@ const SpeedDebugging = () => {
               };
             }
             setShowSummary(true);
+            
+            // Save XP to backend when level is completed
+            if (user && !xpSaved[activeLevelId]) {
+              const xpToSave = enhancedState.xpEarned || updatedLevelState.xpEarned;
+              gameAPI.completeGame({
+                gameId: `speed-debugging-${activeLevelId}`,
+                xpEarned: xpToSave,
+                won: true
+              }).then(response => {
+                if (response.data.success) {
+                  updateUser({ 
+                    ...user, 
+                    totalXP: response.data.totalXP,
+                    level: response.data.level,
+                    gamesPlayed: response.data.gamesPlayed,
+                    gamesWon: response.data.gamesWon,
+                    winRate: response.data.winRate
+                  });
+                  setXpSaved(prev => ({ ...prev, [activeLevelId]: true }));
+                }
+              }).catch(error => {
+                console.error('Failed to save game progress:', error);
+              });
+            }
           }
         }
 

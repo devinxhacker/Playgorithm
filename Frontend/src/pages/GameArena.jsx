@@ -252,14 +252,20 @@ int main() {
         sessionId: session.id,
         code,
         language,
+        xpEarned: 50,
+        won: true
       });
 
       if (response.data.success) {
-        // Update user XP
-        const updatedUser = { ...user };
-        updatedUser.totalXP += response.data.xpEarned;
-        updatedUser.level = Math.floor(updatedUser.totalXP / 100) + 1;
-        updateUser(updatedUser);
+        // Update user with stats from backend response
+        updateUser({
+          ...user,
+          totalXP: response.data.totalXP,
+          level: response.data.level,
+          gamesPlayed: response.data.gamesPlayed,
+          gamesWon: response.data.gamesWon,
+          winRate: response.data.winRate
+        });
 
         alert(`Congratulations! You earned ${response.data.xpEarned} XP!`);
         navigate("/dashboard");

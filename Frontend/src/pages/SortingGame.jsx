@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowLeft, FaCode, FaPlay, FaPause, FaRedo, FaForward } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
+import { gameAPI } from "../services/api";
 import LanguageSelector from "../components/LanguageSelector";
 import "./SortingGame.css";
 
@@ -593,13 +594,34 @@ const SortingGame = () => {
     }
   }, [mode, autoPlay, algorithm, engineState]);
 
-  const complete = () => {
+  const complete = async () => {
     setMode("completed");
     const gained = Math.max(50, 150 - swaps * 2);
     setRewardXP(gained);
     if (user) {
-      const newXP = (user.totalXP || 0) + gained;
-      updateUser({ ...user, totalXP: newXP });
+      try {
+        const response = await gameAPI.completeGame({
+          gameId: 'sorting-game',
+          xpEarned: gained,
+          won: true,
+          algorithm: algorithm
+        });
+        if (response.data.success) {
+          updateUser({ 
+            ...user, 
+            totalXP: response.data.totalXP,
+            level: response.data.level,
+            gamesPlayed: response.data.gamesPlayed,
+            gamesWon: response.data.gamesWon,
+            winRate: response.data.winRate
+          });
+        }
+      } catch (error) {
+        console.error('Failed to save game progress:', error);
+        // Fallback to local update if API fails
+        const newXP = (user.totalXP || 0) + gained;
+        updateUser({ ...user, totalXP: newXP });
+      }
     }
     setQuiz(generateQuiz(algorithm));
   };
@@ -674,15 +696,31 @@ const SortingGame = () => {
     return { question: pick.q, options: pick.a, correct: pick.c };
   }
 
-  const handleQuizAnswer = (idx) => {
+  const handleQuizAnswer = async (idx) => {
     if (!quiz || quizResult) return;
     setQuizAnswer(idx);
     const correct = idx === quiz.correct;
     setQuizResult(correct ? 'correct' : 'wrong');
     if (correct && user) {
       const bonus = 25;
-      const newXP = (user.totalXP || 0) + bonus;
-      updateUser({ ...user, totalXP: newXP });
+      try {
+        const response = await gameAPI.completeGame({
+          gameId: 'sorting-game-quiz',
+          xpEarned: bonus,
+          won: true
+        });
+        if (response.data.success) {
+          updateUser({ 
+            ...user, 
+            totalXP: response.data.totalXP,
+            level: response.data.level
+          });
+        }
+      } catch (error) {
+        console.error('Failed to save quiz bonus:', error);
+        const newXP = (user.totalXP || 0) + bonus;
+        updateUser({ ...user, totalXP: newXP });
+      }
     }
   };
 

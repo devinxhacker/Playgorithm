@@ -50,4 +50,22 @@ public class UserService {
         user.setWinRate((double) user.getGamesWon() / user.getGamesPlayed() * 100);
         userRepository.save(user);
     }
+
+    /**
+     * Calculate the global rank of a user based on their XP.
+     * Rank 1 = highest XP, counts how many users have more XP + 1
+     */
+    public int getUserGlobalRank(String userId) {
+        User user = getUserById(userId);
+        // Count users with more XP than this user, add 1 for the rank
+        long usersWithMoreXP = userRepository.countByTotalXPGreaterThan(user.getTotalXP());
+        return (int) usersWithMoreXP + 1;
+    }
+
+    /**
+     * Get total number of users for rank context
+     */
+    public long getTotalUserCount() {
+        return userRepository.count();
+    }
 }

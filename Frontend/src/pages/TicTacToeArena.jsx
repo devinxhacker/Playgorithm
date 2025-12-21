@@ -16,10 +16,13 @@ import { GiSwordman } from 'react-icons/gi';
 import ticTacToeImage from '../assets/images/tic-tac-toe.png';
 import warriorImage from '../assets/images/warrior-tic-tac-toe.png';
 import { SparklesCore } from '../components/ui/sparkles';
+import { useAuth } from '../context/AuthContext';
+import { gameAPI } from '../services/api';
 import './TicTacToeArena.css';
 
 const TicTacToeArena = () => {
   const navigate = useNavigate();
+  const { user, updateUser } = useAuth();
   const [mode, setMode] = useState('menu'); // 'menu', 'learn', 'play'
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isXNext, setIsXNext] = useState(true);
@@ -244,15 +247,80 @@ const TicTacToeArena = () => {
     }, 300);
   };
 
-  const updateScore = (result) => {
+  const updateScore = async (result) => {
     if (result === 'X') {
       setScore(prev => ({ ...prev, player: prev.player + 1 }));
       setShowCelebration(true);
       setTimeout(() => setShowCelebration(false), 3000);
+      
+      // Save win to backend
+      if (user) {
+        try {
+          const response = await gameAPI.completeGame({
+            gameId: 'tic-tac-toe',
+            xpEarned: 25,
+            won: true
+          });
+          if (response.data.success) {
+            updateUser({ 
+              ...user, 
+              totalXP: response.data.totalXP,
+              level: response.data.level,
+              gamesPlayed: response.data.gamesPlayed,
+              gamesWon: response.data.gamesWon,
+              winRate: response.data.winRate
+            });
+          }
+        } catch (error) {
+          console.error('Failed to save game progress:', error);
+        }
+      }
     } else if (result === 'O') {
       setScore(prev => ({ ...prev, ai: prev.ai + 1 }));
+      
+      // Save loss to backend
+      if (user) {
+        try {
+          const response = await gameAPI.completeGame({
+            gameId: 'tic-tac-toe',
+            xpEarned: 10,
+            won: false
+          });
+          if (response.data.success) {
+            updateUser({ 
+              ...user, 
+              totalXP: response.data.totalXP,
+              level: response.data.level,
+              gamesPlayed: response.data.gamesPlayed
+            });
+          }
+        } catch (error) {
+          console.error('Failed to save game progress:', error);
+        }
+      }
     } else {
       setScore(prev => ({ ...prev, ties: prev.ties + 1 }));
+      
+      // Save tie to backend
+      if (user) {
+        try {
+          const response = await gameAPI.completeGame({
+            gameId: 'tic-tac-toe',
+            xpEarned: 15,
+            won: false
+          });
+          if (response.data.success) {
+            updateUser({ 
+              ...user, 
+              totalXP: response.data.totalXP,
+              level: response.data.level,
+              gamesPlayed: response.data.gamesPlayed
+            });
+          }
+        } catch (error) {
+          console.error('Failed to save game progress:', error);
+        }
+      }
     }
   };
 

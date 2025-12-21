@@ -16,11 +16,14 @@ import {
 } from "react-icons/fa";
 import { GiSwordman } from "react-icons/gi";
 import { SparklesCore } from '../components/ui/sparkles';
+import { useAuth } from '../context/AuthContext';
+import { gameAPI } from '../services/api';
 import warriorImage from '../assets/images/warrior-tic-tac-toe.png';
 import "./QueensArena.css";
 
 const QueensArena = () => {
   const navigate = useNavigate();
+  const { user, updateUser } = useAuth();
   const [mode, setMode] = useState("menu");
   const [boardSize, setBoardSize] = useState(4);
   const [board, setBoard] = useState([]);
@@ -153,6 +156,29 @@ const QueensArena = () => {
         const finalScore = score + 100 + comboBonus + timeBonus;
         setScore(finalScore);
         setMode("completed");
+        
+        // Save game completion to backend
+        const xpReward = boardSize === 4 ? 50 : boardSize === 6 ? 100 : 150;
+        if (user) {
+          gameAPI.completeGame({
+            gameId: `n-queens-${boardSize}`,
+            xpEarned: xpReward,
+            won: true
+          }).then(response => {
+            if (response.data.success) {
+              updateUser({ 
+                ...user, 
+                totalXP: response.data.totalXP,
+                level: response.data.level,
+                gamesPlayed: response.data.gamesPlayed,
+                gamesWon: response.data.gamesWon,
+                winRate: response.data.winRate
+              });
+            }
+          }).catch(error => {
+            console.error('Failed to save game progress:', error);
+          });
+        }
       }
 
       if (mode === "learn" && newQueens.length === learnStep + 1) {
