@@ -21,7 +21,7 @@ public class Game {
 
     private String description;
 
-    private String category; // SORTING, SEARCHING, GRAPH, DYNAMIC_PROGRAMMING, CODE_GOLF, DEBUGGING
+    private String category; // DSA_ALGORITHMS, AI_ALGORITHMS, WEB_DEVELOPMENT, VISUALIZATION, DEBUGGING, CODING_CHALLENGES, GENERAL
 
     private String difficulty; // EASY, MEDIUM, HARD
 

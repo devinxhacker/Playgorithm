@@ -28,7 +28,7 @@ import './AdminDashboard.css';
 const blankGameForm = {
   name: '',
   description: '',
-  category: 'SORTING',
+  category: 'CODING_CHALLENGES',
   difficulty: 'EASY',
   xpReward: 500,
   timeLimit: 300,
@@ -525,13 +525,13 @@ const AdminDashboard = () => {
                     <label>
                       Category
                       <select name="category" value={gameForm.category} onChange={handleGameFieldChange}>
-                        <option value="SORTING">Sorting</option>
-                        <option value="SEARCHING">Searching</option>
-                        <option value="GRAPH">Graph</option>
-                        <option value="DYNAMIC_PROGRAMMING">Dynamic Programming</option>
-                        <option value="CODE_GOLF">Code Golf</option>
-                        <option value="DEBUGGING">Speed Debugging</option>
-                        <option value="CSS_FLEXBOX">CSS Flexbox</option>
+                        <option value="DSA_ALGORITHMS">DSA Algorithms</option>
+                        <option value="AI_ALGORITHMS">AI Algorithms</option>
+                        <option value="WEB_DEVELOPMENT">Web Development</option>
+                        <option value="VISUALIZATION">Visualization</option>
+                        <option value="DEBUGGING">Debugging</option>
+                        <option value="CODING_CHALLENGES">Coding Challenges</option>
+                        <option value="GENERAL">General</option>
                       </select>
                     </label>
                     <label>

@@ -88,7 +88,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Sorting Showdown",
                         "Race against time to implement the fastest sorting algorithm!",
-                        "SORTING",
+                        "DSA_ALGORITHMS",
                         "EASY",
                         500,
                         300,
@@ -105,7 +105,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Graph Gladiator",
                         "Navigate through complex graph structures and find the shortest path!",
-                        "GRAPH",
+                        "DSA_ALGORITHMS",
                         "MEDIUM",
                         1000,
                         600,
@@ -120,7 +120,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Dynamic Programming Duel",
                         "Master optimization by breaking down complex problems!",
-                        "DYNAMIC_PROGRAMMING",
+                        "DSA_ALGORITHMS",
                         "HARD",
                         2000,
                         900,
@@ -135,7 +135,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Binary Search Challenge",
                         "Find elements in sorted arrays with lightning speed!",
-                        "SEARCHING",
+                        "DSA_ALGORITHMS",
                         "EASY",
                         400,
                         300,
@@ -150,7 +150,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Code Golf: FizzBuzz",
                         "Write the shortest code possible to solve FizzBuzz!",
-                        "CODE_GOLF",
+                        "CODING_CHALLENGES",
                         "EASY",
                         300,
                         600,
@@ -179,7 +179,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Tic-Tac-Toe Arena",
                         "Challenge the AI in a classic game of Tic-Tac-Toe with strategic gameplay!",
-                        "GRAPH",
+                        "AI_ALGORITHMS",
                         "EASY",
                         500,
                         600,
@@ -193,7 +193,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Flexbox Arena",
                         "Master CSS Flexbox through interactive challenges and warrior battles!",
-                        "CSS_FLEXBOX",
+                        "WEB_DEVELOPMENT",
                         "MEDIUM",
                         750,
                         1800,
@@ -214,7 +214,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Queens Arena",
                         "Master the classic N-Queens problem with beautiful visuals and learn backtracking!",
-                        "GRAPH",
+                        "AI_ALGORITHMS",
                         "MEDIUM",
                         1000,
                         1200,
@@ -230,7 +230,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Zip Game",
                         "Connect numbers 1 to N by moving through adjacent cells. New puzzle every time!",
-                        "GRAPH",
+                        "GENERAL",
                         "EASY",
                         400,
                         300,
@@ -248,7 +248,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Grid Arena",
                         "Master CSS Grid layout by growing your carrot garden! 28 levels of grid mastery.",
-                        "CSS_FLEXBOX",
+                        "WEB_DEVELOPMENT",
                         "MEDIUM",
                         1500,
                         3600,
@@ -265,7 +265,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Missionaries & Cannibals",
                         "Solve the classic river-crossing puzzle! Learn constraint satisfaction and state-space search.",
-                        "GRAPH",
+                        "AI_ALGORITHMS",
                         "MEDIUM",
                         1200,
                         900,
@@ -289,7 +289,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Algorithm Visualizer",
                         "Explore 8 interactive algorithm visualizations: sorting, pathfinding, recursion, and more!",
-                        "ALL",
+                        "VISUALIZATION",
                         "MEDIUM",
                         2000,
                         0,
@@ -310,7 +310,7 @@ public class DataInitializer implements CommandLineRunner {
                 createGame(
                         "Chess Arena",
                         "Play chess against AI with Minimax algorithm! Learn mode explains alpha-beta pruning.",
-                        "GRAPH",
+                        "AI_ALGORITHMS",
                         "HARD",
                         2500,
                         0,

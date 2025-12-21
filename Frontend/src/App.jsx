@@ -22,7 +22,7 @@ import GridArena from "./pages/GridArena";
 import SpeedDebugging from "./pages/SpeedDebugging";
 import MissionariesArena from "./pages/MissionariesArena";
 import AlgorithmVisualizerHub from "./pages/AlgorithmVisualizerHub";
-import AlgorithmVisualizerFrame from "./pages/AlgorithmVisualizerFrame";
+import VisualizerRouter from "./pages/VisualizerRouter";
 import ChessArena from "./pages/ChessArena";
 import Profile from "./pages/Profile";
 import MessageCenter from "./pages/MessageCenter";
@@ -157,7 +157,7 @@ function App() {
             path="/visualizer/:visualizerId"
             element={
               <ProtectedRoute>
-                <AlgorithmVisualizerFrame />
+                <VisualizerRouter />
               </ProtectedRoute>
             }
           />

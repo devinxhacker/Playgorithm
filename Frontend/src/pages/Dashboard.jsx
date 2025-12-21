@@ -21,6 +21,41 @@ import {
 } from "react-icons/fa";
 import Footer from "../components/common/Footer";
 import featuredEventArt from "../assets/images/featured-event-art.jpeg";
+
+// Game Images
+import sortingShowdownImg from "../assets/images/sorting-showdown.png";
+import algoBattlesImg from "../assets/images/algo-battles.jpg";
+import epicFeatureImg from "../assets/images/epic-feature.jpg";
+import futuristicNinjaImg from "../assets/images/futuristic-ninja-digital-art.jpg";
+import codeGulfImg from "../assets/images/code-gulf.png";
+import bugHuntImg from "../assets/images/bug-hunt.png";
+import ticTacToeImg from "../assets/images/tic-tac-toe.png";
+import flexboxArenaImg from "../assets/images/flexbox-arena.png";
+import queenArenaImg from "../assets/images/queen-arena.png";
+import zipGameImg from "../assets/images/zip-game.png";
+import gridArenaImg from "../assets/images/grid-arena.png";
+import missionCannibleImg from "../assets/images/mission-cannible.png";
+import algoVisuImg from "../assets/images/algo-visu.png";
+import chessArenaImg from "../assets/images/chess-arena.png";
+
+// Game image mapping
+const gameImageMap = {
+  "Sorting Showdown": sortingShowdownImg,
+  "Graph Gladiator": algoBattlesImg,
+  "Dynamic Programming Duel": epicFeatureImg,
+  "Binary Search Challenge": futuristicNinjaImg,
+  "Code Golf: FizzBuzz": codeGulfImg,
+  "Speed Debugging: Bug Hunt": bugHuntImg,
+  "Tic-Tac-Toe Arena": ticTacToeImg,
+  "Flexbox Arena": flexboxArenaImg,
+  "Queens Arena": queenArenaImg,
+  "Zip Game": zipGameImg,
+  "Grid Arena": gridArenaImg,
+  "Missionaries & Cannibals": missionCannibleImg,
+  "Algorithm Visualizer": algoVisuImg,
+  "Chess Arena": chessArenaImg,
+};
+
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -87,13 +122,13 @@ const Dashboard = () => {
 
   const categories = [
     "ALL",
-    "SORTING",
-    "SEARCHING",
-    "GRAPH",
-    "DYNAMIC_PROGRAMMING",
-    "CODE_GOLF",
+    "DSA_ALGORITHMS",
+    "AI_ALGORITHMS",
+    "WEB_DEVELOPMENT",
+    "VISUALIZATION",
     "DEBUGGING",
-    "CSS_FLEXBOX",
+    "CODING_CHALLENGES",
+    "GENERAL",
   ];
 
   const handlePlayGame = (gameId, gameName) => {
@@ -242,7 +277,7 @@ const Dashboard = () => {
                 }`}
               onClick={() => setSelectedCategory(category)}
             >
-              {category.replace("_", " ")}
+              {category.replace(/_/g, " ")}
             </button>
           ))}
         </div>
@@ -258,8 +293,12 @@ const Dashboard = () => {
               transition={{ duration: 0.3 }}
             >
               <div className="game-card-image-placeholder">
-                {game.imageUrl ? (
-                  <img src={game.imageUrl} alt={game.name} className="game-card-image" />
+                {gameImageMap[game.name] || game.imageUrl ? (
+                  <img 
+                    src={gameImageMap[game.name] || game.imageUrl} 
+                    alt={game.name} 
+                    className="game-card-image" 
+                  />
                 ) : (
                   <span>{game.name} Art</span>
                 )}
