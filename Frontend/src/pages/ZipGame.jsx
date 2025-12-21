@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaTrophy, FaClock, FaUndo, FaCheckCircle } from "react-icons/fa";
 import { GiSwordman } from "react-icons/gi";
+import { useAuth } from '../context/AuthContext';
+import { gameAPI } from '../services/api';
 import "./ZipGame.css";
 
 // Pre-defined puzzle set (10 different puzzles)
@@ -145,6 +147,7 @@ const PUZZLE_SET = [
 
 const ZipGame = () => {
   const navigate = useNavigate();
+  const { user, updateUser } = useAuth();
   const [currentPuzzle, setCurrentPuzzle] = useState(null);
   const [path, setPath] = useState([]);
   const [currentNumber, setCurrentNumber] = useState(1);
@@ -245,6 +248,29 @@ const ZipGame = () => {
       setIsComplete(true);
       setStreak(streak + 1);
       setIsDragging(false);
+      
+      // Save game completion to backend
+      const xpReward = Math.min(100, 30 + (streak * 10));
+      if (user) {
+        gameAPI.completeGame({
+          gameId: 'zip-puzzle',
+          xpEarned: xpReward,
+          won: true
+        }).then(response => {
+          if (response.data.success) {
+            updateUser({ 
+              ...user, 
+              totalXP: response.data.totalXP,
+              level: response.data.level,
+              gamesPlayed: response.data.gamesPlayed,
+              gamesWon: response.data.gamesWon,
+              winRate: response.data.winRate
+            });
+          }
+        }).catch(error => {
+          console.error('Failed to save game progress:', error);
+        });
+      }
     }
   };
 

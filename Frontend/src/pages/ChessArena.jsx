@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaChess, FaRobot, FaUser, FaUndo, FaRedo } from 'react-icons/fa';
 import './ChessArena.css';
 import { ChessGame, evaluateBoard, minimax } from '../utils/chessEngine';
+import { useAuth } from '../context/AuthContext';
+import { gameAPI } from '../services/api';
 
 const ChessArena = () => {
   const navigate = useNavigate();
+  const { user, updateUser } = useAuth();
   const [mode, setMode] = useState(null); // 'learn' or 'play'
   const [difficulty, setDifficulty] = useState(null); // 'easy', 'medium', 'impossible'
   const [game, setGame] = useState(null);
@@ -89,6 +92,30 @@ const ChessArena = () => {
     if (game.isGameOver()) {
       const winner = game.getWinner();
       setGameStatus(winner === 'draw' ? 'Game Draw!' : `${winner} wins!`);
+      
+      // Save game result to backend
+      if (user) {
+        const playerWon = winner === 'white';
+        const xpReward = playerWon ? 100 : (winner === 'draw' ? 50 : 25);
+        gameAPI.completeGame({
+          gameId: `chess-${difficulty}`,
+          xpEarned: xpReward,
+          won: playerWon
+        }).then(response => {
+          if (response.data.success) {
+            updateUser({ 
+              ...user, 
+              totalXP: response.data.totalXP,
+              level: response.data.level,
+              gamesPlayed: response.data.gamesPlayed,
+              gamesWon: response.data.gamesWon,
+              winRate: response.data.winRate
+            });
+          }
+        }).catch(error => {
+          console.error('Failed to save game progress:', error);
+        });
+      }
     } else if (game.currentPlayer === 'black') {
       setGameStatus('AI is thinking...');
       setThinking(true);

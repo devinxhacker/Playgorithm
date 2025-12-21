@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { gameAPI } from "../services/api";
+import { gameAPI, userAPI } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import SettingsModal from "../components/Settings/SettingsModal";
 import RatingModal from "../components/RatingModal/RatingModal";
@@ -33,6 +33,7 @@ const Dashboard = () => {
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
+  const [rankData, setRankData] = useState({ rank: null, totalUsers: 0 });
 
   useEffect(() => {
     loadDashboardData();
@@ -53,6 +54,15 @@ const Dashboard = () => {
 
       const sessionsResponse = await gameAPI.getUserSessions();
       setSessions(sessionsResponse.data);
+      
+      // Fetch user's global rank
+      try {
+        const rankResponse = await userAPI.getUserRank();
+        setRankData(rankResponse.data);
+      } catch (rankError) {
+        console.error("Error loading rank:", rankError);
+      }
+      
       setLoading(false);
     } catch (error) {
       console.error("Error loading dashboard:", error);
@@ -191,8 +201,8 @@ const Dashboard = () => {
               <span className="h-label">Your XP</span>
             </div>
             <div className="hero-stat">
-              <span className="h-value">#{user.rank || "N/A"}</span>
-              <span className="h-label">Global Rank</span>
+              <span className="h-value">#{rankData.rank || "—"}</span>
+              <span className="h-label">Global Rank{rankData.totalUsers > 0 ? ` / ${rankData.totalUsers}` : ""}</span>
             </div>
           </div>
         </div>
