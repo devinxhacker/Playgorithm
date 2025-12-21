@@ -46,7 +46,7 @@ const Login = () => {
       }
 
       if (result.success) {
-        navigate("/dashboard");
+        navigate("/");
       } else {
         // Handle error message (could be string or object)
         const errorMsg = typeof result.error === 'string' 

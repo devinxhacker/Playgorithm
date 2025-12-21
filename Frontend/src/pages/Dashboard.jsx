@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { gameAPI, userAPI } from "../services/api";
+import { gameAPI, userAPI, ratingAPI } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import SettingsModal from "../components/Settings/SettingsModal";
 import RatingModal from "../components/RatingModal/RatingModal";
@@ -19,6 +19,7 @@ import {
   FaStar,
   FaComment,
 } from "react-icons/fa";
+import Footer from "../components/common/Footer";
 import featuredEventArt from "../assets/images/featured-event-art.jpeg";
 import "./Dashboard.css";
 
@@ -34,6 +35,7 @@ const Dashboard = () => {
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const [rankData, setRankData] = useState({ rank: null, totalUsers: 0 });
+  const [gameRatings, setGameRatings] = useState({});
 
   useEffect(() => {
     loadDashboardData();
@@ -51,6 +53,19 @@ const Dashboard = () => {
       }
 
       setGames(filteredGames);
+
+      // Fetch ratings for all games
+      const ratingsPromises = filteredGames.map(game => 
+        ratingAPI.getGameRatingStats(game.id)
+          .then(res => ({ gameId: game.id, stats: res.data }))
+          .catch(() => ({ gameId: game.id, stats: { averageRating: 0, totalRatings: 0 } }))
+      );
+      const ratingsResults = await Promise.all(ratingsPromises);
+      const ratingsMap = {};
+      ratingsResults.forEach(r => {
+        ratingsMap[r.gameId] = r.stats;
+      });
+      setGameRatings(ratingsMap);
 
       const sessionsResponse = await gameAPI.getUserSessions();
       setSessions(sessionsResponse.data);
@@ -248,6 +263,13 @@ const Dashboard = () => {
                 ) : (
                   <span>{game.name} Art</span>
                 )}
+                {/* Rating Badge */}
+                {gameRatings[game.id] && gameRatings[game.id].averageRating > 0 && (
+                  <div className="game-rating-badge">
+                    <FaStar className="rating-star" />
+                    <span>{gameRatings[game.id].averageRating.toFixed(1)}</span>
+                  </div>
+                )}
               </div>
               <div className="game-card-content">
                 <div className="game-card-header">
@@ -333,6 +355,11 @@ const Dashboard = () => {
         }}
         game={selectedGame}
       />
+
+      {/* Footer */}
+      <div className="dashboard-footer-wrapper">
+        <Footer />
+      </div>
     </div>
   );
 };
