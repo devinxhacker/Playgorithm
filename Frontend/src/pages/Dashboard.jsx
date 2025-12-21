@@ -200,9 +200,14 @@ const Dashboard = () => {
               <span className="h-value">{user.totalXP || 0}</span>
               <span className="h-label">Your XP</span>
             </div>
-            <div className="hero-stat">
+            <div 
+              className="hero-stat clickable" 
+              onClick={() => navigate("/leaderboard")}
+              style={{ cursor: 'pointer' }}
+              title="View Leaderboard"
+            >
               <span className="h-value">#{rankData.rank || "—"}</span>
-              <span className="h-label">Global Rank{rankData.totalUsers > 0 ? ` / ${rankData.totalUsers}` : ""}</span>
+              <span className="h-label">Global Rank{rankData.totalUsers > 0 ? ` / ${rankData.totalUsers}` : ""} 🏆</span>
             </div>
           </div>
         </div>

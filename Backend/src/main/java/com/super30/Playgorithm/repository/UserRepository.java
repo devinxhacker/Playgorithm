@@ -1,6 +1,7 @@
 package com.super30.Playgorithm.repository;
 
 import com.super30.Playgorithm.model.User;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -23,4 +24,7 @@ public interface UserRepository extends MongoRepository<User, String> {
     
     // Get all users ordered by XP for leaderboard
     List<User> findAllByOrderByTotalXPDesc();
+    
+    // Get top users by XP with limit
+    List<User> findByOrderByTotalXPDesc(Pageable pageable);
 }

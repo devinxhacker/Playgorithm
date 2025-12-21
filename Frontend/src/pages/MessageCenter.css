@@ -94,7 +94,7 @@
   background: rgba(255, 255, 255, 0.15);
   border-color: var(--primary-color);
   color: var(--primary-color);
-  transform: translateX(-3px);
+  /* transform: translateX(-3px); */
   box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
 }
 

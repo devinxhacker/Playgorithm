@@ -2,7 +2,10 @@ package com.super30.Playgorithm.service;
 
 import com.super30.Playgorithm.model.User;
 import com.super30.Playgorithm.repository.UserRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -67,5 +70,12 @@ public class UserService {
      */
     public long getTotalUserCount() {
         return userRepository.count();
+    }
+
+    /**
+     * Get top users by XP for leaderboard
+     */
+    public List<User> getTopUsersByXP(int limit) {
+        return userRepository.findByOrderByTotalXPDesc(PageRequest.of(0, limit));
     }
 }
