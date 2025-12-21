@@ -52,7 +52,7 @@ export const gameAPI = {
 
 // Leaderboard API
 export const leaderboardAPI = {
-  getGlobalLeaderboard: (limit = 100) => api.get(`/leaderboard/global?limit=${limit}`),
+  getGlobalLeaderboard: (limit = 100) => api.get(`/users/leaderboard?limit=${limit}`),
   getGameLeaderboard: (gameId, limit = 100) => api.get(`/leaderboard/game/${gameId}?limit=${limit}`),
 };
 

@@ -33,7 +33,7 @@
 
 .back-button:hover {
   background: #7b61ff;
-  transform: translateX(-5px);
+  /* transform: translateX(-5px); */
 }
 
 .game-title h1 {

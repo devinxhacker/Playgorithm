@@ -64,7 +64,7 @@
 
 .back-button:hover {
   border-color: #00ff88;
-  transform: translateY(-50%) scale(1.05);
+  /* transform: translateY(-50%) scale(1.05); */
 }
 
 .arena-title {
