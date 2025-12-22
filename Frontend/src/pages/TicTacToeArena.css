@@ -1,4 +1,5 @@
 .tictactoe-arena {
+  margin-top: 16vh;
   min-height: 100vh;
   background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
   color: white;
@@ -382,7 +383,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 10rem;
   font-weight: 900;
   cursor: crosshair;
   transition: all 0.3s ease;
@@ -681,7 +682,7 @@
   .cell {
     width: 90px;
     height: 90px;
-    font-size: 2.5rem;
+    font-size: 4rem;
   }
 
   .board {
@@ -702,7 +703,7 @@
   .cell {
     width: 70px;
     height: 70px;
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
   .board {

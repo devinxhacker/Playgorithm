@@ -141,19 +141,23 @@ const NotificationModal = ({ isOpen, onClose }) => {
 
   return (
     <AnimatePresence>
+      {/* Invisible backdrop to catch outside clicks */}
+      <div 
+        className="notification-backdrop"
+        onClick={onClose}
+        aria-hidden="true"
+      />
       <motion.div
         className="notification-modal-overlay"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
+        onClick={(e) => e.stopPropagation()}
       >
         <motion.div
           ref={modalRef}
           className="notification-modal"
-          initial={{ opacity: 0, y: -20, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -20, scale: 0.95 }}
-          transition={{ duration: 0.2 }}
         >
           {/* Header */}
           <div className="notification-modal-header">

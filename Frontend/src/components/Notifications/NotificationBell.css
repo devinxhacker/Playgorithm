@@ -1,4 +1,9 @@
 /* Notification Bell Styles */
+.notification-bell-container {
+  position: relative;
+  display: inline-block;
+}
+
 .notification-bell-btn {
   position: relative;
   display: flex;

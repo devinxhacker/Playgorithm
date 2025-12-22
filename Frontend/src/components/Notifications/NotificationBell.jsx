@@ -23,12 +23,13 @@ const NotificationBell = () => {
     }
   }, [unreadCount]);
 
-  const handleClick = () => {
-    setIsModalOpen(true);
+  const handleClick = (e) => {
+    e.stopPropagation();
+    setIsModalOpen(!isModalOpen);
   };
 
   return (
-    <>
+    <div className="notification-bell-container">
       <button 
         className={`notification-bell-btn cursor-target ${isAnimating ? 'animate' : ''} ${unreadCount > 0 ? 'has-unread' : ''}`}
         onClick={handleClick}
@@ -49,7 +50,7 @@ const NotificationBell = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
-    </>
+    </div>
   );
 };
 
