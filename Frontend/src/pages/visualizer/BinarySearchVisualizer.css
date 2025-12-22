@@ -12,7 +12,8 @@
 .bs-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
   padding: 15px 25px;
   background: rgba(13, 19, 33, 0.8);
   backdrop-filter: blur(10px);
@@ -21,10 +22,21 @@
   margin-bottom: 20px;
 }
 
+.bs-header .back-button {
+  position: absolute;
+  left: 25px;
+}
+
 .bs-header h1 {
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
+  text-align: center;
+}
+
+.bs-header .bs-stats {
+  position: absolute;
+  right: 25px;
 }
 
 .gradient-text {
@@ -109,7 +121,6 @@
 .section-icon {
   color: #4caf50;
   font-size: 0.95rem;
-}
 }
 
 .control-group {
@@ -443,6 +454,14 @@
     flex-direction: column;
     gap: 15px;
     text-align: center;
+  }
+
+  .bs-header .back-button {
+    position: static;
+  }
+
+  .bs-header .bs-stats {
+    position: static;
   }
 
   .element {

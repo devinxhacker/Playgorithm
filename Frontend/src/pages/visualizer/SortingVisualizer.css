@@ -12,7 +12,8 @@
 .visualizer-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
   padding: 15px 25px;
   background: rgba(13, 19, 33, 0.8);
   backdrop-filter: blur(10px);
@@ -21,10 +22,21 @@
   margin-bottom: 20px;
 }
 
+.visualizer-header .back-button {
+  position: absolute;
+  left: 25px;
+}
+
 .visualizer-header h1 {
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
+  text-align: center;
+}
+
+.visualizer-header .header-stats {
+  position: absolute;
+  right: 25px;
 }
 
 .gradient-text {
@@ -385,6 +397,14 @@
     flex-direction: column;
     gap: 15px;
     text-align: center;
+  }
+
+  .visualizer-header .back-button {
+    position: static;
+  }
+
+  .visualizer-header .header-stats {
+    position: static;
   }
 
   .header-stats {

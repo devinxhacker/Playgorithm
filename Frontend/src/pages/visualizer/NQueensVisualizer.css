@@ -12,7 +12,8 @@
 .nq-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
   padding: 15px 25px;
   background: rgba(13, 19, 33, 0.8);
   backdrop-filter: blur(10px);
@@ -21,10 +22,21 @@
   margin-bottom: 20px;
 }
 
+.nq-header .back-button {
+  position: absolute;
+  left: 25px;
+}
+
 .nq-header h1 {
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0;
+  text-align: center;
+}
+
+.nq-header .nq-stats {
+  position: absolute;
+  right: 25px;
 }
 
 .gradient-text {
@@ -109,8 +121,6 @@
 .section-icon {
   color: #ff0080;
   font-size: 0.95rem;
-}
-  color: rgba(255, 255, 255, 0.8);
 }
 
 .control-group {
@@ -388,6 +398,14 @@
     flex-direction: column;
     gap: 15px;
     text-align: center;
+  }
+
+  .nq-header .back-button {
+    position: static;
+  }
+
+  .nq-header .nq-stats {
+    position: static;
   }
 
   .nq-stats {

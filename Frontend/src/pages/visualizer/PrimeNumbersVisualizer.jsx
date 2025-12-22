@@ -94,13 +94,17 @@ const PrimeNumbersVisualizer = () => {
     return "cell";
   };
 
-  // Calculate grid columns based on max number
-  const getGridCols = () => {
-    if (maxNumber <= 50) return 10;
-    if (maxNumber <= 100) return 10;
-    if (maxNumber <= 200) return 15;
-    return 20;
+  // Calculate grid columns and cell size based on max number to fit all in view
+  const getGridConfig = () => {
+    if (maxNumber <= 50) return { cols: 10, cellSize: 48, fontSize: 14, gap: 5 };
+    if (maxNumber <= 100) return { cols: 10, cellSize: 42, fontSize: 13, gap: 4 };
+    if (maxNumber <= 150) return { cols: 15, cellSize: 34, fontSize: 11, gap: 3 };
+    if (maxNumber <= 200) return { cols: 16, cellSize: 30, fontSize: 10, gap: 3 };
+    if (maxNumber <= 250) return { cols: 17, cellSize: 28, fontSize: 9, gap: 2 };
+    return { cols: 20, cellSize: 24, fontSize: 8, gap: 2 };
   };
+
+  const gridConfig = getGridConfig();
 
   return (
     <div className="prime-numbers-visualizer">
@@ -220,7 +224,8 @@ const PrimeNumbersVisualizer = () => {
           <div 
             className="pn-grid"
             style={{ 
-              gridTemplateColumns: `repeat(${getGridCols()}, 1fr)` 
+              gridTemplateColumns: `repeat(${gridConfig.cols}, ${gridConfig.cellSize}px)`,
+              gap: `${gridConfig.gap}px`
             }}
           >
             <AnimatePresence>
@@ -228,13 +233,18 @@ const PrimeNumbersVisualizer = () => {
                 <motion.div
                   key={cell.value}
                   className={getCellClass(cell)}
+                  style={{
+                    width: `${gridConfig.cellSize}px`,
+                    height: `${gridConfig.cellSize}px`,
+                    fontSize: `${gridConfig.fontSize}px`
+                  }}
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  transition={{ delay: cell.value * 0.002 }}
+                  transition={{ delay: cell.value * 0.001 }}
                   title={cell.eliminatedBy ? `Eliminated by ${cell.eliminatedBy}` : ""}
                 >
                   <span className="cell-value">{cell.value}</span>
-                  {cell.eliminatedBy && (
+                  {cell.eliminatedBy && maxNumber <= 150 && (
                     <span className="eliminated-by">÷{cell.eliminatedBy}</span>
                   )}
                 </motion.div>
