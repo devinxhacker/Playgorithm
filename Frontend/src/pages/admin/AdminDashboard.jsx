@@ -18,11 +18,13 @@ import {
   FaTools,
   FaMoon,
   FaSun,
+  FaBullhorn,
 } from 'react-icons/fa';
 import { adminAPI } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import LoadingScreen from '../../components/ui/LoadingScreen';
+import AnnouncementPanel from '../../components/admin/AnnouncementPanel';
 import './AdminDashboard.css';
 
 const blankGameForm = {
@@ -314,7 +316,7 @@ const AdminDashboard = () => {
       </header>
 
       <div className="admin-tab-bar">
-        {['overview', 'users', 'games'].map((tab) => (
+        {['overview', 'users', 'games', 'announcements'].map((tab) => (
           <button
             key={tab}
             className={`admin-tab ${activeTab === tab ? 'active' : ''}`}
@@ -323,6 +325,7 @@ const AdminDashboard = () => {
             {tab === 'overview' && <FaChartLine />}
             {tab === 'users' && <FaUsers />}
             {tab === 'games' && <FaTools />}
+            {tab === 'announcements' && <FaBullhorn />}
             <span>{tab.charAt(0).toUpperCase() + tab.slice(1)}</span>
           </button>
         ))}
@@ -673,6 +676,18 @@ const AdminDashboard = () => {
                   </ul>
                 </div>
               </div>
+            </motion.div>
+          )}
+          
+          {/* Announcements Tab */}
+          {activeTab === 'announcements' && (
+            <motion.div
+              key="announcements"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <AnnouncementPanel onNotification={showNotification} />
             </motion.div>
           )}
         </AnimatePresence>

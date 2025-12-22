@@ -18,6 +18,7 @@ public class CommentService {
     
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
     
     public Comment addComment(String userId, String gameId, CommentRequest request) {
         User user = userRepository.findById(userId)
@@ -35,11 +36,21 @@ public class CommentService {
         
         Comment savedComment = commentRepository.save(comment);
         
-        // If this is a reply, update parent's replyIds
+        // If this is a reply, update parent's replyIds and send notification
         if (request.getParentCommentId() != null) {
             commentRepository.findById(request.getParentCommentId()).ifPresent(parent -> {
                 parent.getReplyIds().add(savedComment.getId());
                 commentRepository.save(parent);
+                
+                // Send notification to parent comment owner
+                notificationService.notifyCommentReply(
+                    parent.getUserId(),
+                    user.getUsername(),
+                    user.getAvatarUrl(),
+                    parent.getId(),
+                    gameId,
+                    request.getContent()
+                );
             });
         }
         
@@ -109,15 +120,39 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new RuntimeException("Comment not found"));
         
+        User reactor = userRepository.findById(userId).orElse(null);
+        
         if (comment.getReactions().containsKey(userId)) {
             // If same reaction, remove it; if different, update it
             if (comment.getReactions().get(userId).equals(reactionType)) {
                 comment.getReactions().remove(userId);
             } else {
                 comment.getReactions().put(userId, reactionType);
+                // Send notification for new reaction type
+                if (reactor != null) {
+                    notificationService.notifyCommentReaction(
+                        comment.getUserId(),
+                        reactor.getUsername(),
+                        reactor.getAvatarUrl(),
+                        commentId,
+                        comment.getGameId(),
+                        reactionType
+                    );
+                }
             }
         } else {
             comment.getReactions().put(userId, reactionType);
+            // Send notification for new reaction
+            if (reactor != null) {
+                notificationService.notifyCommentReaction(
+                    comment.getUserId(),
+                    reactor.getUsername(),
+                    reactor.getAvatarUrl(),
+                    commentId,
+                    comment.getGameId(),
+                    reactionType
+                );
+            }
         }
         
         return commentRepository.save(comment);

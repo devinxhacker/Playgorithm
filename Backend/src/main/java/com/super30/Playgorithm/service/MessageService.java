@@ -2,8 +2,10 @@ package com.super30.Playgorithm.service;
 
 import com.super30.Playgorithm.dto.MessageRequest;
 import com.super30.Playgorithm.dto.MessageResponse;
+import com.super30.Playgorithm.model.ChatReadStatus;
 import com.super30.Playgorithm.model.Message;
 import com.super30.Playgorithm.model.User;
+import com.super30.Playgorithm.repository.ChatReadStatusRepository;
 import com.super30.Playgorithm.repository.MessageRepository;
 import com.super30.Playgorithm.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -27,6 +31,8 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
     private final SimpMessagingTemplate messagingTemplate;
+    private final NotificationService notificationService;
+    private final ChatReadStatusRepository chatReadStatusRepository;
 
     // Content moderation - list of inappropriate words/patterns
     private static final List<String> INAPPROPRIATE_WORDS = Arrays.asList(
@@ -63,6 +69,15 @@ public class MessageService {
                 message.setReplyToMessageId(replyToMessage.getId());
                 message.setReplyToUsername(replyToMessage.getUsername());
                 message.setReplyToContent(replyToMessage.getContent());
+                
+                // Send notification to the original message owner
+                notificationService.notifyMessageReply(
+                    replyToMessage.getUserId(),
+                    user.getUsername(),
+                    user.getAvatarUrl(),
+                    replyToMessage.getId(),
+                    request.getContent()
+                );
             }
         }
 
@@ -241,6 +256,15 @@ public class MessageService {
             }
         } else {
             reactedUsers.add(userId);
+            
+            // Send notification to message owner about the reaction
+            notificationService.notifyMessageReaction(
+                message.getUserId(),
+                user.getUsername(),
+                user.getAvatarUrl(),
+                messageId,
+                emoji
+            );
         }
         
         // Save message
@@ -251,5 +275,44 @@ public class MessageService {
         messagingTemplate.convertAndSend("/topic/messages/reaction", response);
         
         return response;
+    }
+
+    /**
+     * Mark messages as read for a user
+     */
+    public void markMessagesAsRead(String userId, String lastMessageId) {
+        ChatReadStatus readStatus = chatReadStatusRepository.findByUserId(userId)
+                .orElse(new ChatReadStatus(userId));
+        
+        readStatus.setLastReadAt(LocalDateTime.now());
+        readStatus.setLastReadMessageId(lastMessageId);
+        chatReadStatusRepository.save(readStatus);
+        
+        // Broadcast updated unread count
+        long unreadCount = getUnreadCount(userId);
+        messagingTemplate.convertAndSend("/topic/messages/unread/" + userId, Map.of("count", unreadCount));
+    }
+
+    /**
+     * Get unread message count for a user
+     */
+    public long getUnreadCount(String userId) {
+        ChatReadStatus readStatus = chatReadStatusRepository.findByUserId(userId).orElse(null);
+        
+        if (readStatus == null || readStatus.getLastReadAt() == null) {
+            // User has never read messages, count all
+            return messageRepository.countByDeletedFalseAndFlaggedFalse();
+        }
+        
+        return messageRepository.countByCreatedAtAfterAndDeletedFalseAndFlaggedFalse(readStatus.getLastReadAt());
+    }
+
+    /**
+     * Get the last read timestamp for a user
+     */
+    public LocalDateTime getLastReadTimestamp(String userId) {
+        return chatReadStatusRepository.findByUserId(userId)
+                .map(ChatReadStatus::getLastReadAt)
+                .orElse(null);
     }
 }

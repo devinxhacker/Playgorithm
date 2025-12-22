@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { CopilotProvider } from "./context/CopilotContext";
+import { NotificationProvider } from "./context/NotificationContext";
+import { ChatProvider } from "./context/ChatContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import Login from "./pages/Login";
@@ -44,13 +46,15 @@ function App() {
   return (
     <AuthProvider>
       <CopilotProvider>
-        <Router>
-          <TargetCursor 
-            spinDuration={2}
-            hideDefaultCursor={true}
-          />
-          <CopilotBridge />
-          <CopilotActionRouter />
+        <NotificationProvider>
+          <ChatProvider>
+            <Router>
+            <TargetCursor 
+              spinDuration={2}
+              hideDefaultCursor={true}
+            />
+            <CopilotBridge />
+            <CopilotActionRouter />
           <FloatingCopilot />
           <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -234,7 +238,9 @@ function App() {
           
           <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </Router>
+          </Router>
+          </ChatProvider>
+        </NotificationProvider>
       </CopilotProvider>
     </AuthProvider>
   );

@@ -56,6 +56,16 @@ export const leaderboardAPI = {
   getGameLeaderboard: (gameId, limit = 100) => api.get(`/leaderboard/game/${gameId}?limit=${limit}`),
 };
 
+// Message/Chat API
+export const messageAPI = {
+  getRecentMessages: (limit = 50) => api.get(`/messages/recent?limit=${limit}`),
+  sendMessage: (data) => api.post('/messages', data),
+  deleteMessage: (messageId) => api.delete(`/messages/${messageId}`),
+  toggleReaction: (messageId, emoji) => api.post(`/messages/${messageId}/react`, { emoji }),
+  getUnreadCount: () => api.get('/messages/unread/count'),
+  markAsRead: (lastMessageId) => api.post('/messages/mark-read', { lastMessageId }),
+};
+
 export const copilotAPI = {
   createSession: (payload) => api.post('/copilot/session', payload),
   publishEvent: (payload) => api.post('/copilot/event', payload),
@@ -91,6 +101,38 @@ export const commentAPI = {
   toggleReaction: (commentId, reactionType) => 
     api.post(`/comments/${commentId}/reactions`, { reactionType }),
   getCommentCount: (gameId) => api.get(`/comments/games/${gameId}/count`),
+};
+
+// Notification API
+export const notificationAPI = {
+  // Get all notifications with pagination
+  getNotifications: (page = 0, size = 20) => 
+    api.get(`/notifications?page=${page}&size=${size}`),
+  
+  // Get notifications filtered by type
+  getNotificationsByType: (type, page = 0, size = 20) => 
+    api.get(`/notifications/filter?type=${type}&page=${page}&size=${size}`),
+  
+  // Get all unread notifications
+  getUnreadNotifications: () => api.get('/notifications/unread'),
+  
+  // Get unread notification count
+  getUnreadCount: () => api.get('/notifications/unread/count'),
+  
+  // Mark a notification as read
+  markAsRead: (notificationId) => api.put(`/notifications/${notificationId}/read`),
+  
+  // Mark all notifications as read
+  markAllAsRead: () => api.put('/notifications/read-all'),
+  
+  // Delete a notification
+  deleteNotification: (notificationId) => api.delete(`/notifications/${notificationId}`),
+  
+  // Clear all notifications
+  clearAll: () => api.delete('/notifications/clear-all'),
+  
+  // Create announcement (Admin only)
+  createAnnouncement: (data) => api.post('/notifications/announcement', data),
 };
 
 export default api;

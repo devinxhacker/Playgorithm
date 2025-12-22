@@ -25,4 +25,9 @@ public interface MessageRepository extends MongoRepository<Message, String> {
     List<Message> findFlaggedMessages(Pageable pageable);
     
     long countByUserId(String userId);
+    
+    // Count unread messages
+    long countByDeletedFalseAndFlaggedFalse();
+    
+    long countByCreatedAtAfterAndDeletedFalseAndFlaggedFalse(LocalDateTime after);
 }

@@ -3,6 +3,7 @@ import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useChat } from '../context/ChatContext';
 import { useSettings } from '../context/SettingsContext';
 import ThemeIndicator from '../components/ThemeIndicator/ThemeIndicator';
 import DarkModeToggle from '../components/DarkModeToggle/DarkModeToggle';
@@ -15,6 +16,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const MessageCenter = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { markAsRead } = useChat();
   const { settings } = useSettings();
   const token = localStorage.getItem('token');
   const [messages, setMessages] = useState([]);
@@ -31,9 +33,11 @@ const MessageCenter = () => {
 
   const availableEmojis = ['👍', '❤️', '😂', '😮', '😢', '🔥'];
 
-  // Fetch recent messages on mount
+  // Fetch recent messages on mount and mark as read
   useEffect(() => {
     fetchRecentMessages();
+    // Mark messages as read when entering the chat
+    markAsRead();
   }, []);
 
   // Setup WebSocket connection

@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { gameAPI, userAPI, ratingAPI } from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import { useChat } from "../context/ChatContext";
 import SettingsModal from "../components/Settings/SettingsModal";
 import RatingModal from "../components/RatingModal/RatingModal";
 import CommentsModal from "../components/CommentsModal/CommentsModal";
+import { NotificationBell } from "../components/Notifications";
 import {
   FaGamepad,
   FaTrophy,
@@ -61,6 +63,7 @@ import "./Dashboard.css";
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user, logout, isAdmin } = useAuth();
+  const { unreadCount: chatUnreadCount } = useChat();
   const [games, setGames] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("ALL");
@@ -217,11 +220,15 @@ const Dashboard = () => {
               <div className="stat-label">Win Rate</div>
             </div>
           </div>
+          <NotificationBell />
           <button onClick={() => setShowSettings(true)} className="profile-button cursor-target">
             <FaCog /> Settings
           </button>
           <button onClick={() => navigate("/community")} className="community-button cursor-target">
             💬 Community
+            {chatUnreadCount > 0 && (
+              <span className="community-unread-badge">{chatUnreadCount > 99 ? '99+' : chatUnreadCount}</span>
+            )}
           </button>
           <button onClick={logout} className="logout-button cursor-target">
             Logout

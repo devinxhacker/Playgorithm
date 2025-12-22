@@ -3,6 +3,7 @@ package com.super30.Playgorithm.controller;
 import com.super30.Playgorithm.dto.MessageRequest;
 import com.super30.Playgorithm.dto.MessageResponse;
 import com.super30.Playgorithm.dto.ReactionRequest;
+import com.super30.Playgorithm.repository.UserRepository;
 import com.super30.Playgorithm.service.MessageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ import java.util.UUID;
 public class MessageController {
 
     private final MessageService messageService;
+    private final UserRepository userRepository;
     
     // Directory to store uploaded images
     private static final String UPLOAD_DIR = "uploads/messages/";
@@ -141,6 +143,33 @@ public class MessageController {
         String username = authentication.getName();
         MessageResponse response = messageService.toggleReaction(messageId, username, request.getEmoji());
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Get unread message count for the current user
+     */
+    @GetMapping("/unread/count")
+    public ResponseEntity<java.util.Map<String, Long>> getUnreadCount(Authentication authentication) {
+        String username = authentication.getName();
+        com.super30.Playgorithm.model.User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        long count = messageService.getUnreadCount(user.getId());
+        return ResponseEntity.ok(java.util.Map.of("count", count));
+    }
+
+    /**
+     * Mark messages as read for the current user
+     */
+    @PostMapping("/mark-read")
+    public ResponseEntity<java.util.Map<String, String>> markAsRead(
+            @RequestBody(required = false) java.util.Map<String, String> request,
+            Authentication authentication) {
+        String username = authentication.getName();
+        com.super30.Playgorithm.model.User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        String lastMessageId = request != null ? request.get("lastMessageId") : null;
+        messageService.markMessagesAsRead(user.getId(), lastMessageId);
+        return ResponseEntity.ok(java.util.Map.of("status", "success"));
     }
 
     /**
