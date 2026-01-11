@@ -3,17 +3,6 @@
 .gitignore
 .gitattributes
 
-# Node modules (will be installed during build)
-**/node_modules
-**/.next
-**/build
-**/dist
-
-# Java build artifacts
-**/target
-**/*.jar
-**/*.class
-
 # IDE
 .idea
 .vscode
@@ -47,8 +36,6 @@ Thumbs.db
 **/coverage
 **/.nyc_output
 
-# Uploads (will be mounted as volume)
-**/uploads
 
 # SSL certificates
 **/*.pem

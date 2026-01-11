@@ -9,6 +9,8 @@
 !Dockerfile
 !supervisord.conf
 !.dockerignore
+!nginx.conf
+
 
 # Keep only the main project folders visible to git
 !/Frontend/
@@ -32,6 +34,9 @@
 # Ignore documentation files in root
 /*.md
 /AlgorithmVisualizer-master/*.md
+
+!README.md
+!LICENSE
 
 # AlgorithmVisualizer specific ignores
 /AlgorithmVisualizer-master/node_modules/
