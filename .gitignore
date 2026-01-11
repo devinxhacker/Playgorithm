@@ -5,6 +5,11 @@
 # But don't ignore this gitignore file
 .gitignore
 
+# docker
+!Dockerfile
+!supervisord.conf
+!.dockerignore
+
 # Keep only the main project folders visible to git
 !/Frontend/
 !/Frontend/**

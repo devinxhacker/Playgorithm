@@ -1,0 +1,56 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Node modules (will be installed during build)
+**/node_modules
+**/.next
+**/build
+**/dist
+
+# Java build artifacts
+**/target
+**/*.jar
+**/*.class
+
+# IDE
+.idea
+.vscode
+*.iml
+
+# Environment files (sensitive)
+**/.env
+**/.env.local
+**/.env.production
+
+# Logs
+**/*.log
+**/logs
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+
+# Test files
+**/__tests__
+**/*.test.js
+**/*.test.jsx
+**/*.spec.js
+**/*.spec.jsx
+
+# Development files
+**/coverage
+**/.nyc_output
+
+# Uploads (will be mounted as volume)
+**/uploads
+
+# SSL certificates
+**/*.pem
+**/*.key
+**/*.crt
