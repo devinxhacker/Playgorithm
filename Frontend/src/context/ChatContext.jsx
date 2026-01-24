@@ -20,7 +20,8 @@ export const ChatProvider = ({ children }) => {
   const [connected, setConnected] = useState(false);
   const stompClientRef = useRef(null);
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  // Use empty string for relative URLs when VITE_API_BASE_URL is not set
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
   // Fetch unread count
   const fetchUnreadCount = useCallback(async () => {

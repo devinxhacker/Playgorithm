@@ -1,0 +1,48 @@
+# ==========================================
+# Backend Docker Ignore
+# ==========================================
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea
+.vscode
+*.iml
+*.iws
+*.ipr
+
+# Build outputs (we build inside Docker)
+target/
+
+# Environment files (secrets should not be in image)
+.env
+.env.*
+*.env
+
+# Documentation
+*.md
+!README.md
+
+# Tests (optional - uncomment if you want faster builds)
+# src/test/
+
+# Elastic Beanstalk
+.elasticbeanstalk/
+.ebextensions/
+
+# SSL certificates
+*.p12
+*.jks
+*.pem
+*.key
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db

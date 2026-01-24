@@ -37,3 +37,16 @@ build/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
+# SSL certificates and keystores
+*.p12
+*.jks
+*.pem
+*.key

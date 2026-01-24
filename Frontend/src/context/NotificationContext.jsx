@@ -25,7 +25,8 @@ export const NotificationProvider = ({ children }) => {
   const stompClientRef = useRef(null);
   const [connected, setConnected] = useState(false);
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  // Use empty string for relative URLs when VITE_API_BASE_URL is not set
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
   // Fetch notifications
   const fetchNotifications = useCallback(async (resetPage = false) => {

@@ -49,6 +49,16 @@
 /AlgorithmVisualizer-master/README.md
 /AlgorithmVisualizer-master/LICENSE
 
+# ==========================================
+# SECURITY: Environment files with secrets
+# ==========================================
+# Never commit .env files containing secrets
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
 # Ignore Postman collections (optional - uncomment if you don't want to push)
 # *.postman_collection.json
 # *.postman_environment.json

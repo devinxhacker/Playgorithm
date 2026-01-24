@@ -9,8 +9,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Serve uploaded images
+        // Serve uploaded images from /app/backend/uploads in container
+        // Use absolute path for Docker deployment
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:uploads/");
+                .addResourceLocations("file:/app/backend/uploads/", "file:uploads/");
     }
 }
