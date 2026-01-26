@@ -2,7 +2,6 @@
 .git
 .gitignore
 .gitattributes
-
 # IDE
 .idea
 .vscode
