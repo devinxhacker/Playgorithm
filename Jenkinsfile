@@ -10,7 +10,7 @@ pipeline{
         stage('Checkout Code') {
             steps {
                 echo 'Checking out source code...'
-                git branch: 'main', url: 'https://github.com/devinxhacker/Playgorithm'
+                git branch: 'main', url: 'https://github.com/devinxhacker/Playgorithm.git'
             }
         }
         stage('Build Docker Image') {
