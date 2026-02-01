@@ -3,7 +3,7 @@ pipeline{
 
     environment {
         IMAGE_NAME = "kirannandi896/playgorithm"
-        IMAGE_TAG = "1.0.0"
+        IMAGE_TAG = "2.0.0"
     }
 
     stages {
