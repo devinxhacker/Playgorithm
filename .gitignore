@@ -4,6 +4,9 @@
 
 # But don't ignore this gitignore file
 .gitignore
+!Jenkinsfile
+
+
 
 # docker
 !Dockerfile
