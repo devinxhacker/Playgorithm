@@ -1,3 +1,24 @@
+FROM eclipse-temurin:17-jdk AS backend-builder
+
+# Install Maven
+RUN apt-get update && \
+    apt-get install -y maven && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY Backend/ /app/Backend/
+
+WORKDIR /app/Backend
+
+RUN mvn clean package -DskipTests
+
+FROM node:20 AS frontend-builder
+
+COPY Frontend/ /app/Frontend/
+
+WORKDIR /app/Frontend
+
+RUN npm install && npm run build
+
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -34,14 +55,21 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 WORKDIR /app
 
 WORKDIR /app/backend
-COPY Backend/target/Playgorithm-0.0.1-SNAPSHOT.jar /app/backend/app.jar
+COPY --from=backend-builder /app/Backend/target/Playgorithm-0.0.1-SNAPSHOT.jar /app/backend/app.jar
 # Create uploads directory for community chat images
 RUN mkdir -p /app/backend/uploads/messages
 
 WORKDIR /app/frontend
-COPY Frontend/dist /app/frontend/dist
+COPY --from=frontend-builder /app/Frontend/dist /app/frontend/dist
 COPY supervisord.conf /etc/supervisord.conf
 RUN chmod 755 /etc/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 10000
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+
+
+# docker buildx build \
+#   --platform linux/amd64,linux/arm64 \
+#   -t kirannandi896/playgorithm:latest \
+#   --push \
+#   .

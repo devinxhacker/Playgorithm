@@ -25,7 +25,7 @@ pipeline{
         stage('Push Docker Image'){
             steps {
                 script {
-                    docker.winthRegistry('https://index.docker.io/v1/', 'kirannandi896-user'){
+                    docker.withRegistry('https://index.docker.io/v1/', 'kirannandi896-user'){
                         docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push()
                     }
                 }
